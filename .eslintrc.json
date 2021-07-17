@@ -17,10 +17,11 @@
   },
   "plugins": [
     "react",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier"
   ],
   "rules": {
-    "import/no-unresolved": "off",
+    "prettier/prettier": "error",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/jsx-one-expression-per-line": "off",
