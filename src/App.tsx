@@ -1,7 +1,10 @@
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Resume Builder</h1>
-  </div>
-);
+import { Localization } from '@/contexts/Localization';
 
+import Layout from '@/components/Layout';
+
+const App: React.FC = () => (
+  <Localization>
+    <Layout />
+  </Localization>
+);
 export default App;
