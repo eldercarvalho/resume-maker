@@ -1,5 +1,5 @@
 import { render, fireEvent, screen } from '@testing-library/react';
-import Accordion from '@/components/Accordion';
+import Accordion from '@/components/base/Accordion';
 
 const makeSut = (defaultItemKey = '') => {
   render(

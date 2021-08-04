@@ -1,6 +1,8 @@
 import { DefaultTheme } from 'styled-components';
 
 export const Dark: DefaultTheme = {
-  primary: '#06c',
-  bodyBgColor: '#111',
+  primary: '#DA0037',
+  dark: '#171717',
+  darkLight: '#444444',
+  light: '#EDEDED',
 };
