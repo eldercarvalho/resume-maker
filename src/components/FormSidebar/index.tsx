@@ -1,3 +1,5 @@
-const FormSidebar: React.FC = () => <div>teste</div>;
+import { Container } from './style';
+
+const FormSidebar: React.FC = () => <Container />;
 
 export default FormSidebar;

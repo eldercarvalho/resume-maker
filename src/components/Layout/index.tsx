@@ -1,6 +1,10 @@
 import { useLocale } from '@/contexts/Localization';
 import { FormattedMessage } from 'react-intl';
 
+import FormSidebar from '../FormSidebar';
+
+import { Container } from './style';
+
 const Layout: React.FC = () => {
   const { locale, setLocale } = useLocale();
   const handleLangSwitch = () => {
@@ -8,15 +12,17 @@ const Layout: React.FC = () => {
   };
 
   return (
-    <main>
-      <div>sidebar</div>
+    <Container>
+      <FormSidebar />
+
       <div>
         <button type="button" onClick={handleLangSwitch}>
           mudar
         </button>
+
         <FormattedMessage id="app.header" />
       </div>
-    </main>
+    </Container>
   );
 };
 
