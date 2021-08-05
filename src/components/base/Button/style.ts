@@ -30,7 +30,7 @@ export const Container = styled.button<IContainerProps>`
   align-items: center;
   height: 4rem;
   border: none;
-  background: ${({ theme }) => theme.colors.accent};
+  background: ${({ theme }) => theme.primary};
   color: #fff;
   transition: all 0.3s;
   border: 2px solid transparent;
@@ -41,7 +41,7 @@ export const Container = styled.button<IContainerProps>`
   white-space: nowrap;
 
   &:hover {
-    background: ${({ theme }) => shade(0.2, theme.colors.accent)};
+    background: ${({ theme }) => shade(0.2, theme.primary)};
   }
 
   svg {
@@ -116,8 +116,8 @@ export const Container = styled.button<IContainerProps>`
     props.isOutlined &&
     css`
       background: transparent;
-      color: ${({ theme }) => theme.colors.accent};
-      border-color: ${({ theme }) => theme.colors.accent};
+      color: ${({ theme }) => theme.primary};
+      border-color: ${({ theme }) => theme.primary};
 
       :hover {
         color: #fff;

@@ -7,5 +7,6 @@ declare module 'styled-components' {
     dark: string;
     darkLight: string;
     light: string;
+    text: string;
   }
 }

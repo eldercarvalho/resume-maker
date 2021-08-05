@@ -1,17 +1,10 @@
-import {
-  forwardRef,
-  InputHTMLAttributes,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import { forwardRef, InputHTMLAttributes, useImperativeHandle, useRef, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-
-import generateRandomKey from '../../../utils/generateRandomKey';
 
 import { Container, Error } from './styles';
 
-interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id?: string;
   error?: string;
   prependIcon?: string;
@@ -19,17 +12,9 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    {
-      id = generateRandomKey(8),
-      type = 'text',
-      className,
-      error,
-      label,
-      dark = false,
-      ...rest
-    },
+    { id = uuidv4(), type = 'text', className, error, label, dark = false, ...rest },
     forwardedRef,
   ) => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -88,4 +73,4 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   },
 );
 
-export default TextField;
+export default Input;

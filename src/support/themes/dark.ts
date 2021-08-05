@@ -5,4 +5,5 @@ export const Dark: DefaultTheme = {
   dark: '#171717',
   darkLight: '#444444',
   light: '#EDEDED',
+  text: '#EDEDED',
 };

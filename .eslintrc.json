@@ -22,6 +22,9 @@
   ],
   "rules": {
     "prettier/prettier": "error",
+    "no-confusing-arrow": "off",
+    "function-paren-newline": "off",
+    "indent": "off",
     "import/prefer-default-export": "off",
     "implicit-arrow-linebreak": "off",
     "operator-linebreak": "off",

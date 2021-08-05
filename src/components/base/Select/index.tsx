@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { FiChevronDown, FiX } from 'react-icons/fi';
 
 import Loading from '../Loading';
-import TextField from '../TextField';
+import Input from '../Input';
 
 import { Container, SelectedOption, Options } from './styles';
 
@@ -18,12 +18,7 @@ interface SelectProps {
   onChange?(value: number | string): void;
 }
 
-const Select: React.FC<SelectProps> = ({
-  options,
-  value,
-  isLoading = false,
-  onChange,
-}) => {
+const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onChange }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOptionsOpened, setIsOptionsOpened] = useState(false);
   const [currentOption, setCurrentOption] = useState<SelectOption>(() => {
@@ -68,7 +63,7 @@ const Select: React.FC<SelectProps> = ({
   return (
     <Container ref={containerRef}>
       <SelectedOption>
-        <TextField
+        <Input
           placeholder="Selecione uma lista"
           readOnly
           onClick={() => setIsOptionsOpened((oldValue) => !oldValue)}
@@ -84,11 +79,7 @@ const Select: React.FC<SelectProps> = ({
         <div>
           {options.length ? (
             options.map((option) => (
-              <button
-                key={option.id}
-                type="button"
-                onClick={() => handleOptionClick(option)}
-              >
+              <button key={option.id} type="button" onClick={() => handleOptionClick(option)}>
                 {option.text}
               </button>
             ))
