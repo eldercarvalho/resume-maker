@@ -11,4 +11,5 @@ export const Container = styled.header`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 `;

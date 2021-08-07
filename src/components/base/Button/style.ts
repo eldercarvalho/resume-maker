@@ -31,7 +31,7 @@ export const Container = styled.button<IContainerProps>`
   height: 4rem;
   border: none;
   background: ${({ theme }) => theme.colors.primary};
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   transition: all 0.3s;
   border: 2px solid transparent;
   border-radius: 3px;
