@@ -1,3 +1,5 @@
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+
 import { useAccordion } from '..';
 import { useAccordionItem } from '../AccordionItem';
 
@@ -13,6 +15,11 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({ children }) =>
     <Container>
       <button onClick={() => setCurrentItemKey(itemKey)} aria-expanded={isOpened}>
         {children}
+        {isOpened ? (
+          <FiChevronUp size={22} role="img" aria-label="Opened Indicator" />
+        ) : (
+          <FiChevronDown size={22} role="img" aria-label="Closed Indicator" />
+        )}
       </button>
     </Container>
   );

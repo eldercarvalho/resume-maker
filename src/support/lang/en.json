@@ -1,5 +1,4 @@
 {
-  "app.header" : "Edit the files and save to reload" ,
-  "app.content" : "Learn React" ,
-  "app.channel.plug": "Tutorial brought to you by Lokalise"
+  "sidebar.accordion.header.title": "Header",
+  "sidebar.accordion.about.title": "Personal data"
  }
