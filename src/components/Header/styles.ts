@@ -6,7 +6,7 @@ export const Container = styled.header`
   left: 300px;
   width: calc(100% - 300px);
   height: 6rem;
-  background: ${({ theme }) => theme.colors.backgroundVar1};
+  background: ${({ theme }) => theme.colors.headerBg};
   padding: 0 2rem;
   display: flex;
   align-items: center;

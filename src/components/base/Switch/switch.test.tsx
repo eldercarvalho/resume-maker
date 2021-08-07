@@ -7,11 +7,11 @@ describe('Switch Component', () => {
     const sut = render(<Switch checked={false} onChange={onChangeMock} />);
     const thumb = sut.getByTestId('thumb');
 
-    expect(thumb).toHaveStyle('left: 0');
+    expect(thumb).toHaveStyle('left: 1px');
 
     sut.rerender(<Switch checked onChange={onChangeMock} />);
 
-    expect(thumb).toHaveStyle('left: 8px');
+    expect(thumb).toHaveStyle('left: 27px');
   });
 
   it('should call onChange prop when its clicked', () => {

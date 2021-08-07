@@ -8,8 +8,10 @@ interface Colors {
   light: string;
   bodyBg: string;
   sidebarBg: string;
+  headerBg: string;
   text: string;
   border: string;
+  switchBg: string;
 }
 
 declare module 'styled-components' {
