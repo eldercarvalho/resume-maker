@@ -1,6 +1,5 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen } from '@/test-utils';
 import Accordion from '@/components/base/Accordion';
-import { Theme } from '@/contexts/Theme';
 
 type SutType = {
   clickItem(index: number): void;
@@ -8,18 +7,16 @@ type SutType = {
 
 const makeSut = (defaultItemKey = ''): SutType => {
   render(
-    <Theme>
-      <Accordion defaultItemKey={defaultItemKey}>
-        <Accordion.Item itemKey="0">
-          <Accordion.Header>Header 1</Accordion.Header>
-          <Accordion.Content>Content 1</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item itemKey="1">
-          <Accordion.Header>Header 2</Accordion.Header>
-          <Accordion.Content>Content 2</Accordion.Content>
-        </Accordion.Item>
-      </Accordion>
-    </Theme>,
+    <Accordion defaultItemKey={defaultItemKey}>
+      <Accordion.Item itemKey="0">
+        <Accordion.Header>Header 1</Accordion.Header>
+        <Accordion.Content>Content 1</Accordion.Content>
+      </Accordion.Item>
+      <Accordion.Item itemKey="1">
+        <Accordion.Header>Header 2</Accordion.Header>
+        <Accordion.Content>Content 2</Accordion.Content>
+      </Accordion.Item>
+    </Accordion>,
   );
 
   const clickItem = (index = 0) => {
