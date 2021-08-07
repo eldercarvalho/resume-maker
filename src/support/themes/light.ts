@@ -11,6 +11,7 @@ const COLORS = {
 export const Light: DefaultTheme = {
   name: 'light',
   colors: {
+    ...COLORS,
     bodyBg: '#dedede',
     sidebarBg: COLORS.light,
     text: COLORS.text,

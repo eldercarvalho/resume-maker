@@ -1,18 +1,15 @@
-import { useTheme } from '@/contexts/Theme';
+import Header from '@/components/Header';
 import FormSidebar from '../FormSidebar';
 
 import { Container } from './style';
 
-const Layout: React.FC = () => {
-  const { themeName, setThemeName } = useTheme();
+const Layout: React.FC = () => (
+  <Container>
+    <FormSidebar />
 
-  return (
-    <Container>
-      <FormSidebar />
-      <button onClick={() => setThemeName(themeName === 'dark' ? 'light' : 'dark')}>theme</button>
-      <div />
-    </Container>
-  );
-};
+    <Header>teste</Header>
+    <div />
+  </Container>
+);
 
 export default Layout;

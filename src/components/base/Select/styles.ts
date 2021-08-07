@@ -62,7 +62,7 @@ export const Options = styled.div<OptionsProps>`
       font-weight: 500;
 
       :hover {
-        background: ${({ theme }) => theme.primary};
+        background: ${({ theme }) => theme.colors.primary};
         color: #fff;
       }
     }

@@ -5,6 +5,7 @@ export const Container = styled.aside`
   width: 30rem;
   height: 100vh;
   background: ${(props) => props.theme.colors.sidebarBg};
+  border-right: thin solid ${(props) => props.theme.colors.border};
 `;
 
 export const Logo = styled.h1`

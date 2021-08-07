@@ -35,9 +35,9 @@ export const Container = styled.div<ContainerProps>`
     width: ${(props) => props.size}px;
     height: ${(props) => props.size}px;
     border-top: ${(props) => props.thickness}px solid
-      ${({ theme, isDark }) => (isDark ? '#FFF' : theme.primary)};
+      ${({ theme, isDark }) => (isDark ? '#FFF' : theme.colors.primary)};
     border-right: ${(props) => props.thickness}px solid
-      ${({ theme, isDark }) => (isDark ? '#FFF' : theme.primary)};
+      ${({ theme, isDark }) => (isDark ? '#FFF' : theme.colors.primary)};
     border-bottom: ${(props) => props.thickness}px solid rgba(0, 0, 0, 0.3);
     border-left: ${(props) => props.thickness}px solid rgba(0, 0, 0, 0.3);
     border-radius: 50%;
