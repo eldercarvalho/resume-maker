@@ -1,10 +1,19 @@
 import { DefaultTheme } from 'styled-components';
 
-export const Light: DefaultTheme = {
+const COLORS = {
   primary: '#DA0037',
-  dark: '#171717',
-  darkLight: '#444444',
-  light: '#EDEDED',
+  secondary: '#171717',
+  secondaryLight: '#444444',
+  light: '#FFF',
   text: '#565',
-  border: '#CCC',
+};
+
+export const Light: DefaultTheme = {
+  name: 'light',
+  colors: {
+    bodyBg: '#dedede',
+    sidebarBg: COLORS.light,
+    text: COLORS.text,
+    border: 'rgba(0, 0, 0, 0.5)',
+  },
 };

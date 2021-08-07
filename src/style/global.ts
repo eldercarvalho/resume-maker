@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Inter', sans-serif;
-    background: ${(props) => props.theme.darkLight};
+    background: ${(props) => props.theme.colors.bodyBg};
   }
 
   button {

@@ -1,13 +1,16 @@
 export * from './dark';
 export * from './light';
 
+interface Colors {
+  bodyBg: string;
+  sidebarBg: string;
+  text: string;
+  border: string;
+}
+
 declare module 'styled-components' {
   export interface DefaultTheme {
-    primary: string;
-    dark: string;
-    darkLight: string;
-    light: string;
-    text: string;
-    border: string;
+    name: string;
+    colors: Colors;
   }
 }
