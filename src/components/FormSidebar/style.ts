@@ -13,5 +13,8 @@ export const Logo = styled.h1`
   color: ${(props) => props.theme.colors.text};
   padding: 1.6rem;
   font-weight: 200;
-  text-align: center;
+
+  strong {
+    color: ${(props) => props.theme.colors.primary};
+  }
 `;

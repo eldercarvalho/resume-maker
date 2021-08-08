@@ -1,4 +1,16 @@
 {
-  "sidebar.accordion.header.title": "Header",
-  "sidebar.accordion.about.title": "Personal data"
+  "sidebar.accordion.heading": "Heading",
+  "sidebar.accordion.address": "Address",
+  "sidebar.accordion.contact": "Contact",
+  "sidebar.accordion.social": "Social Networks",
+  "sidebar.accordion.objective": "Objective",
+  "sidebar.accordion.experience": "Work Experience",
+  "sidebar.accordion.education": "Education",
+  "sidebar.accordion.projects": "Projects",
+  "sidebar.accordion.awards": "Awards",
+  "sidebar.accordion.certifications": "Certifications",
+  "sidebar.accordion.skills": "Skills",
+  "sidebar.accordion.hobbies": "Hobbies",
+  "sidebar.accordion.languages": "Languages",
+  "sidebar.accordion.references": "References"
  }

@@ -1,4 +1,16 @@
 {
-  "sidebar.accordion.header.title": "Cabeçalho",
-  "sidebar.accordion.about.title": "Dados Pessoais"
+  "sidebar.accordion.heading": "Cabeçalho",
+  "sidebar.accordion.address": "Endereço",
+  "sidebar.accordion.contact": "Contato",
+  "sidebar.accordion.social": "Redes Sociais",
+  "sidebar.accordion.objective": "Objetivo",
+  "sidebar.accordion.experience": "Experiência",
+  "sidebar.accordion.education": "Formação",
+  "sidebar.accordion.projects": "Projetos",
+  "sidebar.accordion.awards": "Prêmios",
+  "sidebar.accordion.certfications": "Certificações",
+  "sidebar.accordion.skills": "Habilidades",
+  "sidebar.accordion.hobbies": "Hobbies",
+  "sidebar.accordion.languages": "Idiomas",
+  "sidebar.accordion.references": "Referências"
  }
