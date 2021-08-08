@@ -12,6 +12,10 @@ interface Colors {
   text: string;
   border: string;
   switchBg: string;
+  inputBg: string;
+  inputBorder: string;
+  inputBorderHover: string;
+  inputBorderFocus: string;
 }
 
 declare module 'styled-components' {

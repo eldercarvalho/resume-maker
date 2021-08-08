@@ -6,6 +6,20 @@ export const Container = styled.aside`
   height: 100vh;
   background: ${(props) => props.theme.colors.sidebarBg};
   border-right: thin solid ${(props) => props.theme.colors.border};
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
 `;
 
 export const Logo = styled.h1`

@@ -11,7 +11,7 @@ export const Container = styled.h3`
     padding: 1.2rem 2rem;
     text-align: left;
     color: ${(props) => props.theme.colors.text};
-    font-weight: ${(props) => (props.theme.name === 'dark' ? '200' : '400')};
+    font-weight: ${(props) => (props.theme.name === 'dark' ? '300' : '400')};
 
     svg {
       stroke-width: 1px;

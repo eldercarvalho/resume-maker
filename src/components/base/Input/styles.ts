@@ -5,37 +5,42 @@ interface ContainerProps {
   isFocused: boolean;
   isFilled: boolean;
   isErrored: boolean;
+  isDate: boolean;
 }
 
 export const Container = styled.div<ContainerProps>`
   position: relative;
   width: 100%;
 
+  & + * {
+    margin-top: 2.6rem;
+  }
+
   label {
     display: inline-block;
     padding: 0 0.3rem;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    color: ${({ theme }) => theme.colors.text};
     position: absolute;
-    top: 22px;
+    bottom: 1.2rem;
     left: 1.3rem;
-    transform: translateY(-50%);
-    background: #fff;
     transition: 0.3s;
+    font-weight: 300;
 
-    ${({ isFocused }) =>
-      isFocused &&
+    ${({ isFocused, isDate }) =>
+      (isFocused || isDate) &&
       css`
-        font-size: 1.2rem;
-        top: 0%;
-        font-weight: 600;
+        font-size: 1.1rem;
+        bottom: calc(100% + 2px);
+        left: 0;
       `}
 
     ${({ isFilled }) =>
       isFilled &&
       css`
-        font-size: 1.2rem;
-        top: 0%;
-        font-weight: 600;
+        font-size: 1.1rem;
+        bottom: calc(100% + 2px);
+        left: 0;
       `}
 
       ${({ isErrored }) =>
@@ -47,9 +52,19 @@ export const Container = styled.div<ContainerProps>`
 
   div {
     display: flex;
-    border: 2px solid #333;
+    border: thin solid ${({ theme }) => theme.colors.inputBorder};
     border-radius: 3px;
     transition: border-color 0.3s;
+
+    :hover {
+      border-color: ${({ theme }) => theme.colors.inputBorderHover};
+    }
+
+    ${({ isFocused }) =>
+      isFocused &&
+      css`
+        border-color: ${({ theme }) => theme.colors.inputBorderFocus} !important;
+      `}
 
     ${({ dark }) =>
       dark &&
@@ -65,15 +80,16 @@ export const Container = styled.div<ContainerProps>`
 
     input {
       width: 100%;
-      height: 40px;
-      background: #fff;
-      font-size: 1.4rem;
+      height: 3.6rem;
+      background: ${({ theme }) => theme.colors.inputBg};
+      font-size: 1.3rem;
       border-radius: 3px;
       border: none;
-      color: #333;
+      color: ${({ theme }) => theme.colors.text};
       padding: 0 1.6rem;
       transition: 0.3s;
       font-weight: 500;
+      outline: 0;
 
       &::placeholder {
         color: rgba(0, 0, 0, 0.7);

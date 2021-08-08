@@ -48,6 +48,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         isFocused={isFocused}
         isFilled={isFilled}
         isErrored={!!error}
+        isDate={type === 'date'}
         dark={dark}
       >
         {label && <label htmlFor={id}>{label}</label>}

@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import Accordion from '../base/Accordion';
+import Input from '../base/Input';
 
 import { Container, Logo } from './style';
 
@@ -14,7 +15,11 @@ const FormSidebar: React.FC = () => (
         <Accordion.Header>
           <FormattedMessage id="sidebar.accordion.heading" defaultMessage="Cabeçalho" />
         </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
+        <Accordion.Content>
+          <Input label="Nome" />
+          <Input label="Título" />
+          <Input label="Data de Nascimento" type="date" />
+        </Accordion.Content>
       </Accordion.Item>
       <Accordion.Item itemKey="1">
         <Accordion.Header>

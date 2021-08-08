@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.div`
   overflow: hidden;
   transition: height 0.3s;
-  background: #efefef;
+  background: ${({ theme }) => theme.colors.background};
 
-  div {
+  > div {
     padding: 1.6rem;
   }
 `;
