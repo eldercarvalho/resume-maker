@@ -1,6 +1,6 @@
-# Resume Builder
+# Resume Maker
 
-A simple but efficient resume builder
+A simple but efficient resume maker
 
 ## Stack
 
