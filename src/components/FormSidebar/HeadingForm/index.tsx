@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState, useCallback } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import Input from '@/components/base/Input';
 import { useResume } from '@/contexts/Resume';
