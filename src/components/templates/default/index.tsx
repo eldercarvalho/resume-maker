@@ -6,7 +6,7 @@ const Default: React.FC = () => {
   const { state } = useResume();
 
   return (
-    <Sheet>
+    <Sheet className="sheet">
       <Header>
         <h1>{state.name}</h1>
         <p>{state.title}</p>

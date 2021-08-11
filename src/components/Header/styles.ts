@@ -13,6 +13,10 @@ export const Container = styled.header`
   justify-content: flex-end;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 
+  > * + * {
+    margin-left: 1.2rem;
+  }
+
   @media print {
     display: none;
   }

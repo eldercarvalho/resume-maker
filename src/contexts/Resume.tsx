@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState, createContext, useMemo } from 'react';
+import { useCallback, useContext, useState, createContext } from 'react';
 
 interface ResumeData {
   name: string;
@@ -23,14 +23,6 @@ export const ResumeProvider: React.FC = ({ children }) => {
   const updateState = useCallback((stateParam: ResumeData) => {
     setState(stateParam);
   }, []);
-
-  // const memoizedValue = useMemo(
-  //   () => ({
-  //     state,
-  //     updateState,
-  //   }),
-  //   [],
-  // );
 
   return <ResumeContext.Provider value={{ state, updateState }}>{children}</ResumeContext.Provider>;
 };
