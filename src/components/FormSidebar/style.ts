@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.aside`
   position: relative;
-  width: 30rem;
+  width: 36rem;
   height: 100vh;
   background: ${(props) => props.theme.colors.sidebarBg};
   border-right: thin solid ${(props) => props.theme.colors.border};

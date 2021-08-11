@@ -4,12 +4,15 @@ import Layout from '@/components/Layout';
 
 import { GlobalStyle } from './style/global';
 import { Theme } from './contexts/Theme';
+import { ResumeProvider } from './contexts/Resume';
 
 const App: React.FC = () => (
   <Theme>
     <Localization>
-      <Layout />
-      <GlobalStyle />
+      <ResumeProvider>
+        <Layout />
+        <GlobalStyle />
+      </ResumeProvider>
     </Localization>
   </Theme>
 );

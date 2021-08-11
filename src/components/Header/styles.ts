@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.header`
   position: absolute;
   top: 0;
-  left: 300px;
-  width: calc(100% - 300px);
+  left: 360px;
+  width: calc(100% - 360px);
   height: 6rem;
   background: ${({ theme }) => theme.colors.headerBg};
   padding: 0 2rem;

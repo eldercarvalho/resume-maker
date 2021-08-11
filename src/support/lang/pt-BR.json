@@ -12,5 +12,8 @@
   "sidebar.accordion.skills": "Habilidades",
   "sidebar.accordion.hobbies": "Hobbies",
   "sidebar.accordion.languages": "Idiomas",
-  "sidebar.accordion.references": "Referências"
+  "sidebar.accordion.references": "Referências",
+  "sidebar.form.heading.name": "Nome",
+  "sidebar.form.heading.title": "Título",
+  "sidebar.form.heading.birthDate": "Data de Nascimento"
  }

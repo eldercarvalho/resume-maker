@@ -1,8 +1,17 @@
 import { FormattedMessage } from 'react-intl';
 import Accordion from '../base/Accordion';
-import Input from '../base/Input';
+import HeadingForm from './HeadingForm';
 
 import { Container, Logo } from './style';
+
+const accordionItems = [
+  {
+    key: '0',
+    messageId: 'sidebar.accordion.heading',
+    defaultMessage: 'Cabeçalho',
+    content: <HeadingForm />,
+  },
+];
 
 const FormSidebar: React.FC = () => (
   <Container>
@@ -10,17 +19,16 @@ const FormSidebar: React.FC = () => (
       <strong>R</strong>esume <strong>M</strong>aker
     </Logo>
 
-    <Accordion>
-      <Accordion.Item itemKey="0">
-        <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.heading" defaultMessage="Cabeçalho" />
-        </Accordion.Header>
-        <Accordion.Content>
-          <Input label="Nome" />
-          <Input label="Título" />
-          <Input label="Data de Nascimento" type="date" />
-        </Accordion.Content>
-      </Accordion.Item>
+    <Accordion defaultItemKey="0">
+      {accordionItems.map((item) => (
+        <Accordion.Item key={item.key} itemKey={item.key}>
+          <Accordion.Header>
+            <FormattedMessage id={item.messageId} defaultMessage={item.defaultMessage} />
+          </Accordion.Header>
+          <Accordion.Content>{item.content}</Accordion.Content>
+        </Accordion.Item>
+      ))}
+
       <Accordion.Item itemKey="1">
         <Accordion.Header>
           <FormattedMessage id="sidebar.accordion.address" defaultMessage="Endereço" />
