@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
-import FormSidebar from '../FormSidebar';
+import Resume from '@/components/Resume';
+import FormSidebar from '@/components/FormSidebar';
 
 import { Container } from './style';
 
@@ -7,8 +8,9 @@ const Layout: React.FC = () => (
   <Container>
     <FormSidebar />
 
-    <Header>teste</Header>
-    <div />
+    <Header />
+
+    <Resume />
   </Container>
 );
 

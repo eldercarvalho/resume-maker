@@ -24,15 +24,15 @@ export const ResumeProvider: React.FC = ({ children }) => {
     setState(stateParam);
   }, []);
 
-  const memoizedValue = useMemo(
-    () => ({
-      state,
-      updateState,
-    }),
-    [],
-  );
+  // const memoizedValue = useMemo(
+  //   () => ({
+  //     state,
+  //     updateState,
+  //   }),
+  //   [],
+  // );
 
-  return <ResumeContext.Provider value={memoizedValue}>{children}</ResumeContext.Provider>;
+  return <ResumeContext.Provider value={{ state, updateState }}>{children}</ResumeContext.Provider>;
 };
 
 export const useResume = () => {
