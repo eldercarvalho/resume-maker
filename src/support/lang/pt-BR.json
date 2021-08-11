@@ -15,5 +15,7 @@
   "sidebar.accordion.references": "Referências",
   "sidebar.form.heading.name": "Nome",
   "sidebar.form.heading.title": "Título",
-  "sidebar.form.heading.birthDate": "Data de Nascimento"
+  "sidebar.form.heading.birthDate": "Data de Nascimento",
+  "header.button.print.text": "Imprimir",
+  "header.button.download.text": "Baixar em PDF"
  }

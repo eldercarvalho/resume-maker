@@ -1,12 +1,13 @@
 import * as html2pdf from 'html2pdf.js';
-
 import { FiDownload, FiPrinter } from 'react-icons/fi';
 
 import Button from '@/components/base/Button';
 import Tooltip from '@/components/base/Tooltip';
-import { decodedTextSpanIntersectsWith } from 'typescript';
+import { useIntl } from 'react-intl';
 
 const ActionButtons: React.FC = () => {
+  const intl = useIntl();
+
   const handleDownloadClick = () => {
     const resume = document.querySelector('.sheet');
 
@@ -26,15 +27,15 @@ const ActionButtons: React.FC = () => {
 
   return (
     <>
-      <Tooltip text="Download PDF">
+      <Tooltip text={intl.formatMessage({ id: 'header.button.download.text' })}>
         <Button textOnly iconOnly onClick={handleDownloadClick}>
-          <FiDownload size={22} />
+          <FiDownload size={20} />
         </Button>
       </Tooltip>
 
-      <Tooltip text="Imprimir">
+      <Tooltip text={intl.formatMessage({ id: 'header.button.print.text' })}>
         <Button textOnly iconOnly onClick={handlePrintClick}>
-          <FiPrinter size={22} />
+          <FiPrinter size={20} />
         </Button>
       </Tooltip>
     </>
