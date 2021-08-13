@@ -61,9 +61,11 @@ const SocialNetworksForm: React.FC = () => {
         </Modal.Content>
         <Modal.Actions>
           <Button small outline onClick={() => setShowModal(false)}>
-            Fechar
+            <FormattedMessage id="global.close" />
           </Button>
-          <Button small>Adicionar</Button>
+          <Button small>
+            <FormattedMessage id="global.add" />
+          </Button>
         </Modal.Actions>
       </Modal>
     </>

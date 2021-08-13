@@ -35,7 +35,7 @@ export const Container = styled.button<IContainerProps>`
   transition: all 0.3s;
   border: thin solid transparent;
   border-radius: 3px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 0 3rem;
   font-size: 1.6rem;
   white-space: nowrap;

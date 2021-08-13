@@ -1,4 +1,7 @@
 {
+  "global.add": "Adicionar",
+  "global.add.value": "Adicionar {value}",
+  "global.close": "Fechar",
   "sidebar.accordion.heading": "Cabeçalho",
   "sidebar.accordion.address": "Endereço",
   "sidebar.accordion.contact": "Contato",
