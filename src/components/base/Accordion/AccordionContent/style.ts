@@ -6,6 +6,6 @@ export const Container = styled.div`
   background: ${({ theme }) => theme.colors.background};
 
   > div {
-    padding: 1.6rem;
+    padding: 2.6rem 1.6rem;
   }
 `;

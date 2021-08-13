@@ -15,7 +15,7 @@ export const Dark: DefaultTheme = {
     bodyBg: COLORS.background,
     sidebarBg: COLORS.background,
     headerBg: COLORS.backgroundVar1,
-    text: '#f0f6fc',
+    text: '#dedede',
     border: opacify(0.1, 'rgba(255, 255, 255, 0.1)'),
     switchBg: '#4b4d4e',
 

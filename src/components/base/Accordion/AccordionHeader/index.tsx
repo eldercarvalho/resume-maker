@@ -12,7 +12,7 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({ children }) =>
   const { isOpened, itemKey } = useAccordionItem();
 
   return (
-    <Container>
+    <Container isOpened={isOpened}>
       <button onClick={() => setCurrentItemKey(itemKey)} aria-expanded={isOpened}>
         {children}
         {isOpened ? (

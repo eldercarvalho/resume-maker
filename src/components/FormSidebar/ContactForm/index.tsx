@@ -3,21 +3,21 @@ import { useIntl } from 'react-intl';
 import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 
-const HeadingForm: React.FC = () => {
+const ContactForm: React.FC = () => {
   const intl = useIntl();
   const [state, setState] = useState({
-    name: '',
-    title: '',
-    birthDate: '',
+    phoneNumber: '',
+    website: '',
+    email: '',
   });
   const { state: contextState, updateState } = useResume();
 
   useEffect(() => {
     updateState({
       ...contextState,
-      name: state.name,
-      title: state.title,
-      birthDate: state.birthDate,
+      phoneNumber: state.phoneNumber,
+      website: state.website,
+      email: state.email,
     });
   }, [state]);
 
@@ -34,23 +34,23 @@ const HeadingForm: React.FC = () => {
   return (
     <>
       <Input
-        label={intl.formatMessage({ id: 'sidebar.form.heading.name' })}
-        name="name"
-        value={state.name}
+        label={intl.formatMessage({ id: 'sidebar.form.contact.phoneNumber' })}
+        name="phoneNumber"
+        value={state.phoneNumber}
         onChange={handleChange}
       />
       <Input
-        label={intl.formatMessage({ id: 'sidebar.form.heading.title' })}
-        name="title"
-        value={state.title}
+        label={intl.formatMessage({ id: 'sidebar.form.contact.website' })}
+        name="website"
+        value={state.website}
         marginTop="2.6rem"
         onChange={handleChange}
       />
       <Input
-        label={intl.formatMessage({ id: 'sidebar.form.heading.birthDate' })}
-        type="date"
-        name="birthDate"
-        value={state.birthDate}
+        label={intl.formatMessage({ id: 'sidebar.form.contact.email' })}
+        type="email"
+        name="email"
+        value={state.email}
         marginTop="2.6rem"
         onChange={handleChange}
       />
@@ -58,4 +58,4 @@ const HeadingForm: React.FC = () => {
   );
 };
 
-export default HeadingForm;
+export default ContactForm;

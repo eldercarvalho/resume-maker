@@ -1,5 +1,7 @@
 import { FormattedMessage } from 'react-intl';
 import Accordion from '../base/Accordion';
+import AddressForm from './AddressForm';
+import ContactForm from './ContactForm';
 import HeadingForm from './HeadingForm';
 
 import { Container, Logo } from './style';
@@ -10,6 +12,18 @@ const accordionItems = [
     messageId: 'sidebar.accordion.heading',
     defaultMessage: 'Cabeçalho',
     content: <HeadingForm />,
+  },
+  {
+    key: '1',
+    messageId: 'sidebar.accordion.address',
+    defaultMessage: 'Endereço',
+    content: <AddressForm />,
+  },
+  {
+    key: '2',
+    messageId: 'sidebar.accordion.contact',
+    defaultMessage: 'Contato',
+    content: <ContactForm />,
   },
 ];
 
@@ -29,18 +43,6 @@ const FormSidebar: React.FC = () => (
         </Accordion.Item>
       ))}
 
-      <Accordion.Item itemKey="1">
-        <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.address" defaultMessage="Endereço" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item itemKey="2">
-        <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.contact" defaultMessage="Contato" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
       <Accordion.Item itemKey="3">
         <Accordion.Header>
           <FormattedMessage id="sidebar.accordion.social" defaultMessage="Redes Sociais" />

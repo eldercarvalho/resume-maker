@@ -10,11 +10,23 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   prependIcon?: string;
   dark?: boolean;
   label?: string;
+  marginTop?: string;
+  marginBottom?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { id = uuidv4(), type = 'text', className, error, label, dark = false, ...rest },
+    {
+      id = uuidv4(),
+      type = 'text',
+      className,
+      error,
+      label,
+      dark = false,
+      marginTop,
+      marginBottom,
+      ...rest
+    },
     forwardedRef,
   ) => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -44,12 +56,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <Container
-        className={className}
+        className={`input-wrapper ${className || ''}`}
         isFocused={isFocused}
         isFilled={isFilled}
         isErrored={!!error}
         isDate={type === 'date'}
         dark={dark}
+        marginTop={marginTop}
+        marginBottom={marginBottom}
       >
         {label && <label htmlFor={id}>{label}</label>}
         <div>

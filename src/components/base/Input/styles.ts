@@ -6,15 +6,25 @@ interface ContainerProps {
   isFilled: boolean;
   isErrored: boolean;
   isDate: boolean;
+  marginTop?: string;
+  marginBottom?: string;
 }
 
 export const Container = styled.div<ContainerProps>`
   position: relative;
   width: 100%;
 
-  & + * {
-    margin-top: 2.6rem;
-  }
+  ${({ marginTop }) =>
+    marginTop &&
+    css`
+      margin-top: ${marginTop};
+    `}
+
+  ${({ marginBottom }) =>
+    marginBottom &&
+    css`
+      margin-bottom: ${marginBottom};
+    `}
 
   label {
     display: inline-block;

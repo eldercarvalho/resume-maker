@@ -16,6 +16,12 @@
   "sidebar.form.heading.name": "Name",
   "sidebar.form.heading.title": "Title",
   "sidebar.form.heading.birthDate": "Date of birth",
+  "sidebar.form.address.address": "Address",
+  "sidebar.form.address.city": "City",
+  "sidebar.form.address.zipcode": "Zip Code",
+  "sidebar.form.contact.phoneNumber": "Phone Number",
+  "sidebar.form.contact.website": "Website",
+  "sidebar.form.contact.email": "E-mail",
   "header.button.print.text": "Print",
-  "header.button.download.text": "Download to PDF"
+  "header.button.download.text": "Download PDF"
  }

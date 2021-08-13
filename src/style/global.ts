@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -47,4 +47,14 @@ export const scrollbarStyles = css`
     background-color: darkgrey;
     outline: 1px solid slategrey;
   }
+`;
+
+interface GridProps {
+  columns: string;
+}
+
+export const Grid = styled.div<GridProps>`
+  display: grid;
+  grid-template-columns: ${(props) => props.columns};
+  gap: 0 2rem;
 `;
