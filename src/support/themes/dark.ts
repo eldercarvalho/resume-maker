@@ -2,7 +2,7 @@ import { DefaultTheme } from 'styled-components';
 import { opacify } from 'polished';
 
 const COLORS = {
-  primary: '#DA0037',
+  primary: '#39A2DB',
   background: '#0d1117',
   backgroundVar1: '#161b22',
   light: '#EDEDED',

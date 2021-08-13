@@ -1,4 +1,7 @@
 {
+  "global.add": "Add",
+  "global.add.value": "Add {value}",
+  "global.close": "Close",
   "sidebar.accordion.heading": "Heading",
   "sidebar.accordion.address": "Address",
   "sidebar.accordion.contact": "Contact",
@@ -22,6 +25,9 @@
   "sidebar.form.contact.phoneNumber": "Phone Number",
   "sidebar.form.contact.website": "Website",
   "sidebar.form.contact.email": "E-mail",
+  "sidebar.form.social.network": "Social Network",
+  "sidebar.form.social.username": "Username",
+  "sidebar.form.social.url": "URL",
   "header.button.print.text": "Print",
   "header.button.download.text": "Download PDF"
  }

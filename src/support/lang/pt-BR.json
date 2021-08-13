@@ -22,6 +22,9 @@
   "sidebar.form.contact.phoneNumber": "Telefone",
   "sidebar.form.contact.website": "Site",
   "sidebar.form.contact.email": "E-mail",
+  "sidebar.form.social.network": "Rede Social",
+  "sidebar.form.social.username": "Usuário",
+  "sidebar.form.social.url": "URL",
   "header.button.print.text": "Imprimir",
   "header.button.download.text": "Baixar PDF"
  }

@@ -1,7 +1,7 @@
 import { DefaultTheme } from 'styled-components';
 
 const COLORS = {
-  primary: '#DA0037',
+  primary: '#0F52BA',
   background: '#FFF',
   backgroundVar1: '#dedede',
   light: '#FFF',

@@ -3,6 +3,7 @@ import Accordion from '../base/Accordion';
 import AddressForm from './AddressForm';
 import ContactForm from './ContactForm';
 import HeadingForm from './HeadingForm';
+import SocialNetworksForm from './SocialNetworksForm';
 
 import { Container, Logo } from './style';
 
@@ -25,6 +26,12 @@ const accordionItems = [
     defaultMessage: 'Contato',
     content: <ContactForm />,
   },
+  {
+    key: '3',
+    messageId: 'sidebar.accordion.social',
+    defaultMessage: 'Redes Sociais',
+    content: <SocialNetworksForm />,
+  },
 ];
 
 const FormSidebar: React.FC = () => (
@@ -43,12 +50,6 @@ const FormSidebar: React.FC = () => (
         </Accordion.Item>
       ))}
 
-      <Accordion.Item itemKey="3">
-        <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.social" defaultMessage="Redes Sociais" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
       <Accordion.Item itemKey="4">
         <Accordion.Header>
           <FormattedMessage id="sidebar.accordion.objective" defaultMessage="Objetivo" />

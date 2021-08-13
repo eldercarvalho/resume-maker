@@ -33,19 +33,20 @@ export const Container = styled.button<IContainerProps>`
   background: ${({ theme }) => theme.colors.primary};
   color: ${({ isTextOnly, theme }) => (isTextOnly ? theme.colors.text : '#FFF')};
   transition: all 0.3s;
-  border: 2px solid transparent;
+  border: thin solid transparent;
   border-radius: 3px;
-  font-weight: 600;
+  font-weight: 500;
   padding: 0 3rem;
   font-size: 1.6rem;
   white-space: nowrap;
+  text-transform: uppercase;
 
   &:hover {
     background: ${({ theme }) => shade(0.2, theme.colors.primary)};
   }
 
   svg {
-    margin-right: 1rem;
+    margin-right: 0.4rem;
   }
 
   ${(props) =>
@@ -70,7 +71,8 @@ export const Container = styled.button<IContainerProps>`
     props.isSmall &&
     css`
       height: 3rem;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
+      padding: 0 1rem;
     `}
 
   ${(props) =>
