@@ -3,6 +3,7 @@ export * from './light';
 
 interface Colors {
   primary: string;
+  error: string;
   background: string;
   backgroundVar1: string;
   light: string;

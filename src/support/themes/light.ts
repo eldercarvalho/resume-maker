@@ -12,6 +12,7 @@ export const Light: DefaultTheme = {
   name: 'light',
   colors: {
     ...COLORS,
+    error: '#e83b46',
     bodyBg: COLORS.backgroundVar1,
     sidebarBg: COLORS.light,
     headerBg: COLORS.light,

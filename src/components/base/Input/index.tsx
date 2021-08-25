@@ -1,4 +1,11 @@
-import { forwardRef, InputHTMLAttributes, useImperativeHandle, useRef, useState } from 'react';
+import {
+  forwardRef,
+  InputHTMLAttributes,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
@@ -39,6 +46,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       inputRef.current ? inputRef.current : document.createElement('input'),
     );
 
+    useEffect(() => {
+      setIsFilled(inputRef.current?.value !== '');
+    }, []);
+
     const handleFocus = () => {
       setIsFocused(true);
     };
@@ -65,15 +76,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         marginTop={marginTop}
         marginBottom={marginBottom}
       >
-        {label && <label htmlFor={id}>{label}</label>}
         <div>
+          {label && <label htmlFor={id}>{label}</label>}
           <input
             ref={inputRef}
             id={id}
             type={innerType}
+            {...rest}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            {...rest}
           />
 
           {type === 'password' && (

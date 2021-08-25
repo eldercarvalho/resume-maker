@@ -143,7 +143,9 @@ export const Container = styled.button<IContainerProps>`
     ${(props) =>
     props.isReduced &&
     css`
-      padding-left: 0;
-      padding-right: 0;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      width: auto;
+      height: auto;
     `}
 `;

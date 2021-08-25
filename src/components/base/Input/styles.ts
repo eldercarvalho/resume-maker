@@ -32,7 +32,7 @@ export const Container = styled.div<ContainerProps>`
     font-size: 1.3rem;
     color: ${({ theme }) => theme.colors.text};
     position: absolute;
-    bottom: 1.2rem;
+    bottom: 1rem;
     left: 1.3rem;
     transition: 0.3s;
     font-weight: 300;
@@ -61,6 +61,7 @@ export const Container = styled.div<ContainerProps>`
   }
 
   div {
+    position: relative;
     display: flex;
     border: thin solid ${({ theme }) => theme.colors.inputBorder};
     border-radius: 3px;
@@ -128,7 +129,8 @@ export const Container = styled.div<ContainerProps>`
 `;
 
 export const Error = styled.span`
-  margin-top: 0.5rem;
-  font-size: 1.2rem;
-  color: ${({ theme }) => theme.colors.primary};
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 1.1rem;
+  color: ${({ theme }) => theme.colors.error};
 `;

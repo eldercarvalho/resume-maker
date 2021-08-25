@@ -10,26 +10,26 @@ import { Container, Logo } from './style';
 const accordionItems = [
   {
     key: '0',
-    messageId: 'sidebar.accordion.heading',
-    defaultMessage: 'Cabeçalho',
+    messageId: 'global.heading',
     content: <HeadingForm />,
+    values: {},
   },
   {
     key: '1',
-    messageId: 'sidebar.accordion.address',
-    defaultMessage: 'Endereço',
+    messageId: 'global.address',
+    values: {},
     content: <AddressForm />,
   },
   {
     key: '2',
-    messageId: 'sidebar.accordion.contact',
-    defaultMessage: 'Contato',
+    messageId: 'global.contact',
+    values: {},
     content: <ContactForm />,
   },
   {
     key: '3',
-    messageId: 'sidebar.accordion.social',
-    defaultMessage: 'Redes Sociais',
+    messageId: 'global.socialNetwork',
+    values: { social: 2 },
     content: <SocialNetworksForm />,
   },
 ];
@@ -44,7 +44,7 @@ const FormSidebar: React.FC = () => (
       {accordionItems.map((item) => (
         <Accordion.Item key={item.key} itemKey={item.key}>
           <Accordion.Header>
-            <FormattedMessage id={item.messageId} defaultMessage={item.defaultMessage} />
+            <FormattedMessage id={item.messageId} values={item.values} />
           </Accordion.Header>
           <Accordion.Content>{item.content}</Accordion.Content>
         </Accordion.Item>
@@ -52,61 +52,61 @@ const FormSidebar: React.FC = () => (
 
       <Accordion.Item itemKey="4">
         <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.objective" defaultMessage="Objetivo" />
+          <FormattedMessage id="global.objective" defaultMessage="Objetivo" />
         </Accordion.Header>
         <Accordion.Content>In progress</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item itemKey="5">
         <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.experience" defaultMessage="Experiência" />
+          <FormattedMessage id="global.experience" defaultMessage="Experiência" />
         </Accordion.Header>
         <Accordion.Content>In progress</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item itemKey="6">
         <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.education" defaultMessage="Formação" />
+          <FormattedMessage id="global.education" defaultMessage="Formação" />
         </Accordion.Header>
         <Accordion.Content>In progress</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item itemKey="7">
         <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.projects" defaultMessage="Projetos" />
+          <FormattedMessage id="global.projects" defaultMessage="Projetos" />
         </Accordion.Header>
         <Accordion.Content>In progress</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item itemKey="8">
         <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.awards" defaultMessage="Prêmios" />
+          <FormattedMessage id="global.awards" defaultMessage="Prêmios" />
         </Accordion.Header>
         <Accordion.Content>In progress</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item itemKey="9">
         <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.certifications" defaultMessage="Certificações" />
+          <FormattedMessage id="global.certifications" defaultMessage="Certificações" />
         </Accordion.Header>
         <Accordion.Content>In progress</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item itemKey="10">
         <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.skills" defaultMessage="Habilidades" />
+          <FormattedMessage id="global.skills" defaultMessage="Habilidades" />
         </Accordion.Header>
         <Accordion.Content>In progress</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item itemKey="11">
         <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.hobbies" defaultMessage="Hobbies" />
+          <FormattedMessage id="global.hobbies" defaultMessage="Hobbies" />
         </Accordion.Header>
         <Accordion.Content>In progress</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item itemKey="12">
         <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.languages" defaultMessage="Idiomas" />
+          <FormattedMessage id="global.languages" defaultMessage="Idiomas" />
         </Accordion.Header>
         <Accordion.Content>In progress</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item itemKey="13">
         <Accordion.Header>
-          <FormattedMessage id="sidebar.accordion.references" defaultMessage="Referências" />
+          <FormattedMessage id="global.references" defaultMessage="Referências" />
         </Accordion.Header>
         <Accordion.Content>In progress</Accordion.Content>
       </Accordion.Item>

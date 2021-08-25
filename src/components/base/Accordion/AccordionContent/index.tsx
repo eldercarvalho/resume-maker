@@ -12,16 +12,27 @@ export const AccordionContent: React.FC<AccordionContentProps> = ({ children }) 
   const { isOpened } = useAccordionItem();
 
   useEffect(() => {
-    if (containerRef.current) {
-      heightRef.current = containerRef.current.offsetHeight;
-    }
+    heightRef.current = containerRef.current!.offsetHeight;
   }, []);
 
   useEffect(() => {
-    if (heightRef.current !== 0) {
-      setHeight(isOpened ? `${heightRef.current}px` : '0');
+    if (!isOpened) {
+      heightRef.current = containerRef.current!.offsetHeight;
+      setHeight(`${containerRef.current!.offsetHeight}px`);
     }
+
+    setTimeout(() => {
+      if (heightRef.current !== 0) {
+        setHeight(isOpened ? `${heightRef.current}px` : '0');
+      }
+    }, 5);
   }, [isOpened]);
+
+  const handleTransitionEnd = () => {
+    if (isOpened) {
+      setHeight('auto');
+    }
+  };
 
   return (
     <Container
@@ -29,6 +40,7 @@ export const AccordionContent: React.FC<AccordionContentProps> = ({ children }) 
       style={{ height }}
       className={`${isOpened ? 'isOpen' : ''}`}
       role="region"
+      onTransitionEnd={handleTransitionEnd}
     >
       <div>{children}</div>
     </Container>
