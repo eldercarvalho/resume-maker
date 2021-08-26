@@ -3,7 +3,9 @@ import Accordion from '../base/Accordion';
 import AddressForm from './AddressForm';
 import ContactForm from './ContactForm';
 import HeadingForm from './HeadingForm';
+import ObjectiveForm from './ObjectiveForm';
 import SocialNetworksForm from './SocialNetworksForm';
+import WorkExperienceForm from './WorkExperienceForm';
 
 import { Container, Logo } from './style';
 
@@ -32,6 +34,18 @@ const accordionItems = [
     values: { social: 2 },
     content: <SocialNetworksForm />,
   },
+  {
+    key: '4',
+    messageId: 'global.objective',
+    values: {},
+    content: <ObjectiveForm />,
+  },
+  {
+    key: '5',
+    messageId: 'global.experience',
+    values: {},
+    content: <WorkExperienceForm />,
+  },
 ];
 
 const FormSidebar: React.FC = () => (
@@ -50,18 +64,6 @@ const FormSidebar: React.FC = () => (
         </Accordion.Item>
       ))}
 
-      <Accordion.Item itemKey="4">
-        <Accordion.Header>
-          <FormattedMessage id="global.objective" defaultMessage="Objetivo" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item itemKey="5">
-        <Accordion.Header>
-          <FormattedMessage id="global.experience" defaultMessage="Experiência" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
       <Accordion.Item itemKey="6">
         <Accordion.Header>
           <FormattedMessage id="global.education" defaultMessage="Formação" />

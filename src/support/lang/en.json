@@ -29,7 +29,8 @@
   "sidebar.form.social.network": "Social Network",
   "sidebar.form.social.username": "Username",
   "sidebar.form.social.url": "URL",
-  "sidebar.crudList.emptyMessage": "{gender, select, male {No {name} added.} female {No {name} added.} other {other}}",
+  "sidebar.form.workExperience.company": "Company",
+  "sidebar.socialNetworks.crudList.emptyMessage": "{gender, select, male {No {name} added.} female {No {name} added.} other {other}}",
   "header.button.print.text": "Print",
   "header.button.download.text": "Download PDF",
   "validation.required": "Required field"

@@ -28,7 +28,6 @@ export const Container = styled.div<ContainerProps>`
 
   label {
     display: inline-block;
-    padding: 0 0.3rem;
     font-size: 1.3rem;
     color: ${({ theme }) => theme.colors.text};
     position: absolute;

@@ -34,7 +34,6 @@ const SocialNetworksForm: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [currentNetworkId, setCurrentNetworkId] = useState('');
   const [socialNetworks, setSocialNetworks] = useState<SocialNetwork[]>([]);
   const { state: contextState, updateState } = useResume();
@@ -86,7 +85,7 @@ const SocialNetworksForm: React.FC = () => {
     reset();
   };
 
-  const removeNetwork = (id: string) => {
+  const deleteNetwork = (id: string) => {
     setSocialNetworks(socialNetworks.filter((network) => network.id !== id));
   };
 
@@ -98,7 +97,7 @@ const SocialNetworksForm: React.FC = () => {
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}
         onEdit={onEdit}
-        onDelete={removeNetwork}
+        onDelete={deleteNetwork}
       />
 
       <Modal show={showModal} close onCloseModal={closeModal}>
