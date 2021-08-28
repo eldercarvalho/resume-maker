@@ -34,7 +34,7 @@ const SocialNetworksForm: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
-  const [currentNetworkId, setCurrentNetworkId] = useState('');
+  const [currentId, setCurrentId] = useState('');
   const [socialNetworks, setSocialNetworks] = useState<SocialNetwork[]>([]);
   const { state: contextState, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
@@ -53,15 +53,15 @@ const SocialNetworksForm: React.FC = () => {
   }, [socialNetworks]);
 
   const onSubmit = (data: FormData) => {
-    if (currentNetworkId) {
+    if (currentId) {
       const updatedNetworks = socialNetworks.map((network) => {
-        if (network.id === currentNetworkId) {
+        if (network.id === currentId) {
           return { id: network.id, ...data };
         }
         return network;
       });
       setSocialNetworks(updatedNetworks);
-      setCurrentNetworkId('');
+      setCurrentId('');
     } else {
       setSocialNetworks([...socialNetworks, { id: uuid(), ...data }]);
     }
@@ -72,7 +72,7 @@ const SocialNetworksForm: React.FC = () => {
   const onEdit = (id: string) => {
     const network = socialNetworks.find((sn) => sn.id === id);
     if (network) {
-      setCurrentNetworkId(network.id);
+      setCurrentId(network.id);
       setValue('name', network.name);
       setValue('username', network.username);
       setValue('url', network.url);
@@ -103,7 +103,8 @@ const SocialNetworksForm: React.FC = () => {
       <Modal show={showModal} close onCloseModal={closeModal}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Modal.Header>
-            <FormattedMessage id="global.socialNetwork" values={{ social: 2 }} />
+            <FormattedMessage id={currentId ? 'global.update' : 'global.add'} />{' '}
+            <FormattedMessage id="global.socialNetwork" values={{ social: 1 }} />
           </Modal.Header>
           <Modal.Content>
             <Grid columns="1fr 1fr">
@@ -130,7 +131,7 @@ const SocialNetworksForm: React.FC = () => {
               <FormattedMessage id="global.close" />
             </Button>
             <Button type="submit" small>
-              <FormattedMessage id={currentNetworkId ? 'global.update' : 'global.add'} />
+              <FormattedMessage id={currentId ? 'global.update' : 'global.add'} />
             </Button>
           </Modal.Actions>
         </form>

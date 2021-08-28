@@ -40,7 +40,7 @@ const WorkExperienceForm: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
-  const [currentNetworkId, setCurrentNetworkId] = useState('');
+  const [currentId, setCurrentId] = useState('');
   const [experiences, setExperiences] = useState<WorkExperience[]>([]);
   const { state: contextState, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
@@ -59,15 +59,15 @@ const WorkExperienceForm: React.FC = () => {
   }, [experiences]);
 
   const onSubmit = (data: FormData) => {
-    if (currentNetworkId) {
+    if (currentId) {
       const updatedExperiences = experiences.map((experience) => {
-        if (experience.id === currentNetworkId) {
+        if (experience.id === currentId) {
           return { id: experience.id, ...data };
         }
         return experience;
       });
       setExperiences(updatedExperiences);
-      setCurrentNetworkId('');
+      setCurrentId('');
     } else {
       setExperiences([...experiences, { id: uuid(), ...data }]);
     }
@@ -78,7 +78,7 @@ const WorkExperienceForm: React.FC = () => {
   const onEdit = (id: string) => {
     const experience = experiences.find((sn) => sn.id === id);
     if (experience) {
-      setCurrentNetworkId(experience.id);
+      setCurrentId(experience.id);
       setValue('company', experience.company);
       setValue('position', experience.position);
       setValue('website', experience.website);
@@ -112,6 +112,7 @@ const WorkExperienceForm: React.FC = () => {
       <Modal show={showModal} close onCloseModal={closeModal}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Modal.Header>
+            <FormattedMessage id={currentId ? 'global.update' : 'global.add'} />{' '}
             <FormattedMessage id="global.experience" />
           </Modal.Header>
           <Modal.Content>
@@ -160,7 +161,7 @@ const WorkExperienceForm: React.FC = () => {
               <FormattedMessage id="global.close" />
             </Button>
             <Button type="submit" small>
-              <FormattedMessage id={currentNetworkId ? 'global.update' : 'global.add'} />
+              <FormattedMessage id={currentId ? 'global.update' : 'global.add'} />
             </Button>
           </Modal.Actions>
         </form>

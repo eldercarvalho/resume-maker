@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Award, useResume } from '@/contexts/Resume';
+import { Reference, useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -14,19 +14,21 @@ import Textarea from '@/components/base/Textarea';
 import CrudList from '../CrudList';
 
 const schema = yup.object().shape({
-  title: yup.string().required('Campo obrigatório'),
-  awarder: yup.string().required('Campo obrigatório'),
-  date: yup.string().required('Campo obrigatório'),
+  name: yup.string().required('Campo obrigatório'),
+  position: yup.string().required('Campo obrigatório'),
+  phoneNumber: yup.string().required('Campo obrigatório'),
+  email: yup.string().required('Campo obrigatório'),
 });
 
 type FormData = {
-  title: string;
-  awarder: string;
-  date: string;
+  name: string;
+  position: string;
+  phoneNumber: string;
+  email: string;
   summary: string;
 };
 
-const AwardsForm: React.FC = () => {
+const ReferencesForm: React.FC = () => {
   const intl = useIntl();
   const {
     register,
@@ -37,66 +39,67 @@ const AwardsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [awards, setAwards] = useState<Award[]>([]);
+  const [references, setReference] = useState<Reference[]>([]);
   const { state: contextState, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
       gender: 'male',
-      name: intl.formatMessage({ id: 'global.award' }).toLowerCase(),
+      name: intl.formatMessage({ id: 'global.reference' }).toLowerCase(),
     },
   );
 
   useEffect(() => {
     updateState({
       ...contextState,
-      awards,
+      references,
     });
-  }, [awards]);
+  }, [references]);
+
+  const closeModal = () => {
+    setShowModal(false);
+    setCurrentId('');
+    reset();
+  };
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedAwards = awards.map((award) => {
-        if (award.id === currentId) {
-          return { id: award.id, ...data };
+      const updatedItems = references.map((item) => {
+        if (item.id === currentId) {
+          return { id: item.id, ...data };
         }
-        return award;
+        return item;
       });
-      setAwards(updatedAwards);
+      setReference(updatedItems);
       setCurrentId('');
     } else {
-      setAwards([...awards, { id: uuid(), ...data }]);
+      setReference([...references, { id: uuid(), ...data }]);
     }
-    reset();
-    setShowModal(false);
+    closeModal();
   };
 
   const onEdit = (id: string) => {
-    const award = awards.find((sn) => sn.id === id);
-    if (award) {
-      setCurrentId(award.id);
-      setValue('title', award.title);
-      setValue('awarder', award.awarder);
-      setValue('date', award.date);
-      setValue('summary', award.summary);
+    const reference = references.find((sn) => sn.id === id);
+    if (reference) {
+      setCurrentId(reference.id);
+      setValue('name', reference.name);
+      setValue('position', reference.position);
+      setValue('phoneNumber', reference.phoneNumber);
+      setValue('email', reference.email);
+      setValue('summary', reference.summary);
       setShowModal(true);
     }
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-    reset();
-  };
-
   const handleDelete = (id: string) => {
-    setAwards(awards.filter((project) => project.id !== id));
+    setReference(references.filter((project) => project.id !== id));
   };
 
   return (
     <>
       <CrudList
-        items={awards}
-        propertyToShow="title"
+        items={references}
+        propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}
         onEdit={onEdit}
@@ -107,31 +110,37 @@ const AwardsForm: React.FC = () => {
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Modal.Header>
             <FormattedMessage id={currentId ? 'global.update' : 'global.add'} />{' '}
-            <FormattedMessage id="global.awards" />
+            <FormattedMessage id="global.reference" />
           </Modal.Header>
           <Modal.Content>
-            <Input
-              label={intl.formatMessage({ id: 'sidebar.form.awards.title' })}
-              error={errors.title?.message}
-              {...register('title')}
-            />
+            <Grid columns="1fr 1fr">
+              <Input
+                label={intl.formatMessage({ id: 'sidebar.form.references.name' })}
+                error={errors.name?.message}
+                {...register('name')}
+              />
+              <Input
+                label={intl.formatMessage({ id: 'sidebar.form.references.position' })}
+                error={errors.position?.message}
+                {...register('position')}
+              />
+            </Grid>
             <Grid columns="1fr 1fr">
               <Input
                 marginTop="2.6rem"
-                label={intl.formatMessage({ id: 'sidebar.form.awards.awarder' })}
-                error={errors.awarder?.message}
-                {...register('awarder')}
+                label={intl.formatMessage({ id: 'sidebar.form.references.phoneNumber' })}
+                error={errors.phoneNumber?.message}
+                {...register('phoneNumber')}
               />
               <Input
-                type="date"
-                label={intl.formatMessage({ id: 'sidebar.form.awards.date' })}
                 marginTop="2.6rem"
-                error={errors.date?.message}
-                {...register('date')}
+                label={intl.formatMessage({ id: 'sidebar.form.references.email' })}
+                error={errors.email?.message}
+                {...register('email')}
               />
             </Grid>
             <Textarea
-              label={intl.formatMessage({ id: 'sidebar.form.awards.summary' })}
+              label={intl.formatMessage({ id: 'sidebar.form.references.summary' })}
               marginTop="2.6rem"
               {...register('summary')}
             />
@@ -150,4 +159,4 @@ const AwardsForm: React.FC = () => {
   );
 };
 
-export default AwardsForm;
+export default ReferencesForm;

@@ -5,28 +5,24 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Award, useResume } from '@/contexts/Resume';
+import { Language, useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
 import { Grid } from '@/style/global';
-import Textarea from '@/components/base/Textarea';
 import CrudList from '../CrudList';
 
 const schema = yup.object().shape({
-  title: yup.string().required('Campo obrigatório'),
-  awarder: yup.string().required('Campo obrigatório'),
-  date: yup.string().required('Campo obrigatório'),
+  name: yup.string().required('Campo obrigatório'),
+  fluency: yup.string().required('Campo obrigatório'),
 });
 
 type FormData = {
-  title: string;
-  awarder: string;
-  date: string;
-  summary: string;
+  name: string;
+  fluency: string;
 };
 
-const AwardsForm: React.FC = () => {
+const LanguagesForm: React.FC = () => {
   const intl = useIntl();
   const {
     register,
@@ -37,66 +33,64 @@ const AwardsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [awards, setAwards] = useState<Award[]>([]);
+  const [languages, setLanguages] = useState<Language[]>([]);
   const { state: contextState, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
       gender: 'male',
-      name: intl.formatMessage({ id: 'global.award' }).toLowerCase(),
+      name: intl.formatMessage({ id: 'global.language' }).toLowerCase(),
     },
   );
 
   useEffect(() => {
     updateState({
       ...contextState,
-      awards,
+      languages,
     });
-  }, [awards]);
+  }, [languages]);
+
+  const closeModal = () => {
+    setShowModal(false);
+    setCurrentId('');
+    reset();
+  };
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedAwards = awards.map((award) => {
-        if (award.id === currentId) {
-          return { id: award.id, ...data };
+      const updatedItems = languages.map((item) => {
+        if (item.id === currentId) {
+          return { id: item.id, ...data };
         }
-        return award;
+        return item;
       });
-      setAwards(updatedAwards);
+      setLanguages(updatedItems);
       setCurrentId('');
     } else {
-      setAwards([...awards, { id: uuid(), ...data }]);
+      setLanguages([...languages, { id: uuid(), ...data }]);
     }
-    reset();
-    setShowModal(false);
+    closeModal();
   };
 
   const onEdit = (id: string) => {
-    const award = awards.find((sn) => sn.id === id);
-    if (award) {
-      setCurrentId(award.id);
-      setValue('title', award.title);
-      setValue('awarder', award.awarder);
-      setValue('date', award.date);
-      setValue('summary', award.summary);
+    const language = languages.find((sn) => sn.id === id);
+    if (language) {
+      setCurrentId(language.id);
+      setValue('name', language.name);
+      setValue('fluency', language.fluency);
       setShowModal(true);
     }
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-    reset();
-  };
-
   const handleDelete = (id: string) => {
-    setAwards(awards.filter((project) => project.id !== id));
+    setLanguages(languages.filter((project) => project.id !== id));
   };
 
   return (
     <>
       <CrudList
-        items={awards}
-        propertyToShow="title"
+        items={languages}
+        propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}
         onEdit={onEdit}
@@ -107,34 +101,21 @@ const AwardsForm: React.FC = () => {
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Modal.Header>
             <FormattedMessage id={currentId ? 'global.update' : 'global.add'} />{' '}
-            <FormattedMessage id="global.awards" />
+            <FormattedMessage id="global.language" />
           </Modal.Header>
           <Modal.Content>
-            <Input
-              label={intl.formatMessage({ id: 'sidebar.form.awards.title' })}
-              error={errors.title?.message}
-              {...register('title')}
-            />
             <Grid columns="1fr 1fr">
               <Input
-                marginTop="2.6rem"
-                label={intl.formatMessage({ id: 'sidebar.form.awards.awarder' })}
-                error={errors.awarder?.message}
-                {...register('awarder')}
+                label={intl.formatMessage({ id: 'sidebar.form.languages.name' })}
+                error={errors.name?.message}
+                {...register('name')}
               />
               <Input
-                type="date"
-                label={intl.formatMessage({ id: 'sidebar.form.awards.date' })}
-                marginTop="2.6rem"
-                error={errors.date?.message}
-                {...register('date')}
+                label={intl.formatMessage({ id: 'sidebar.form.languages.fluency' })}
+                error={errors.fluency?.message}
+                {...register('fluency')}
               />
             </Grid>
-            <Textarea
-              label={intl.formatMessage({ id: 'sidebar.form.awards.summary' })}
-              marginTop="2.6rem"
-              {...register('summary')}
-            />
           </Modal.Content>
           <Modal.Actions>
             <Button type="button" small outline onClick={() => closeModal()}>
@@ -150,4 +131,4 @@ const AwardsForm: React.FC = () => {
   );
 };
 
-export default AwardsForm;
+export default LanguagesForm;

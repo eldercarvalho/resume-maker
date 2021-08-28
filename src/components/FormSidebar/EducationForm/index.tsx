@@ -114,6 +114,7 @@ const EducationForm: React.FC = () => {
       <Modal show={showModal} close onCloseModal={closeModal}>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Modal.Header>
+            <FormattedMessage id={currentId ? 'global.update' : 'global.add'} />{' '}
             <FormattedMessage id="global.education" />
           </Modal.Header>
           <Modal.Content>

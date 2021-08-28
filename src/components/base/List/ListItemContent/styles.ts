@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface ContainerProps {
   align: 'left' | 'center' | 'right';
+  isEmpty?: boolean;
 }
 
 const flexAlignValues = {

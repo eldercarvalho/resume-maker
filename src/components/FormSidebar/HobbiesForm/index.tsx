@@ -5,28 +5,21 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Award, useResume } from '@/contexts/Resume';
+import { Hobbie, useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
-import { Grid } from '@/style/global';
-import Textarea from '@/components/base/Textarea';
 import CrudList from '../CrudList';
 
 const schema = yup.object().shape({
-  title: yup.string().required('Campo obrigatório'),
-  awarder: yup.string().required('Campo obrigatório'),
-  date: yup.string().required('Campo obrigatório'),
+  name: yup.string().required('Campo obrigatório'),
 });
 
 type FormData = {
-  title: string;
-  awarder: string;
-  date: string;
-  summary: string;
+  name: string;
 };
 
-const AwardsForm: React.FC = () => {
+const HobbiesForm: React.FC = () => {
   const intl = useIntl();
   const {
     register,
@@ -37,66 +30,63 @@ const AwardsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [awards, setAwards] = useState<Award[]>([]);
+  const [hobbies, setHobbies] = useState<Hobbie[]>([]);
   const { state: contextState, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
       gender: 'male',
-      name: intl.formatMessage({ id: 'global.award' }).toLowerCase(),
+      name: intl.formatMessage({ id: 'global.hobbie' }).toLowerCase(),
     },
   );
 
   useEffect(() => {
     updateState({
       ...contextState,
-      awards,
+      hobbies,
     });
-  }, [awards]);
+  }, [hobbies]);
+
+  const closeModal = () => {
+    setShowModal(false);
+    setCurrentId('');
+    reset();
+  };
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedAwards = awards.map((award) => {
-        if (award.id === currentId) {
-          return { id: award.id, ...data };
+      const updatedItems = hobbies.map((item) => {
+        if (item.id === currentId) {
+          return { id: item.id, ...data };
         }
-        return award;
+        return item;
       });
-      setAwards(updatedAwards);
+      setHobbies(updatedItems);
       setCurrentId('');
     } else {
-      setAwards([...awards, { id: uuid(), ...data }]);
+      setHobbies([...hobbies, { id: uuid(), ...data }]);
     }
-    reset();
-    setShowModal(false);
+    closeModal();
   };
 
   const onEdit = (id: string) => {
-    const award = awards.find((sn) => sn.id === id);
+    const award = hobbies.find((sn) => sn.id === id);
     if (award) {
       setCurrentId(award.id);
-      setValue('title', award.title);
-      setValue('awarder', award.awarder);
-      setValue('date', award.date);
-      setValue('summary', award.summary);
+      setValue('name', award.name);
       setShowModal(true);
     }
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-    reset();
-  };
-
   const handleDelete = (id: string) => {
-    setAwards(awards.filter((project) => project.id !== id));
+    setHobbies(hobbies.filter((project) => project.id !== id));
   };
 
   return (
     <>
       <CrudList
-        items={awards}
-        propertyToShow="title"
+        items={hobbies}
+        propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}
         onEdit={onEdit}
@@ -107,33 +97,13 @@ const AwardsForm: React.FC = () => {
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Modal.Header>
             <FormattedMessage id={currentId ? 'global.update' : 'global.add'} />{' '}
-            <FormattedMessage id="global.awards" />
+            <FormattedMessage id="global.hobbie" />
           </Modal.Header>
           <Modal.Content>
             <Input
-              label={intl.formatMessage({ id: 'sidebar.form.awards.title' })}
-              error={errors.title?.message}
-              {...register('title')}
-            />
-            <Grid columns="1fr 1fr">
-              <Input
-                marginTop="2.6rem"
-                label={intl.formatMessage({ id: 'sidebar.form.awards.awarder' })}
-                error={errors.awarder?.message}
-                {...register('awarder')}
-              />
-              <Input
-                type="date"
-                label={intl.formatMessage({ id: 'sidebar.form.awards.date' })}
-                marginTop="2.6rem"
-                error={errors.date?.message}
-                {...register('date')}
-              />
-            </Grid>
-            <Textarea
-              label={intl.formatMessage({ id: 'sidebar.form.awards.summary' })}
-              marginTop="2.6rem"
-              {...register('summary')}
+              label={intl.formatMessage({ id: 'sidebar.form.hobbies.name' })}
+              error={errors.name?.message}
+              {...register('name')}
             />
           </Modal.Content>
           <Modal.Actions>
@@ -150,4 +120,4 @@ const AwardsForm: React.FC = () => {
   );
 };
 
-export default AwardsForm;
+export default HobbiesForm;

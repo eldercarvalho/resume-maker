@@ -13,6 +13,11 @@ import EducationForm from './EducationForm';
 import { Container, Logo } from './style';
 import ProjectsForm from './ProjectsForm';
 import AwardsForm from './AwardsForm';
+import CertificationsForm from './CertificationsForm';
+import SkillsForm from './SkillsForm';
+import HobbiesForm from './HobbiesForm';
+import LanguagesForm from './LanguagesForm';
+import ReferencesForm from './ReferencesForm';
 
 const firstId = uuid();
 
@@ -71,6 +76,36 @@ const accordionItems = [
     values: {},
     content: <AwardsForm />,
   },
+  {
+    id: uuid(),
+    messageId: 'global.certifications',
+    values: {},
+    content: <CertificationsForm />,
+  },
+  {
+    id: uuid(),
+    messageId: 'global.skills',
+    values: {},
+    content: <SkillsForm />,
+  },
+  {
+    id: uuid(),
+    messageId: 'global.hobbies',
+    values: {},
+    content: <HobbiesForm />,
+  },
+  {
+    id: uuid(),
+    messageId: 'global.languages',
+    values: {},
+    content: <LanguagesForm />,
+  },
+  {
+    id: uuid(),
+    messageId: 'global.references',
+    values: {},
+    content: <ReferencesForm />,
+  },
 ];
 
 const FormSidebar: React.FC = () => (
@@ -88,37 +123,6 @@ const FormSidebar: React.FC = () => (
           <Accordion.Content>{item.content}</Accordion.Content>
         </Accordion.Item>
       ))}
-
-      <Accordion.Item itemKey="9">
-        <Accordion.Header>
-          <FormattedMessage id="global.certifications" defaultMessage="Certificações" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item itemKey="10">
-        <Accordion.Header>
-          <FormattedMessage id="global.skills" defaultMessage="Habilidades" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item itemKey="11">
-        <Accordion.Header>
-          <FormattedMessage id="global.hobbies" defaultMessage="Hobbies" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item itemKey="12">
-        <Accordion.Header>
-          <FormattedMessage id="global.languages" defaultMessage="Idiomas" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item itemKey="13">
-        <Accordion.Header>
-          <FormattedMessage id="global.references" defaultMessage="Referências" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
     </Accordion>
   </Container>
 );

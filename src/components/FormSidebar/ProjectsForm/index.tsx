@@ -56,6 +56,12 @@ const ProjectsForm: React.FC = () => {
     });
   }, [projects]);
 
+  const closeModal = () => {
+    setShowModal(false);
+    setCurrentId('');
+    reset();
+  };
+
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
       const updatedProjects = projects.map((project) => {
@@ -69,8 +75,8 @@ const ProjectsForm: React.FC = () => {
     } else {
       setProjects([...projects, { id: uuid(), ...data }]);
     }
-    reset();
-    setShowModal(false);
+
+    closeModal();
   };
 
   const onEdit = (id: string) => {
@@ -84,11 +90,6 @@ const ProjectsForm: React.FC = () => {
       setValue('summary', project.summary);
       setShowModal(true);
     }
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    reset();
   };
 
   const handleDelete = (id: string) => {
@@ -109,7 +110,8 @@ const ProjectsForm: React.FC = () => {
       <Modal show={showModal} close onCloseModal={closeModal}>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Modal.Header>
-            <FormattedMessage id="global.projects" />
+            <FormattedMessage id={currentId ? 'global.update' : 'global.add'} />{' '}
+            <FormattedMessage id="global.project" />
           </Modal.Header>
           <Modal.Content>
             <Input
