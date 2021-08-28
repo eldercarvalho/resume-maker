@@ -25,7 +25,7 @@ export const AccordionContent: React.FC<AccordionContentProps> = ({ children }) 
       if (heightRef.current !== 0) {
         setHeight(isOpened ? `${heightRef.current}px` : '0');
       }
-    }, 5);
+    }, 1);
   }, [isOpened]);
 
   const handleTransitionEnd = () => {

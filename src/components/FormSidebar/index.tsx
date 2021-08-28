@@ -1,4 +1,6 @@
 import { FormattedMessage } from 'react-intl';
+import { v4 as uuid } from 'uuid';
+
 import Accordion from '../base/Accordion';
 import AddressForm from './AddressForm';
 import ContactForm from './ContactForm';
@@ -6,45 +8,68 @@ import HeadingForm from './HeadingForm';
 import ObjectiveForm from './ObjectiveForm';
 import SocialNetworksForm from './SocialNetworksForm';
 import WorkExperienceForm from './WorkExperienceForm';
+import EducationForm from './EducationForm';
 
 import { Container, Logo } from './style';
+import ProjectsForm from './ProjectsForm';
+import AwardsForm from './AwardsForm';
+
+const firstId = uuid();
 
 const accordionItems = [
   {
-    key: '0',
+    id: firstId,
     messageId: 'global.heading',
     content: <HeadingForm />,
     values: {},
   },
   {
-    key: '1',
+    id: uuid(),
     messageId: 'global.address',
     values: {},
     content: <AddressForm />,
   },
   {
-    key: '2',
+    id: uuid(),
     messageId: 'global.contact',
     values: {},
     content: <ContactForm />,
   },
   {
-    key: '3',
+    id: uuid(),
     messageId: 'global.socialNetwork',
     values: { social: 2 },
     content: <SocialNetworksForm />,
   },
   {
-    key: '4',
+    id: uuid(),
     messageId: 'global.objective',
     values: {},
     content: <ObjectiveForm />,
   },
   {
-    key: '5',
+    id: uuid(),
     messageId: 'global.experience',
     values: {},
     content: <WorkExperienceForm />,
+  },
+  {
+    id: uuid(),
+    messageId: 'global.education',
+    values: {},
+    content: <EducationForm />,
+  },
+  {
+    id: uuid(),
+    messageId: 'global.projects',
+    values: {},
+    content: <ProjectsForm />,
+  },
+  {
+    id: uuid(),
+    messageId: 'global.awards',
+    values: {},
+    content: <AwardsForm />,
   },
 ];
 
@@ -54,9 +79,9 @@ const FormSidebar: React.FC = () => (
       <strong>R</strong>esume <strong>M</strong>aker
     </Logo>
 
-    <Accordion defaultItemKey="0">
+    <Accordion defaultItemKey={firstId}>
       {accordionItems.map((item) => (
-        <Accordion.Item key={item.key} itemKey={item.key}>
+        <Accordion.Item key={item.id} itemKey={item.id}>
           <Accordion.Header>
             <FormattedMessage id={item.messageId} values={item.values} />
           </Accordion.Header>
@@ -64,24 +89,6 @@ const FormSidebar: React.FC = () => (
         </Accordion.Item>
       ))}
 
-      <Accordion.Item itemKey="6">
-        <Accordion.Header>
-          <FormattedMessage id="global.education" defaultMessage="Formação" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item itemKey="7">
-        <Accordion.Header>
-          <FormattedMessage id="global.projects" defaultMessage="Projetos" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item itemKey="8">
-        <Accordion.Header>
-          <FormattedMessage id="global.awards" defaultMessage="Prêmios" />
-        </Accordion.Header>
-        <Accordion.Content>In progress</Accordion.Content>
-      </Accordion.Item>
       <Accordion.Item itemKey="9">
         <Accordion.Header>
           <FormattedMessage id="global.certifications" defaultMessage="Certificações" />

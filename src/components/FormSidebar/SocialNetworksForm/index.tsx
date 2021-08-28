@@ -13,9 +13,9 @@ import { Grid } from '@/style/global';
 import CrudList from '../CrudList';
 
 const schema = yup.object().shape({
-  name: yup.string().required('O usuário é obrigatório'),
-  username: yup.string().required('A senha é obrigatória'),
-  url: yup.string().required('A senha é obrigatória'),
+  name: yup.string().required('Campo obrigatório'),
+  username: yup.string().required('Campo obrigatório'),
+  url: yup.string().required('Campo obrigatório'),
 });
 
 type FormData = {

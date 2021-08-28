@@ -55,7 +55,7 @@ export const Container = styled.div<ContainerProps>`
       ${({ isErrored }) =>
       isErrored &&
       css`
-        color: ${({ theme }) => theme.colors.primary};
+        color: ${({ theme }) => theme.colors.error};
       `}
   }
 
@@ -85,7 +85,7 @@ export const Container = styled.div<ContainerProps>`
     ${({ isErrored }) =>
       isErrored &&
       css`
-        border-color: ${({ theme }) => theme.colors.primary};
+        border-color: ${({ theme }) => theme.colors.error};
       `}
 
     input {
