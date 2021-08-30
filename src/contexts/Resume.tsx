@@ -1,3 +1,4 @@
+import { generatefakeData } from '@/support/fakeData';
 import { useCallback, useContext, useState, createContext } from 'react';
 
 export interface SocialNetwork {
@@ -110,6 +111,7 @@ interface ResumeContextData {
 export const ResumeContext = createContext<ResumeContextData>({} as ResumeContextData);
 
 export const ResumeProvider: React.FC = ({ children }) => {
+  // const [state, setState] = useState(generatefakeData());
   const [state, setState] = useState({
     name: '',
     title: '',

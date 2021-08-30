@@ -14,7 +14,6 @@ import CrudList from '../CrudList';
 
 const schema = yup.object().shape({
   name: yup.string().required('Campo obrigatório'),
-  level: yup.string().required('Campo obrigatório'),
 });
 
 type FormData = {

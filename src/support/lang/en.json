@@ -3,7 +3,7 @@
   "global.update": "Update",
   "global.add.value": "Add {value}",
   "global.close": "Close",
-  "global.heading": "Heading",
+  "global.profile": "Profile",
   "global.address": "Address",
   "global.contact": "Contact",
   "global.socialNetwork": "{social, plural, one {Social Network} other {Social Networks} }",

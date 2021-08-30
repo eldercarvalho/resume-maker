@@ -24,7 +24,7 @@ const firstId = uuid();
 const accordionItems = [
   {
     id: firstId,
-    messageId: 'global.heading',
+    messageId: 'global.profile',
     content: <HeadingForm />,
     values: {},
   },
@@ -66,6 +66,24 @@ const accordionItems = [
   },
   {
     id: uuid(),
+    messageId: 'global.skills',
+    values: {},
+    content: <SkillsForm />,
+  },
+  {
+    id: uuid(),
+    messageId: 'global.languages',
+    values: {},
+    content: <LanguagesForm />,
+  },
+  {
+    id: uuid(),
+    messageId: 'global.certifications',
+    values: {},
+    content: <CertificationsForm />,
+  },
+  {
+    id: uuid(),
     messageId: 'global.projects',
     values: {},
     content: <ProjectsForm />,
@@ -78,27 +96,9 @@ const accordionItems = [
   },
   {
     id: uuid(),
-    messageId: 'global.certifications',
-    values: {},
-    content: <CertificationsForm />,
-  },
-  {
-    id: uuid(),
-    messageId: 'global.skills',
-    values: {},
-    content: <SkillsForm />,
-  },
-  {
-    id: uuid(),
     messageId: 'global.hobbies',
     values: {},
     content: <HobbiesForm />,
-  },
-  {
-    id: uuid(),
-    messageId: 'global.languages',
-    values: {},
-    content: <LanguagesForm />,
   },
   {
     id: uuid(),

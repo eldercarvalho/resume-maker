@@ -16,7 +16,6 @@ import CrudList from '../CrudList';
 const schema = yup.object().shape({
   company: yup.string().required('Campo obrigatório'),
   position: yup.string().required('Campo obrigatório'),
-  website: yup.string().required('Campo obrigatório'),
   startDate: yup.string().required('Campo obrigatório'),
   endDate: yup.string().required('Campo obrigatório'),
 });
