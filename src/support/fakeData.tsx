@@ -38,19 +38,31 @@ export function generatefakeData(): ResumeData {
       .map(() => ({
         id: uuid(),
         institution: faker.company.companyName(),
-        fieldOfStudy: faker.lorem.word(),
+        fieldOfStudy: faker.name.jobArea(),
         gpa: '',
-        typeOfDegree: faker.lorem.word(),
+        typeOfDegree: faker.name.jobArea(),
         startDate: faker.date.past().toLocaleDateString(),
         endDate: faker.date.recent().toLocaleDateString(),
-        summary: faker.lorem.paragraph(),
+        summary: faker.lorem.sentence(),
+      })),
+    skills: Array(5)
+      .fill(null)
+      .map(() => ({
+        id: uuid(),
+        name: faker.database.column(),
+        level: '',
+      })),
+    languages: Array(2)
+      .fill(null)
+      .map(() => ({
+        id: uuid(),
+        name: faker.lorem.word(),
+        fluency: faker.lorem.word(),
       })),
     projects: [],
     awards: [],
     certifications: [],
-    skills: [],
     hobbies: [],
-    languages: [],
     references: [],
   };
 }

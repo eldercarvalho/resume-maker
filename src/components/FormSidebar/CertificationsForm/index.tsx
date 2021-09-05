@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Certification, useResume } from '@/contexts/Resume';
+import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -37,8 +37,7 @@ const AwardsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [certifications, setCertifications] = useState<Certification[]>([]);
-  const { state: contextState, updateState } = useResume();
+  const { state, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -47,32 +46,33 @@ const AwardsForm: React.FC = () => {
     },
   );
 
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      certifications,
-    });
-  }, [certifications]);
+  const closeModal = () => {
+    setShowModal(false);
+    setCurrentId('');
+    reset();
+  };
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = certifications.map((award) => {
+      const updatedItems = state.certifications.map((award) => {
         if (award.id === currentId) {
           return { id: award.id, ...data };
         }
         return award;
       });
-      setCertifications(updatedItems);
+      updateState({ ...state, certifications: updatedItems });
       setCurrentId('');
     } else {
-      setCertifications([...certifications, { id: uuid(), ...data }]);
+      updateState({
+        ...state,
+        certifications: [...state.certifications, { id: uuid(), ...data }],
+      });
     }
-    reset();
-    setShowModal(false);
+    closeModal();
   };
 
   const onEdit = (id: string) => {
-    const award = certifications.find((sn) => sn.id === id);
+    const award = state.certifications.find((certification) => certification.id === id);
     if (award) {
       setCurrentId(award.id);
       setValue('title', award.title);
@@ -83,19 +83,17 @@ const AwardsForm: React.FC = () => {
     }
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-    reset();
-  };
-
   const handleDelete = (id: string) => {
-    setCertifications(certifications.filter((project) => project.id !== id));
+    updateState({
+      ...state,
+      certifications: state.certifications.filter((certification) => certification.id !== id),
+    });
   };
 
   return (
     <>
       <CrudList
-        items={certifications}
+        items={state.certifications}
         propertyToShow="title"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

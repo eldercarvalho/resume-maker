@@ -75,7 +75,7 @@ export const Body = styled.div`
 
         svg {
           flex-shrink: 0;
-          margin-left: 3mm;
+          margin-left: 1.6rem;
           stroke: rgba(0, 0, 0, 0.4);
         }
       }

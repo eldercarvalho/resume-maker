@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Reference, useResume } from '@/contexts/Resume';
+import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -39,8 +39,7 @@ const ReferencesForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [references, setReference] = useState<Reference[]>([]);
-  const { state: contextState, updateState } = useResume();
+  const { state, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -48,13 +47,6 @@ const ReferencesForm: React.FC = () => {
       name: intl.formatMessage({ id: 'global.reference' }).toLowerCase(),
     },
   );
-
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      references,
-    });
-  }, [references]);
 
   const closeModal = () => {
     setShowModal(false);
@@ -64,22 +56,25 @@ const ReferencesForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = references.map((item) => {
+      const updatedItems = state.references.map((item) => {
         if (item.id === currentId) {
           return { id: item.id, ...data };
         }
         return item;
       });
-      setReference(updatedItems);
+      updateState({ ...state, references: updatedItems });
       setCurrentId('');
     } else {
-      setReference([...references, { id: uuid(), ...data }]);
+      updateState({
+        ...state,
+        references: [...state.references, { id: uuid(), ...data }],
+      });
     }
     closeModal();
   };
 
   const onEdit = (id: string) => {
-    const reference = references.find((sn) => sn.id === id);
+    const reference = state.references.find((item) => item.id === id);
     if (reference) {
       setCurrentId(reference.id);
       setValue('name', reference.name);
@@ -92,13 +87,16 @@ const ReferencesForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    setReference(references.filter((project) => project.id !== id));
+    updateState({
+      ...state,
+      references: state.references.filter((item) => item.id !== id),
+    });
   };
 
   return (
     <>
       <CrudList
-        items={references}
+        items={state.references}
         propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

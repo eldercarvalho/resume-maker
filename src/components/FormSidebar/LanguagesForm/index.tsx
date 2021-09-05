@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Language, useResume } from '@/contexts/Resume';
+import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -33,8 +33,7 @@ const LanguagesForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [languages, setLanguages] = useState<Language[]>([]);
-  const { state: contextState, updateState } = useResume();
+  const { state, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -42,13 +41,6 @@ const LanguagesForm: React.FC = () => {
       name: intl.formatMessage({ id: 'global.language' }).toLowerCase(),
     },
   );
-
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      languages,
-    });
-  }, [languages]);
 
   const closeModal = () => {
     setShowModal(false);
@@ -58,22 +50,25 @@ const LanguagesForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = languages.map((item) => {
+      const updatedItems = state.languages.map((item) => {
         if (item.id === currentId) {
           return { id: item.id, ...data };
         }
         return item;
       });
-      setLanguages(updatedItems);
+      updateState({ ...state, languages: updatedItems });
       setCurrentId('');
     } else {
-      setLanguages([...languages, { id: uuid(), ...data }]);
+      updateState({
+        ...state,
+        languages: [...state.languages, { id: uuid(), ...data }],
+      });
     }
     closeModal();
   };
 
   const onEdit = (id: string) => {
-    const language = languages.find((sn) => sn.id === id);
+    const language = state.languages.find((l) => l.id === id);
     if (language) {
       setCurrentId(language.id);
       setValue('name', language.name);
@@ -83,13 +78,16 @@ const LanguagesForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    setLanguages(languages.filter((project) => project.id !== id));
+    updateState({
+      ...state,
+      languages: state.languages.filter((language) => language.id !== id),
+    });
   };
 
   return (
     <>
       <CrudList
-        items={languages}
+        items={state.languages}
         propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Project, useResume } from '@/contexts/Resume';
+import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -39,8 +39,7 @@ const ProjectsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [projects, setProjects] = useState<Project[]>([]);
-  const { state: contextState, updateState } = useResume();
+  const { state, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -48,13 +47,6 @@ const ProjectsForm: React.FC = () => {
       name: intl.formatMessage({ id: 'global.project' }).toLowerCase(),
     },
   );
-
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      projects,
-    });
-  }, [projects]);
 
   const closeModal = () => {
     setShowModal(false);
@@ -64,23 +56,26 @@ const ProjectsForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedProjects = projects.map((project) => {
+      const updatedItems = state.projects.map((project) => {
         if (project.id === currentId) {
           return { id: project.id, ...data };
         }
         return project;
       });
-      setProjects(updatedProjects);
+      updateState({ ...state, projects: updatedItems });
       setCurrentId('');
     } else {
-      setProjects([...projects, { id: uuid(), ...data }]);
+      updateState({
+        ...state,
+        projects: [...state.projects, { id: uuid(), ...data }],
+      });
     }
 
     closeModal();
   };
 
   const onEdit = (id: string) => {
-    const project = projects.find((sn) => sn.id === id);
+    const project = state.projects.find((item) => item.id === id);
     if (project) {
       setCurrentId(project.id);
       setValue('title', project.title);
@@ -93,13 +88,16 @@ const ProjectsForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    setProjects(projects.filter((project) => project.id !== id));
+    updateState({
+      ...state,
+      projects: state.projects.filter((certification) => certification.id !== id),
+    });
   };
 
   return (
     <>
       <CrudList
-        items={projects}
+        items={state.projects}
         propertyToShow="title"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

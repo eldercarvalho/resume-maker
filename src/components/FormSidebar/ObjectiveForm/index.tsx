@@ -1,25 +1,15 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { useResume } from '@/contexts/Resume';
 import Textarea from '@/components/base/Textarea';
 
 const ObjectiveForm: React.FC = () => {
-  const [state, setState] = useState({
-    objective: '',
-  });
-  const { state: contextState, updateState } = useResume();
-
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      objectiveSummary: state.objective,
-    });
-  }, [state]);
+  const { state, updateState } = useResume();
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { name } = event.target;
     const { value } = event.target;
 
-    setState({
+    updateState({
       ...state,
       [name]: value,
     });
@@ -27,7 +17,7 @@ const ObjectiveForm: React.FC = () => {
 
   return (
     <>
-      <Textarea name="objective" value={state.objective} onChange={handleChange} />
+      <Textarea name="objectiveSummary" value={state.objectiveSummary} onChange={handleChange} />
     </>
   );
 };

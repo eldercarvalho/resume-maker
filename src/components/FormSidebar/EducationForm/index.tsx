@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Education, useResume } from '@/contexts/Resume';
+import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -42,8 +42,7 @@ const EducationForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [educations, setEducations] = useState<Education[]>([]);
-  const { state: contextState, updateState } = useResume();
+  const { state, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -52,32 +51,28 @@ const EducationForm: React.FC = () => {
     },
   );
 
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      education: educations,
-    });
-  }, [educations]);
-
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedEducation = educations.map((education) => {
+      const updatedEducation = state.education.map((education) => {
         if (education.id === currentId) {
           return { id: education.id, ...data };
         }
         return education;
       });
-      setEducations(updatedEducation);
+      updateState({ ...state, education: updatedEducation });
       setCurrentId('');
     } else {
-      setEducations([...educations, { id: uuid(), ...data }]);
+      updateState({
+        ...state,
+        education: [...state.education, { id: uuid(), ...data }],
+      });
     }
     reset();
     setShowModal(false);
   };
 
   const onEdit = (id: string) => {
-    const education = educations.find((sn) => sn.id === id);
+    const education = state.education.find((e) => e.id === id);
     if (education) {
       setCurrentId(education.id);
       setValue('institution', education.institution);
@@ -97,13 +92,16 @@ const EducationForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    setEducations(educations.filter((education) => education.id !== id));
+    updateState({
+      ...state,
+      education: state.education.filter((education) => education.id !== id),
+    });
   };
 
   return (
     <>
       <CrudList
-        items={educations}
+        items={state.education}
         propertyToShow="fieldOfStudy"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

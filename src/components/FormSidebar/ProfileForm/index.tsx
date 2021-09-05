@@ -1,31 +1,17 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { useIntl } from 'react-intl';
 import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 
-const HeadingForm: React.FC = () => {
+const ProfileForm: React.FC = () => {
   const intl = useIntl();
-  const [state, setState] = useState({
-    name: '',
-    title: '',
-    birthDate: '',
-  });
-  const { state: contextState, updateState } = useResume();
-
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      name: state.name,
-      title: state.title,
-      birthDate: state.birthDate,
-    });
-  }, [state]);
+  const { state, updateState } = useResume();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;
     const { value } = event.target;
 
-    setState({
+    updateState({
       ...state,
       [name]: value,
     });
@@ -58,4 +44,4 @@ const HeadingForm: React.FC = () => {
   );
 };
 
-export default HeadingForm;
+export default ProfileForm;

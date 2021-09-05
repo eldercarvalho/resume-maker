@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Award, useResume } from '@/contexts/Resume';
+import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -37,8 +37,7 @@ const AwardsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [awards, setAwards] = useState<Award[]>([]);
-  const { state: contextState, updateState } = useResume();
+  const { state, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -47,32 +46,28 @@ const AwardsForm: React.FC = () => {
     },
   );
 
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      awards,
-    });
-  }, [awards]);
-
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedAwards = awards.map((award) => {
+      const updatedAwards = state.awards.map((award) => {
         if (award.id === currentId) {
           return { id: award.id, ...data };
         }
         return award;
       });
-      setAwards(updatedAwards);
+      updateState({ ...state, awards: updatedAwards });
       setCurrentId('');
     } else {
-      setAwards([...awards, { id: uuid(), ...data }]);
+      updateState({
+        ...state,
+        awards: [...state.awards, { id: uuid(), ...data }],
+      });
     }
     reset();
     setShowModal(false);
   };
 
   const onEdit = (id: string) => {
-    const award = awards.find((sn) => sn.id === id);
+    const award = state.awards.find((sn) => sn.id === id);
     if (award) {
       setCurrentId(award.id);
       setValue('title', award.title);
@@ -89,13 +84,16 @@ const AwardsForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    setAwards(awards.filter((project) => project.id !== id));
+    updateState({
+      ...state,
+      awards: state.awards.filter((award) => award.id !== id),
+    });
   };
 
   return (
     <>
       <CrudList
-        items={awards}
+        items={state.awards}
         propertyToShow="title"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

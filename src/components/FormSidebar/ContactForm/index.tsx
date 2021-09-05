@@ -1,31 +1,17 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { useIntl } from 'react-intl';
 import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 
 const ContactForm: React.FC = () => {
   const intl = useIntl();
-  const [state, setState] = useState({
-    phoneNumber: '',
-    website: '',
-    email: '',
-  });
-  const { state: contextState, updateState } = useResume();
-
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      phoneNumber: state.phoneNumber,
-      website: state.website,
-      email: state.email,
-    });
-  }, [state]);
+  const { state, updateState } = useResume();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;
     const { value } = event.target;
 
-    setState({
+    updateState({
       ...state,
       [name]: value,
     });

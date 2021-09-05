@@ -94,7 +94,7 @@ const Default: React.FC = () => {
                   </li>
                 )}
                 {state.socialNetworks.map((network) => (
-                  <li>
+                  <li key={network.id}>
                     <a className="link" href={network.url} target="_blank" rel="noreferrer">
                       {network.name}
                     </a>
@@ -110,7 +110,7 @@ const Default: React.FC = () => {
                 <FormattedMessage id="global.education" />
               </Title>
               {state.education.map((education) => (
-                <ul>
+                <ul key={education.id}>
                   <li>
                     <strong>{education.institution}</strong>
                   </li>
@@ -134,7 +134,7 @@ const Default: React.FC = () => {
               </Title>
               <ul>
                 {state.skills.map((skill) => (
-                  <li>
+                  <li key={skill.id}>
                     {!!skill.level && (
                       <>
                         {skill.name} - {skill.level}
@@ -154,7 +154,7 @@ const Default: React.FC = () => {
               </Title>
               <ul>
                 {state.languages.map((language) => (
-                  <li>
+                  <li key={language.id}>
                     {language.name} - {language.fluency}
                   </li>
                 ))}
@@ -180,7 +180,7 @@ const Default: React.FC = () => {
               </Title>
 
               {state.workExperience.map((experience) => (
-                <Experience>
+                <Experience key={experience.id}>
                   <h2>{experience.position}</h2>
                   <div>
                     <span>{experience.company}</span>

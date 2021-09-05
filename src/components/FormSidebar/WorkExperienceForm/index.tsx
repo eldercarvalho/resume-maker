@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { useResume, WorkExperience } from '@/contexts/Resume';
+import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -40,8 +40,7 @@ const WorkExperienceForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [experiences, setExperiences] = useState<WorkExperience[]>([]);
-  const { state: contextState, updateState } = useResume();
+  const { state, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -50,32 +49,35 @@ const WorkExperienceForm: React.FC = () => {
     },
   );
 
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      workExperience: experiences,
-    });
-  }, [experiences]);
+  // useEffect(() => {
+  //   updateState({
+  //     ...contextState,
+  //     workExperience: experiences,
+  //   });
+  // }, [experiences]);
 
   const onSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedExperiences = experiences.map((experience) => {
+      const updatedExperiences = state.workExperience.map((experience) => {
         if (experience.id === currentId) {
           return { id: experience.id, ...data };
         }
         return experience;
       });
-      setExperiences(updatedExperiences);
+      updateState({ ...state, workExperience: updatedExperiences });
       setCurrentId('');
     } else {
-      setExperiences([...experiences, { id: uuid(), ...data }]);
+      updateState({
+        ...state,
+        workExperience: [...state.workExperience, { id: uuid(), ...data }],
+      });
     }
     reset();
     setShowModal(false);
   };
 
   const onEdit = (id: string) => {
-    const experience = experiences.find((sn) => sn.id === id);
+    const experience = state.workExperience.find((sn) => sn.id === id);
     if (experience) {
       setCurrentId(experience.id);
       setValue('company', experience.company);
@@ -94,13 +96,16 @@ const WorkExperienceForm: React.FC = () => {
   };
 
   const deleteNetwork = (id: string) => {
-    setExperiences(experiences.filter((experience) => experience.id !== id));
+    updateState({
+      ...state,
+      workExperience: state.workExperience.filter((experience) => experience.id !== id),
+    });
   };
 
   return (
     <>
       <CrudList
-        items={experiences}
+        items={state.workExperience}
         propertyToShow="company"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

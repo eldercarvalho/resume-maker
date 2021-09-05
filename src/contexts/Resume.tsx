@@ -111,29 +111,29 @@ interface ResumeContextData {
 export const ResumeContext = createContext<ResumeContextData>({} as ResumeContextData);
 
 export const ResumeProvider: React.FC = ({ children }) => {
-  // const [state, setState] = useState(generatefakeData());
-  const [state, setState] = useState({
-    name: '',
-    title: '',
-    birthDate: '',
-    address: '',
-    city: '',
-    zipCode: '',
-    phoneNumber: '',
-    website: '',
-    email: '',
-    socialNetworks: [],
-    objectiveSummary: '',
-    workExperience: [],
-    education: [],
-    projects: [],
-    awards: [],
-    certifications: [],
-    skills: [],
-    hobbies: [],
-    languages: [],
-    references: [],
-  } as ResumeData);
+  const [state, setState] = useState(generatefakeData());
+  // const [state, setState] = useState({
+  //   name: '',
+  //   title: '',
+  //   birthDate: '',
+  //   address: '',
+  //   city: '',
+  //   zipCode: '',
+  //   phoneNumber: '',
+  //   website: '',
+  //   email: '',
+  //   socialNetworks: [],
+  //   objectiveSummary: '',
+  //   workExperience: [],
+  //   education: [],
+  //   projects: [],
+  //   awards: [],
+  //   certifications: [],
+  //   skills: [],
+  //   hobbies: [],
+  //   languages: [],
+  //   references: [],
+  // } as ResumeData);
 
   const updateState = useCallback((stateParam: ResumeData) => {
     setState(stateParam);

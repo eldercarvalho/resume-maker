@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import Accordion from '../base/Accordion';
 import AddressForm from './AddressForm';
 import ContactForm from './ContactForm';
-import HeadingForm from './HeadingForm';
+import ProfileForm from './ProfileForm';
 import ObjectiveForm from './ObjectiveForm';
 import SocialNetworksForm from './SocialNetworksForm';
 import WorkExperienceForm from './WorkExperienceForm';
@@ -25,7 +25,7 @@ const accordionItems = [
   {
     id: firstId,
     messageId: 'global.profile',
-    content: <HeadingForm />,
+    content: <ProfileForm />,
     values: {},
   },
   {

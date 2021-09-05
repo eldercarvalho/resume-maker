@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { SocialNetwork, useResume } from '@/contexts/Resume';
+import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -35,8 +35,7 @@ const SocialNetworksForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [socialNetworks, setSocialNetworks] = useState<SocialNetwork[]>([]);
-  const { state: contextState, updateState } = useResume();
+  const { state, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -45,32 +44,28 @@ const SocialNetworksForm: React.FC = () => {
     },
   );
 
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      socialNetworks,
-    });
-  }, [socialNetworks]);
-
   const onSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedNetworks = socialNetworks.map((network) => {
+      const updatedNetworks = state.socialNetworks.map((network) => {
         if (network.id === currentId) {
           return { id: network.id, ...data };
         }
         return network;
       });
-      setSocialNetworks(updatedNetworks);
+      updateState({ ...state, socialNetworks: updatedNetworks });
       setCurrentId('');
     } else {
-      setSocialNetworks([...socialNetworks, { id: uuid(), ...data }]);
+      updateState({
+        ...state,
+        socialNetworks: [...state.socialNetworks, { id: uuid(), ...data }],
+      });
     }
     reset();
     setShowModal(false);
   };
 
   const onEdit = (id: string) => {
-    const network = socialNetworks.find((sn) => sn.id === id);
+    const network = state.socialNetworks.find((sn) => sn.id === id);
     if (network) {
       setCurrentId(network.id);
       setValue('name', network.name);
@@ -86,13 +81,16 @@ const SocialNetworksForm: React.FC = () => {
   };
 
   const deleteNetwork = (id: string) => {
-    setSocialNetworks(socialNetworks.filter((network) => network.id !== id));
+    updateState({
+      ...state,
+      socialNetworks: state.socialNetworks.filter((network) => network.id !== id),
+    });
   };
 
   return (
     <>
       <CrudList
-        items={socialNetworks}
+        items={state.socialNetworks}
         propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

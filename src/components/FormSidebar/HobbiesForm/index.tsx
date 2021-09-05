@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Hobbie, useResume } from '@/contexts/Resume';
+import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -30,8 +30,7 @@ const HobbiesForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [hobbies, setHobbies] = useState<Hobbie[]>([]);
-  const { state: contextState, updateState } = useResume();
+  const { state, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -39,13 +38,6 @@ const HobbiesForm: React.FC = () => {
       name: intl.formatMessage({ id: 'global.hobbie' }).toLowerCase(),
     },
   );
-
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      hobbies,
-    });
-  }, [hobbies]);
 
   const closeModal = () => {
     setShowModal(false);
@@ -55,22 +47,25 @@ const HobbiesForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = hobbies.map((item) => {
+      const updatedItems = state.hobbies.map((item) => {
         if (item.id === currentId) {
           return { id: item.id, ...data };
         }
         return item;
       });
-      setHobbies(updatedItems);
+      updateState({ ...state, hobbies: updatedItems });
       setCurrentId('');
     } else {
-      setHobbies([...hobbies, { id: uuid(), ...data }]);
+      updateState({
+        ...state,
+        hobbies: [...state.hobbies, { id: uuid(), ...data }],
+      });
     }
     closeModal();
   };
 
   const onEdit = (id: string) => {
-    const award = hobbies.find((sn) => sn.id === id);
+    const award = state.hobbies.find((hobbie) => hobbie.id === id);
     if (award) {
       setCurrentId(award.id);
       setValue('name', award.name);
@@ -79,13 +74,16 @@ const HobbiesForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    setHobbies(hobbies.filter((project) => project.id !== id));
+    updateState({
+      ...state,
+      certifications: state.certifications.filter((certification) => certification.id !== id),
+    });
   };
 
   return (
     <>
       <CrudList
-        items={hobbies}
+        items={state.hobbies}
         propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

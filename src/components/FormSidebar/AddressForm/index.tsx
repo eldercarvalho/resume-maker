@@ -1,6 +1,5 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { useIntl } from 'react-intl';
-
 import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 
@@ -8,27 +7,13 @@ import { Grid } from '@/style/global';
 
 const AddressForm: React.FC = () => {
   const intl = useIntl();
-  const [state, setState] = useState({
-    address: '',
-    city: '',
-    zipCode: '',
-  });
-  const { state: contextState, updateState } = useResume();
-
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      address: state.address,
-      city: state.city,
-      zipCode: state.zipCode,
-    });
-  }, [state]);
+  const { state, updateState } = useResume();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;
     const { value } = event.target;
 
-    setState({
+    updateState({
       ...state,
       [name]: value,
     });

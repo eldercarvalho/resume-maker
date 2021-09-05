@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { v4 as uuid } from 'uuid';
 
-import { Skill, useResume } from '@/contexts/Resume';
+import { useResume } from '@/contexts/Resume';
 import Input from '@/components/base/Input';
 import Modal from '@/components/base/Modal';
 import Button from '@/components/base/Button';
@@ -32,8 +32,7 @@ const SkillsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const { state: contextState, updateState } = useResume();
+  const { state, updateState } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -42,32 +41,28 @@ const SkillsForm: React.FC = () => {
     },
   );
 
-  useEffect(() => {
-    updateState({
-      ...contextState,
-      skills,
-    });
-  }, [skills]);
-
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = skills.map((skill) => {
+      const updatedItems = state.skills.map((skill) => {
         if (skill.id === currentId) {
           return { id: skill.id, ...data };
         }
         return skill;
       });
-      setSkills(updatedItems);
+      updateState({ ...state, skills: updatedItems });
       setCurrentId('');
     } else {
-      setSkills([...skills, { id: uuid(), ...data }]);
+      updateState({
+        ...state,
+        skills: [...state.skills, { id: uuid(), ...data }],
+      });
     }
     reset();
     setShowModal(false);
   };
 
   const onEdit = (id: string) => {
-    const award = skills.find((sn) => sn.id === id);
+    const award = state.skills.find((sn) => sn.id === id);
     if (award) {
       setCurrentId(award.id);
       setValue('name', award.name);
@@ -82,13 +77,16 @@ const SkillsForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    setSkills(skills.filter((project) => project.id !== id));
+    updateState({
+      ...state,
+      skills: state.skills.filter((skill) => skill.id !== id),
+    });
   };
 
   return (
     <>
       <CrudList
-        items={skills}
+        items={state.skills}
         propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}
