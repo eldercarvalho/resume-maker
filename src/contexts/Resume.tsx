@@ -1,5 +1,5 @@
-import { generatefakeData } from '@/support/fakeData';
-import { useCallback, useContext, useState, createContext } from 'react';
+import { generateResumeData } from '@/support/generateResumeData';
+import { useCallback, useContext, useState, createContext, useEffect } from 'react';
 
 export interface SocialNetwork {
   id: string;
@@ -81,6 +81,8 @@ export interface Reference {
 }
 
 export interface ResumeData {
+  id: string;
+  isActive: boolean;
   name: string;
   title: string;
   birthDate: string;
@@ -110,30 +112,45 @@ interface ResumeContextData {
 
 export const ResumeContext = createContext<ResumeContextData>({} as ResumeContextData);
 
+const emptyResume = generateResumeData('empty');
+
 export const ResumeProvider: React.FC = ({ children }) => {
-  const [state, setState] = useState(generatefakeData());
-  // const [state, setState] = useState({
-  //   name: '',
-  //   title: '',
-  //   birthDate: '',
-  //   address: '',
-  //   city: '',
-  //   zipCode: '',
-  //   phoneNumber: '',
-  //   website: '',
-  //   email: '',
-  //   socialNetworks: [],
-  //   objectiveSummary: '',
-  //   workExperience: [],
-  //   education: [],
-  //   projects: [],
-  //   awards: [],
-  //   certifications: [],
-  //   skills: [],
-  //   hobbies: [],
-  //   languages: [],
-  //   references: [],
-  // } as ResumeData);
+  const [resumes, setResumes] = useState(() => {
+    const savedResumesString = localStorage.getItem('@ResumeMaker:resumes');
+
+    if (savedResumesString) {
+      return JSON.parse(savedResumesString) as ResumeData[];
+    }
+
+    return [emptyResume];
+  });
+  const [state, setState] = useState(() => {
+    const savedResumesString = localStorage.getItem('@ResumeMaker:resumes');
+
+    if (savedResumesString) {
+      const savedResumes = JSON.parse(savedResumesString) as ResumeData[];
+      return savedResumes.find((resume) => resume.isActive) || emptyResume;
+    }
+
+    return emptyResume;
+  });
+
+  useEffect(() => {
+    setResumes(
+      resumes.map((resume) => {
+        if (resume.id === state.id) {
+          state.isActive = true;
+          return state;
+        }
+        resume.isActive = false;
+        return resume;
+      }),
+    );
+  }, [state]);
+
+  useEffect(() => {
+    localStorage.setItem('@ResumeMaker:resumes', JSON.stringify(resumes));
+  }, [resumes]);
 
   const updateState = useCallback((stateParam: ResumeData) => {
     setState(stateParam);
