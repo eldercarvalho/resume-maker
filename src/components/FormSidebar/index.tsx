@@ -11,13 +11,13 @@ import WorkExperienceForm from './WorkExperienceForm';
 import EducationForm from './EducationForm';
 
 import { Container, Logo } from './style';
-import ProjectsForm from './ProjectsForm';
-import AwardsForm from './AwardsForm';
+// import ProjectsForm from './ProjectsForm';
+// import AwardsForm from './AwardsForm';
 import CertificationsForm from './CertificationsForm';
 import SkillsForm from './SkillsForm';
-import HobbiesForm from './HobbiesForm';
+// import HobbiesForm from './HobbiesForm';
 import LanguagesForm from './LanguagesForm';
-import ReferencesForm from './ReferencesForm';
+// import ReferencesForm from './ReferencesForm';
 
 const firstId = uuid();
 
@@ -82,30 +82,30 @@ const accordionItems = [
     values: {},
     content: <CertificationsForm />,
   },
-  {
-    id: uuid(),
-    messageId: 'global.projects',
-    values: {},
-    content: <ProjectsForm />,
-  },
-  {
-    id: uuid(),
-    messageId: 'global.awards',
-    values: {},
-    content: <AwardsForm />,
-  },
-  {
-    id: uuid(),
-    messageId: 'global.hobbies',
-    values: {},
-    content: <HobbiesForm />,
-  },
-  {
-    id: uuid(),
-    messageId: 'global.references',
-    values: {},
-    content: <ReferencesForm />,
-  },
+  // {
+  //   id: uuid(),
+  //   messageId: 'global.projects',
+  //   values: {},
+  //   content: <ProjectsForm />,
+  // },
+  // {
+  //   id: uuid(),
+  //   messageId: 'global.awards',
+  //   values: {},
+  //   content: <AwardsForm />,
+  // },
+  // {
+  //   id: uuid(),
+  //   messageId: 'global.hobbies',
+  //   values: {},
+  //   content: <HobbiesForm />,
+  // },
+  // {
+  //   id: uuid(),
+  //   messageId: 'global.references',
+  //   values: {},
+  //   content: <ReferencesForm />,
+  // },
 ];
 
 const FormSidebar: React.FC = () => (
