@@ -1,5 +1,6 @@
-import { useResume } from '@/contexts/Resume';
 import { ReactElement } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { useResume } from '@/contexts/Resume';
 import {
   FiChevronLeft,
   FiFacebook,
@@ -16,7 +17,7 @@ import {
 import { IconType } from 'react-icons/lib';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Sheet, Header, Body, Title, Section, Experience } from './styles';
+import { Sheet, Header, Body, Title, Section, Experience, SummaryContent } from './styles';
 
 const networksIcons: Record<string, IconType> = {
   facebook: FiFacebook,
@@ -184,7 +185,11 @@ const Default: React.FC = () => {
               <Title>
                 <FormattedMessage id="global.objective" />
               </Title>
-              <p>{state.objectiveSummary}</p>
+              {state.objectiveSummary && (
+                <SummaryContent>
+                  <ReactMarkdown>{state.objectiveSummary}</ReactMarkdown>
+                </SummaryContent>
+              )}
             </Section>
           )}
 
@@ -197,7 +202,7 @@ const Default: React.FC = () => {
               {state.workExperience.map((experience) => (
                 <Experience key={experience.id}>
                   <h2>{experience.position}</h2>
-                  <div>
+                  <div className="details">
                     <span>{experience.company}</span>
                     <span>
                       {adjustDate(experience.startDate)} -{' '}
@@ -215,7 +220,11 @@ const Default: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <p>{experience.summary}</p>
+                  {experience.summary && (
+                    <SummaryContent>
+                      <ReactMarkdown>{experience.summary}</ReactMarkdown>
+                    </SummaryContent>
+                  )}
                 </Experience>
               ))}
             </Section>

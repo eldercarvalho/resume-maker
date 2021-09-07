@@ -107,7 +107,7 @@ export const Experience = styled.div`
     margin-bottom: 1mm;
   }
 
-  div {
+  .details {
     font-size: 1.4rem;
     margin-bottom: 1mm;
     display: flex;
@@ -122,6 +122,17 @@ export const Experience = styled.div`
           margin-right: 2mm;
         }
       }
+    }
+  }
+`;
+
+export const SummaryContent = styled.div`
+  ul {
+    padding-left: 2rem;
+
+    li {
+      font-size: 1.3rem;
+      padding: 0.2rem 0;
     }
   }
 `;
