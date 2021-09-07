@@ -6,7 +6,9 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "i18n:extract": "node cli/translation.js extract",
+    "i18n:import": "node cli/translation.js import"
   },
   "dependencies": {
     "@craco/craco": "^6.2.0",
@@ -18,7 +20,6 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "date-fns": "^2.23.0",
     "faker": "^5.5.3",
     "html2pdf.js": "^0.9.3",
     "polished": "^4.1.3",
@@ -37,12 +38,14 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@formatjs/cli": "^4.2.33",
     "@types/faker": "^5.5.8",
     "@types/react-router-dom": "^5.1.8",
     "@types/styled-components": "^5.1.11",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
     "craco-alias": "^3.0.1",
+    "csv-parser": "^3.0.0",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -52,6 +55,8 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "7.21.5",
     "eslint-plugin-react-hooks": "4",
+    "lodash": "^4.17.21",
+    "objects-to-csv": "^1.3.6",
     "prettier": "^2.3.2"
   },
   "eslintConfig": {
