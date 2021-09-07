@@ -14,7 +14,7 @@ import {
   FiYoutube,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons/lib';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Sheet, Header, Body, Title, Section, Experience } from './styles';
 
@@ -39,6 +39,7 @@ const renderNetworkIcon = (network: string): ReactElement => {
 };
 
 const Default: React.FC = () => {
+  const intl = useIntl();
   const { state } = useResume();
   const hasContactSection =
     !!state.address ||
@@ -46,6 +47,15 @@ const Default: React.FC = () => {
     !!state.zipCode ||
     !!state.website ||
     state.socialNetworks.length > 0;
+
+  const adjustDate = (date: string): string => {
+    const formattedDate = intl.formatDate(new Date(date), {
+      month: 'short',
+      year: 'numeric',
+    });
+    const ajustedDate = formattedDate.replace(/ de /, ' ');
+    return ajustedDate.charAt(0).toUpperCase() + ajustedDate.slice(1);
+  };
 
   return (
     <Sheet className="sheet">
@@ -112,14 +122,19 @@ const Default: React.FC = () => {
               {state.education.map((education) => (
                 <ul key={education.id}>
                   <li>
-                    <strong>{education.institution}</strong>
+                    <strong>{education.typeOfDegree}</strong>
                   </li>
                   <li>
                     <strong>{education.fieldOfStudy}</strong>
                   </li>
-                  <li>{education.typeOfDegree}</li>
+                  <li>{education.institution}</li>
                   <li>
-                    {education.startDate} - {education.endDate}
+                    {adjustDate(education.startDate)} -{' '}
+                    {education.endDate ? (
+                      adjustDate(education.endDate)
+                    ) : (
+                      <FormattedMessage id="global.present" />
+                    )}
                   </li>
                   {education.summary && <li>{education.summary}</li>}
                 </ul>
@@ -185,7 +200,12 @@ const Default: React.FC = () => {
                   <div>
                     <span>{experience.company}</span>
                     <span>
-                      {experience.startDate} - {experience.endDate}
+                      {adjustDate(experience.startDate)} -{' '}
+                      {experience.endDate ? (
+                        adjustDate(experience.endDate)
+                      ) : (
+                        <FormattedMessage id="global.present" />
+                      )}
                     </span>
                     {experience.website && (
                       <span>

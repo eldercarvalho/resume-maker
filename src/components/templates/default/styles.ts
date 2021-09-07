@@ -41,7 +41,7 @@ export const Title = styled.h2`
 
 export const Body = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1.2fr 2fr;
   padding: 0 5mm;
 
   a {
@@ -109,11 +109,11 @@ export const Experience = styled.div`
     display: flex;
 
     span {
-      display: block;
+      display: flex;
 
       & + span {
         &::before {
-          content: '|';
+          content: '•';
           margin-left: 2mm;
           margin-right: 2mm;
         }

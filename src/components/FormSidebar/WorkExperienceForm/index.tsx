@@ -17,7 +17,6 @@ const schema = yup.object().shape({
   company: yup.string().required('Campo obrigatório'),
   position: yup.string().required('Campo obrigatório'),
   startDate: yup.string().required('Campo obrigatório'),
-  endDate: yup.string().required('Campo obrigatório'),
 });
 
 type FormData = {
@@ -48,13 +47,6 @@ const WorkExperienceForm: React.FC = () => {
       name: intl.formatMessage({ id: 'global.experience' }).toLowerCase(),
     },
   );
-
-  // useEffect(() => {
-  //   updateState({
-  //     ...contextState,
-  //     workExperience: experiences,
-  //   });
-  // }, [experiences]);
 
   const onSubmit = (data: FormData) => {
     if (currentId) {
