@@ -30,7 +30,7 @@ export const Header = styled.header`
   }
 
   @media print {
-    padding: 7.9mm 13.2mm;
+    padding: 10mm 13.2mm;
   }
 `;
 
@@ -59,7 +59,7 @@ export const Body = styled.div`
   }
 
   > aside {
-    border-right: 0.7mm solid #ffa500;
+    border-right: 0.2rem solid #ffa500;
     text-align: right;
     padding-right: 6mm;
 
@@ -79,6 +79,10 @@ export const Body = styled.div`
           stroke: rgba(0, 0, 0, 0.4);
         }
       }
+    }
+
+    @media print {
+      border-right-width: 0.3mm;
     }
   }
 
