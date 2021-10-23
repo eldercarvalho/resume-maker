@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Sheet = styled.div`
+  display: flex;
+  flex-direction: column;
   margin: 3rem auto;
   background: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -40,9 +42,11 @@ export const Title = styled.h2`
 `;
 
 export const Body = styled.div`
+  flex: 1;
   display: grid;
   grid-template-columns: 1.2fr 2fr;
-  padding: 0 5mm;
+  align-content: stretch;
+  padding: 0 5mm 5mm;
 
   a {
     text-decoration: none;
@@ -65,6 +69,10 @@ export const Body = styled.div`
 
     ul {
       list-style: none;
+
+      & + ul {
+        margin-top: 1.2rem;
+      }
 
       li {
         display: flex;
