@@ -18,7 +18,6 @@ const schema = yup.object().shape({
   fieldOfStudy: yup.string().required('Campo obrigatório'),
   typeOfDegree: yup.string().required('Campo obrigatório'),
   startDate: yup.string().required('Campo obrigatório'),
-  endDate: yup.string().required('Campo obrigatório'),
 });
 
 type FormData = {
