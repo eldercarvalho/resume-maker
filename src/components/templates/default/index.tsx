@@ -189,7 +189,7 @@ const Default: React.FC = () => {
                     <strong>{certification.title}</strong>
                   </li>
                   <li>
-                    {certification.issuer} - {certification.date}
+                    {certification.issuer} - {adjustDate(certification.date)}
                   </li>
                 </ul>
               ))}
