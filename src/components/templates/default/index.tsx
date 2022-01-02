@@ -177,6 +177,24 @@ const Default: React.FC = () => {
               </ul>
             </Section>
           )}
+
+          {state.certifications.length > 0 && (
+            <Section>
+              <Title>
+                <FormattedMessage id="global.certifications" />
+              </Title>
+              {state.certifications.map((certification) => (
+                <ul>
+                  <li key={certification.id}>
+                    <strong>{certification.title}</strong>
+                  </li>
+                  <li>
+                    {certification.issuer} - {certification.date}
+                  </li>
+                </ul>
+              ))}
+            </Section>
+          )}
         </aside>
 
         <div>
