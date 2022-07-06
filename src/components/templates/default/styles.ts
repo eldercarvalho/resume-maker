@@ -7,7 +7,7 @@ export const Sheet = styled.div`
   background: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 21cm;
-  height: 29.7cm;
+  min-height: 29.7cm;
   color: #44474a;
 
   @media print {
@@ -20,7 +20,7 @@ export const Sheet = styled.div`
 
 export const Header = styled.header`
   background: #fff;
-  padding: 4.2rem 0 5rem;
+  padding: 4.2rem 0;
   text-align: center;
 
   h1 {
