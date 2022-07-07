@@ -1,32 +1,21 @@
 import { ReactElement } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { useResume } from '@/contexts/Resume';
-import {
-  FiChevronLeft,
-  FiFacebook,
-  FiGithub,
-  FiGlobe,
-  FiInstagram,
-  FiLinkedin,
-  FiMail,
-  FiMapPin,
-  FiPhone,
-  FiTwitter,
-  FiYoutube,
-} from 'react-icons/fi';
+import * as Icons from 'react-icons/fi';
 import { IconType } from 'react-icons/lib';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useResume } from '@/contexts/Resume';
 
 import { Sheet, Header, Body, Title, Section, Experience, SummaryContent } from './styles';
 
 const networksIcons: Record<string, IconType> = {
-  facebook: FiFacebook,
-  instagram: FiInstagram,
-  twitter: FiTwitter,
-  github: FiGithub,
-  linkedin: FiLinkedin,
-  youtube: FiYoutube,
-  other: FiChevronLeft,
+  facebook: Icons.FiFacebook,
+  instagram: Icons.FiInstagram,
+  twitter: Icons.FiTwitter,
+  github: Icons.FiGithub,
+  linkedin: Icons.FiLinkedin,
+  youtube: Icons.FiYoutube,
+  dribbble: Icons.FiDribbble,
+  other: Icons.FiChevronLeft,
 };
 
 const renderNetworkIcon = (network: string): ReactElement => {
@@ -77,7 +66,7 @@ const Default: React.FC = () => {
               <ul>
                 {(!!state.address || !!state.city) && (
                   <li>
-                    {state.address} {state.city} {state.zipCode} <FiMapPin size={16} />
+                    {state.address} {state.city} {state.zipCode} <Icons.FiMapPin size={16} />
                   </li>
                 )}
                 {state.phoneNumber && (
@@ -85,7 +74,7 @@ const Default: React.FC = () => {
                     <a href={`tel:${state.phoneNumber}`} target="_blank" rel="noreferrer">
                       {state.phoneNumber}
                     </a>
-                    <FiPhone size={16} />
+                    <Icons.FiPhone size={16} />
                   </li>
                 )}
                 {state.email && (
@@ -93,7 +82,7 @@ const Default: React.FC = () => {
                     <a href={`mailto:${state.email}`} target="_blank" rel="noreferrer">
                       {state.email}
                     </a>
-                    <FiMail size={16} />
+                    <Icons.FiMail size={16} />
                   </li>
                 )}
                 {state.website && (
@@ -101,7 +90,7 @@ const Default: React.FC = () => {
                     <a href={state.website} target="_blank" rel="noreferrer">
                       {state.website}
                     </a>
-                    <FiGlobe size={16} />
+                    <Icons.FiGlobe size={16} />
                   </li>
                 )}
                 {state.socialNetworks.map((network) => (
@@ -233,7 +222,7 @@ const Default: React.FC = () => {
                     {experience.website && (
                       <span>
                         <a href={experience.website} target="_blank" rel="noreferrer">
-                          <FiGlobe size={16} />
+                          <Icons.FiGlobe size={16} />
                         </a>
                       </span>
                     )}
