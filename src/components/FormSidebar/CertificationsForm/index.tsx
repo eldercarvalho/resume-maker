@@ -90,6 +90,16 @@ const AwardsForm: React.FC = () => {
     });
   };
 
+  const handleDrag = (index: number, newIndex: number) => {
+    const { certifications } = state;
+    const item = certifications.splice(index, 1)[0];
+    certifications.splice(newIndex, 0, item);
+    updateState({
+      ...state,
+      certifications,
+    });
+  };
+
   return (
     <>
       <CrudList
@@ -99,6 +109,7 @@ const AwardsForm: React.FC = () => {
         onAdd={() => setShowModal(true)}
         onEdit={onEdit}
         onDelete={handleDelete}
+        onDrag={handleDrag}
       />
 
       <Modal show={showModal} close onCloseModal={closeModal}>
