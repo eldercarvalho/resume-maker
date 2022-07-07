@@ -94,6 +94,16 @@ const WorkExperienceForm: React.FC = () => {
     });
   };
 
+  const handleDrag = (index: number, newIndex: number) => {
+    const { workExperience } = state;
+    const item = workExperience.splice(index, 1)[0];
+    workExperience.splice(newIndex, 0, item);
+    updateState({
+      ...state,
+      workExperience,
+    });
+  };
+
   return (
     <>
       <CrudList
@@ -103,6 +113,7 @@ const WorkExperienceForm: React.FC = () => {
         onAdd={() => setShowModal(true)}
         onEdit={onEdit}
         onDelete={deleteNetwork}
+        onDrag={handleDrag}
       />
 
       <Modal show={showModal} close onCloseModal={closeModal}>

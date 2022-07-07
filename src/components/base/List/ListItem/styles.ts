@@ -1,6 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Container = styled.li`
+interface ContainerProps {
+  isDragging: boolean;
+  isDragOver: boolean;
+}
+
+export const Container = styled.li<ContainerProps>`
   display: flex;
   font-size: 1.4rem;
   color: ${(props) => props.theme.colors.text};
@@ -9,4 +14,16 @@ export const Container = styled.li`
   & + li {
     border-top: thin solid ${(props) => props.theme.colors.border};
   }
+
+  /* ${({ isDragging }) =>
+    isDragging &&
+    css`
+      opacity: 0.6;
+    `}
+
+  ${({ isDragOver }) =>
+    isDragOver &&
+    css`
+      opacity: 0;
+    `} */
 `;

@@ -84,6 +84,16 @@ const LanguagesForm: React.FC = () => {
     });
   };
 
+  const handleDrag = (index: number, newIndex: number) => {
+    const { languages } = state;
+    const item = languages.splice(index, 1)[0];
+    languages.splice(newIndex, 0, item);
+    updateState({
+      ...state,
+      languages,
+    });
+  };
+
   return (
     <>
       <CrudList
@@ -93,6 +103,7 @@ const LanguagesForm: React.FC = () => {
         onAdd={() => setShowModal(true)}
         onEdit={onEdit}
         onDelete={handleDelete}
+        onDrag={handleDrag}
       />
 
       <Modal show={showModal} close onCloseModal={closeModal}>

@@ -83,6 +83,16 @@ const SkillsForm: React.FC = () => {
     });
   };
 
+  const handleDrag = (index: number, newIndex: number) => {
+    const { skills } = state;
+    const item = skills.splice(index, 1)[0];
+    skills.splice(newIndex, 0, item);
+    updateState({
+      ...state,
+      skills,
+    });
+  };
+
   return (
     <>
       <CrudList
@@ -92,6 +102,7 @@ const SkillsForm: React.FC = () => {
         onAdd={() => setShowModal(true)}
         onEdit={onEdit}
         onDelete={handleDelete}
+        onDrag={handleDrag}
       />
 
       <Modal show={showModal} close onCloseModal={closeModal}>

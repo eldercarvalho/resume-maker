@@ -11,6 +11,7 @@ interface CrudListProps {
   onAdd(): void;
   onEdit(id: string): void;
   onDelete(id: string): void;
+  onDrag?(index: number, newIndex: number): void;
 }
 
 const CrudList: React.FC<CrudListProps> = ({
@@ -20,24 +21,24 @@ const CrudList: React.FC<CrudListProps> = ({
   onAdd,
   onEdit,
   onDelete,
+  onDrag,
 }) => (
   <>
-    <List mb="2rem">
-      {items.length > 0 &&
-        items.map((item) => (
-          <List.Item key={item.id}>
-            <List.ItemContent>{item[propertyToShow]}</List.ItemContent>
+    <List mb="2rem" onDrag={onDrag}>
+      {items.map((item) => (
+        <List.Item key={item.id}>
+          <List.ItemContent>{item[propertyToShow]}</List.ItemContent>
 
-            <List.ItemAction>
-              <Button iconOnly textOnly reduced onClick={() => onEdit(item.id)}>
-                <FiEdit size={14} />
-              </Button>
-              <Button iconOnly textOnly reduced onClick={() => onDelete(item.id)}>
-                <FiTrash size={14} />
-              </Button>
-            </List.ItemAction>
-          </List.Item>
-        ))}
+          <List.ItemAction>
+            <Button iconOnly textOnly reduced onClick={() => onEdit(item.id)}>
+              <FiEdit size={14} />
+            </Button>
+            <Button iconOnly textOnly reduced onClick={() => onDelete(item.id)}>
+              <FiTrash size={14} />
+            </Button>
+          </List.ItemAction>
+        </List.Item>
+      ))}
 
       {items.length === 0 && (
         <List.Item>

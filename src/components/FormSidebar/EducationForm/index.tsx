@@ -97,6 +97,16 @@ const EducationForm: React.FC = () => {
     });
   };
 
+  const handleDrag = (index: number, newIndex: number) => {
+    const { education } = state;
+    const item = education.splice(index, 1)[0];
+    education.splice(newIndex, 0, item);
+    updateState({
+      ...state,
+      education,
+    });
+  };
+
   return (
     <>
       <CrudList
@@ -106,6 +116,7 @@ const EducationForm: React.FC = () => {
         onAdd={() => setShowModal(true)}
         onEdit={onEdit}
         onDelete={handleDelete}
+        onDrag={handleDrag}
       />
 
       <Modal show={showModal} close onCloseModal={closeModal}>

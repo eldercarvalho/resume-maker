@@ -87,6 +87,16 @@ const SocialNetworksForm: React.FC = () => {
     });
   };
 
+  const handleDrag = (index: number, newIndex: number) => {
+    const { socialNetworks } = state;
+    const item = socialNetworks.splice(index, 1)[0];
+    socialNetworks.splice(newIndex, 0, item);
+    updateState({
+      ...state,
+      socialNetworks,
+    });
+  };
+
   return (
     <>
       <CrudList
@@ -96,6 +106,7 @@ const SocialNetworksForm: React.FC = () => {
         onAdd={() => setShowModal(true)}
         onEdit={onEdit}
         onDelete={deleteNetwork}
+        onDrag={handleDrag}
       />
 
       <Modal show={showModal} close onCloseModal={closeModal}>
