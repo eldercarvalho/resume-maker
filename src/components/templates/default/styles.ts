@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 
+const sheetWidth = '21cm';
+const sheetHeight = '29.7cm';
+const defaultMargin = '10mm';
+
 export const Sheet = styled.div`
   display: flex;
   flex-direction: column;
   margin: 3rem auto;
+  padding: ${defaultMargin} 0;
   background: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 21cm;
-  min-height: 29.7cm;
+  width: ${sheetWidth};
+  min-height: ${sheetHeight};
   color: #44474a;
 
   @media print {
@@ -15,12 +20,13 @@ export const Sheet = styled.div`
     height: auto;
     box-shadow: none;
     margin: 0;
+    padding: 0;
   }
 `;
 
 export const Header = styled.header`
   background: #fff;
-  padding: 4.2rem 0;
+  margin-bottom: ${defaultMargin};
   text-align: center;
 
   h1 {
@@ -29,10 +35,6 @@ export const Header = styled.header`
 
   p {
     font-size: 1.6rem;
-  }
-
-  @media print {
-    padding: 10mm 13.2mm;
   }
 `;
 
@@ -131,6 +133,12 @@ export const Experience = styled.div`
         }
       }
     }
+  }
+
+  @media print {
+    /* break-before: page; */
+    /* break-inside: avoid-column; */
+    /* brea */
   }
 `;
 

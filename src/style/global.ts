@@ -29,7 +29,7 @@ export const GlobalStyle = createGlobalStyle`
   @media print {
     @page {
       size:  auto;
-      margin: 0mm;
+      margin: 10mm;
     }
   }
 `;

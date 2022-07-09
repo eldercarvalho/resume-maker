@@ -15,7 +15,8 @@ export const ListItem: React.FC<ListItemProps> = ({ children }) => {
       (node) => node === containerRef.current!,
     );
 
-  const handleDragStart = () => {
+  const handleDragStart = (e: DragEvent) => {
+    e.dataTransfer.effectAllowed = 'move';
     setIsDragging(true);
     setCurrentIndex(getItemIndex());
   };
