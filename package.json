@@ -39,6 +39,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@babel/plugin-transform-typescript": "^7.18.8",
     "@formatjs/cli": "^4.2.33",
     "@types/faker": "^5.5.8",
     "@types/react-router-dom": "^5.1.8",

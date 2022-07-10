@@ -5,7 +5,8 @@ import { IconType } from 'react-icons/lib';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useResume } from '@/contexts/Resume';
 
-import { Sheet, Header, Body, Title, Section, Experience, SummaryContent } from './styles';
+import { S } from './styles';
+import { Sheet } from '../Sheet';
 
 const networksIcons: Record<string, IconType> = {
   facebook: Icons.FiFacebook,
@@ -49,20 +50,20 @@ const Default: React.FC = () => {
 
   return (
     <Sheet className="sheet">
-      <Header>
+      <S.Header>
         <div className="title">
           {state.name && <h1>{state.name}</h1>}
           {state.title && <p>{state.title}</p>}
         </div>
-      </Header>
+      </S.Header>
 
-      <Body>
+      <S.Body>
         <aside>
           {hasContactSection && (
-            <Section>
-              <Title>
+            <S.Section>
+              <S.Title>
                 <FormattedMessage id="global.contact" />
-              </Title>
+              </S.Title>
               <ul>
                 {(!!state.address || !!state.city) && (
                   <li>
@@ -102,13 +103,13 @@ const Default: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </Section>
+            </S.Section>
           )}
           {state.education.length > 0 && (
-            <Section>
-              <Title>
+            <S.Section>
+              <S.Title>
                 <FormattedMessage id="global.education" />
-              </Title>
+              </S.Title>
               {state.education.map((education) => (
                 <ul key={education.id}>
                   <li>
@@ -129,14 +130,14 @@ const Default: React.FC = () => {
                   {education.summary && <li>{education.summary}</li>}
                 </ul>
               ))}
-            </Section>
+            </S.Section>
           )}
 
           {state.skills.length > 0 && (
-            <Section>
-              <Title>
+            <S.Section>
+              <S.Title>
                 <FormattedMessage id="global.skills" />
-              </Title>
+              </S.Title>
               <ul>
                 {state.skills.map((skill) => (
                   <li key={skill.id}>
@@ -149,14 +150,14 @@ const Default: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </Section>
+            </S.Section>
           )}
 
           {state.languages.length > 0 && (
-            <Section>
-              <Title>
+            <S.Section>
+              <S.Title>
                 <FormattedMessage id="global.languages" />
-              </Title>
+              </S.Title>
               <ul>
                 {state.languages.map((language) => (
                   <li key={language.id}>
@@ -164,14 +165,14 @@ const Default: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </Section>
+            </S.Section>
           )}
 
           {state.certifications.length > 0 && (
-            <Section>
-              <Title>
+            <S.Section>
+              <S.Title>
                 <FormattedMessage id="global.certifications" />
-              </Title>
+              </S.Title>
               {state.certifications.map((certification) => (
                 <ul>
                   <li key={certification.id}>
@@ -182,32 +183,32 @@ const Default: React.FC = () => {
                   </li>
                 </ul>
               ))}
-            </Section>
+            </S.Section>
           )}
         </aside>
 
         <div>
           {!!state.objectiveSummary && (
-            <Section>
-              <Title>
+            <S.Section>
+              <S.Title>
                 <FormattedMessage id="global.objective" />
-              </Title>
+              </S.Title>
               {state.objectiveSummary && (
-                <SummaryContent>
+                <S.SummaryContent>
                   <ReactMarkdown>{state.objectiveSummary}</ReactMarkdown>
-                </SummaryContent>
+                </S.SummaryContent>
               )}
-            </Section>
+            </S.Section>
           )}
 
           {state.workExperience.length > 0 && (
-            <Section>
-              <Title>
+            <S.Section>
+              <S.Title>
                 <FormattedMessage id="global.experience" />
-              </Title>
+              </S.Title>
 
               {state.workExperience.map((experience) => (
-                <Experience key={experience.id}>
+                <S.Experience key={experience.id}>
                   <h2>{experience.position}</h2>
                   <div className="details">
                     <span>{experience.company}</span>
@@ -222,22 +223,22 @@ const Default: React.FC = () => {
                     {experience.website && (
                       <span>
                         <a href={experience.website} target="_blank" rel="noreferrer">
-                          <Icons.FiGlobe size={16} />
+                          <Icons.FiExternalLink size={16} />
                         </a>
                       </span>
                     )}
                   </div>
                   {experience.summary && (
-                    <SummaryContent>
+                    <S.SummaryContent>
                       <ReactMarkdown>{experience.summary}</ReactMarkdown>
-                    </SummaryContent>
+                    </S.SummaryContent>
                   )}
-                </Experience>
+                </S.Experience>
               ))}
-            </Section>
+            </S.Section>
           )}
         </div>
-      </Body>
+      </S.Body>
     </Sheet>
   );
 };

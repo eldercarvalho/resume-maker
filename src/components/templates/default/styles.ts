@@ -1,154 +1,144 @@
 import styled from 'styled-components';
 
-const sheetWidth = '21cm';
-const sheetHeight = '29.7cm';
 const defaultMargin = '10mm';
+const textColor = '#44474a';
+const linkColor = '#56a8ff';
+const detailColor = '#ffa500';
+const h1FontSize = '2.6rem';
+const h2FontSize = '1.8rem';
+const bodyTextFontSize = '1.4rem';
 
-export const Sheet = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 3rem auto;
-  padding: ${defaultMargin} 0;
-  background: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: ${sheetWidth};
-  min-height: ${sheetHeight};
-  color: #44474a;
+export namespace S {
+  export const Header = styled.header`
+    background: #fff;
+    margin-bottom: ${defaultMargin};
+    text-align: center;
 
-  @media print {
-    width: 100%;
-    height: auto;
-    box-shadow: none;
-    margin: 0;
-    padding: 0;
-  }
-`;
+    h1 {
+      font-size: ${h1FontSize};
+    }
 
-export const Header = styled.header`
-  background: #fff;
-  margin-bottom: ${defaultMargin};
-  text-align: center;
+    p {
+      font-size: 1.6rem;
+    }
+  `;
 
-  h1 {
-    font-size: 2.6rem;
-  }
+  export const Title = styled.h2`
+    font-size: 2.2rem;
+    margin-bottom: 1.6mm;
+  `;
 
-  p {
-    font-size: 1.6rem;
-  }
-`;
+  export const Body = styled.div`
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    align-content: stretch;
+    padding: 0 5mm 5mm;
 
-export const Title = styled.h2`
-  font-size: 2.2rem;
-  margin-bottom: 1.6mm;
-`;
+    a {
+      text-decoration: none;
+      color: ${textColor};
+    }
 
-export const Body = styled.div`
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1.2fr 2fr;
-  align-content: stretch;
-  padding: 0 5mm 5mm;
+    a.link {
+      color: ${linkColor};
+    }
 
-  a {
-    text-decoration: none;
-    color: #44474a;
-  }
+    p {
+      font-size: ${bodyTextFontSize};
+      line-height: 1.5;
+    }
 
-  a.link {
-    color: #56a8ff;
-  }
+    > aside {
+      border-right: 0.2rem solid ${detailColor};
+      text-align: right;
+      padding-right: 6mm;
 
-  p {
-    font-size: 1.4rem;
-    line-height: 1.5;
-  }
+      ul {
+        list-style: none;
 
-  > aside {
-    border-right: 0.2rem solid #ffa500;
-    text-align: right;
-    padding-right: 6mm;
+        & + ul {
+          margin-top: 1.2rem;
+        }
 
-    ul {
-      list-style: none;
+        li {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          font-size: 1.4rem;
+          padding: 0.3rem 0;
 
-      & + ul {
-        margin-top: 1.2rem;
+          svg {
+            flex-shrink: 0;
+            margin-left: 1.6rem;
+            stroke: rgba(0, 0, 0, 0.4);
+          }
+        }
       }
 
-      li {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        font-size: 1.4rem;
-        padding: 0.3rem 0;
+      @media print {
+        border-right-width: 0.3mm;
+      }
+    }
 
-        svg {
-          flex-shrink: 0;
-          margin-left: 1.6rem;
-          stroke: rgba(0, 0, 0, 0.4);
+    > div {
+      padding-left: 6mm;
+    }
+  `;
+  export const Section = styled.section`
+    & + section {
+      margin-top: ${defaultMargin};
+    }
+  `;
+
+  export const Experience = styled.div`
+    & + div {
+      margin-top: 4mm;
+    }
+
+    h2 {
+      font-size: ${h2FontSize};
+      font-weight: 600;
+      margin-bottom: 1mm;
+    }
+
+    .details {
+      font-size: ${bodyTextFontSize};
+      margin-bottom: 1mm;
+      display: flex;
+
+      a {
+        color: ${linkColor};
+      }
+
+      span {
+        display: flex;
+
+        & + span {
+          &::before {
+            content: '•';
+            margin-left: 2mm;
+            margin-right: 2mm;
+          }
         }
       }
     }
 
     @media print {
-      border-right-width: 0.3mm;
+      /* break-before: page; */
+      /* break-inside: avoid-column; */
+      /* brea */
     }
-  }
+  `;
 
-  > div {
-    padding-left: 6mm;
-  }
-`;
-export const Section = styled.section`
-  & + section {
-    margin-top: 10mm;
-  }
-`;
+  export const SummaryContent = styled.div`
+    ul {
+      padding-left: 2rem;
 
-export const Experience = styled.div`
-  & + div {
-    margin-top: 4mm;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 1mm;
-  }
-
-  .details {
-    font-size: 1.4rem;
-    margin-bottom: 1mm;
-    display: flex;
-
-    span {
-      display: flex;
-
-      & + span {
-        &::before {
-          content: '•';
-          margin-left: 2mm;
-          margin-right: 2mm;
-        }
+      li {
+        font-size: 1.3rem;
+        padding: 0.2rem 0;
       }
     }
-  }
-
-  @media print {
-    /* break-before: page; */
-    /* break-inside: avoid-column; */
-    /* brea */
-  }
-`;
-
-export const SummaryContent = styled.div`
-  ul {
-    padding-left: 2rem;
-
-    li {
-      font-size: 1.3rem;
-      padding: 0.2rem 0;
-    }
-  }
-`;
+  `;
+}
