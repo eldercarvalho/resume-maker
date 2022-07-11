@@ -39,7 +39,7 @@ const Default: React.FC = () => {
     !!state.website ||
     state.socialNetworks.length > 0;
 
-  const adjustDate = (date: string): string => {
+  const toShortDate = (date: string): string => {
     const formattedDate = intl.formatDate(new Date(date), {
       month: 'short',
       year: 'numeric',
@@ -120,9 +120,9 @@ const Default: React.FC = () => {
                   </li>
                   <li>{education.institution}</li>
                   <li>
-                    {adjustDate(education.startDate)} -{' '}
+                    {toShortDate(education.startDate)} -{' '}
                     {education.endDate ? (
-                      adjustDate(education.endDate)
+                      toShortDate(education.endDate)
                     ) : (
                       <FormattedMessage id="global.present" />
                     )}
@@ -179,7 +179,7 @@ const Default: React.FC = () => {
                     <strong>{certification.title}</strong>
                   </li>
                   <li>
-                    {certification.issuer} - {adjustDate(certification.date)}
+                    {certification.issuer} - {toShortDate(certification.date)}
                   </li>
                 </ul>
               ))}
@@ -213,9 +213,9 @@ const Default: React.FC = () => {
                   <div className="details">
                     <span>{experience.company}</span>
                     <span>
-                      {adjustDate(experience.startDate)} -{' '}
+                      {toShortDate(experience.startDate)} -{' '}
                       {experience.endDate ? (
-                        adjustDate(experience.endDate)
+                        toShortDate(experience.endDate)
                       ) : (
                         <FormattedMessage id="global.present" />
                       )}

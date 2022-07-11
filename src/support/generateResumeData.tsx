@@ -1,6 +1,6 @@
+import { ResumeData } from '@/entities';
 import faker from 'faker';
 import { v4 as uuid } from 'uuid';
-import { ResumeData } from '@/contexts/Resume';
 
 export function generateResumeData(type: 'empty' | 'fake'): ResumeData {
   return type === 'fake'
