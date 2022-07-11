@@ -1,5 +1,6 @@
 // import * as html2pdf from 'html2pdf.js';
 import { FiPrinter } from 'react-icons/fi';
+import { SiGithub } from 'react-icons/si';
 
 import Button from '@/components/base/Button';
 import Tooltip from '@/components/base/Tooltip';
@@ -25,6 +26,10 @@ const ActionButtons: React.FC = () => {
     window.print();
   };
 
+  const handleGitHubClick = () => {
+    window.open('https://github.com/eldercarvalho/resume-maker', '_blank');
+  };
+
   return (
     <>
       {/* <Tooltip text={intl.formatMessage({ id: 'header.button.download.text' })}>
@@ -36,6 +41,12 @@ const ActionButtons: React.FC = () => {
       <Tooltip text={intl.formatMessage({ id: 'header.button.print.text' })}>
         <Button textOnly iconOnly onClick={handlePrintClick}>
           <FiPrinter size={20} />
+        </Button>
+      </Tooltip>
+
+      <Tooltip text={intl.formatMessage({ id: 'header.button.github.text' })}>
+        <Button textOnly iconOnly onClick={handleGitHubClick}>
+          <SiGithub size={21} />
         </Button>
       </Tooltip>
     </>

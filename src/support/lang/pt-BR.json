@@ -78,5 +78,6 @@
   "sidebar.crudList.emptyMessage": "{gender, select, male {Nenhum {name} adicionado.} female {Nenhuma {name} adicionada.} other {teste}}",
   "header.button.print.text": "Imprimir",
   "header.button.download.text": "Baixar PDF",
+  "header.button.github.text": "Repositório no GitHub",
   "validation.required": "Campo obrigatório"
  }
