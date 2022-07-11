@@ -1,8 +1,12 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, ReactNode } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { Theme, Localization } from '@/contexts';
 
-const AllProviders: FC = ({ children }) => (
+interface AllProvidersProps {
+  children?: ReactNode;
+}
+
+const AllProviders: FC<AllProvidersProps> = ({ children = null }) => (
   <Localization>
     <Theme>{children}</Theme>
   </Localization>

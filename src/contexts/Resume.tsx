@@ -114,7 +114,11 @@ export const ResumeContext = createContext<ResumeContextData>({} as ResumeContex
 
 const emptyResume = generateResumeData('empty');
 
-export const ResumeProvider: React.FC = ({ children }) => {
+type ResumeProviderProps = {
+  children: React.ReactNode;
+};
+
+export const ResumeProvider: React.FC<ResumeProviderProps> = ({ children }) => {
   const [resumes, setResumes] = useState(() => {
     const savedResumesString = localStorage.getItem('@ResumeMaker:resumes');
 

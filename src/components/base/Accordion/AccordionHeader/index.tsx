@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 import { useAccordion } from '..';
@@ -5,7 +6,9 @@ import { useAccordionItem } from '../AccordionItem';
 
 import { Container } from './style';
 
-export interface AccordionHeaderProps {}
+export interface AccordionHeaderProps {
+  children: ReactNode;
+}
 
 export const AccordionHeader: React.FC<AccordionHeaderProps> = ({ children }) => {
   const { setCurrentItemKey } = useAccordion();

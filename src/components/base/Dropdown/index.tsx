@@ -1,14 +1,6 @@
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useRef,
-  useContext,
-  useState,
-  useMemo,
-} from 'react';
+import { createContext, useEffect, useRef, useContext, useState, useMemo, ReactNode } from 'react';
 
-import DropdownMenu from './DropdownMenu';
+import DropdownMenu, { DropdownMenuProps } from './DropdownMenu';
 import DropdownItem, { DropdownItemProps } from './DropdownItem';
 import DropdownToggle, { DropdownToggleProps } from './DropdownToggle';
 
@@ -22,27 +14,28 @@ interface DropdownContextData {
 const DropdownContext = createContext<DropdownContextData>({} as DropdownContextData);
 
 interface DropdownComposition {
-  Menu: React.FC;
+  Menu: React.FC<DropdownMenuProps>;
   Item: React.FC<DropdownItemProps>;
   Toggle: React.FC<DropdownToggleProps>;
 }
 
-const Dropdown: React.FC & DropdownComposition = ({ children }) => {
+interface DropdownProps {
+  children: ReactNode;
+}
+
+const Dropdown: React.FC<DropdownProps> & DropdownComposition = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
-  const handleOutsideClick = useCallback(
-    (event) => {
-      if (
-        containerRef &&
-        containerRef.current !== event.target &&
-        !containerRef.current?.contains(event.target)
-      ) {
-        setIsDropdownOpened(false);
-      }
-    },
-    [setIsDropdownOpened],
-  );
+  const handleOutsideClick = (event: globalThis.MouseEvent) => {
+    if (
+      containerRef &&
+      containerRef.current !== event.target &&
+      !containerRef.current?.contains(event.target as Node)
+    ) {
+      setIsDropdownOpened(false);
+    }
+  };
 
   useEffect(() => {
     document.addEventListener('mousedown', handleOutsideClick);

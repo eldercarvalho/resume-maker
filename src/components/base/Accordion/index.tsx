@@ -20,6 +20,7 @@ interface AccordionComposition {
 }
 
 interface AccordionProps {
+  children: React.ReactNode;
   defaultItemKey?: string;
 }
 

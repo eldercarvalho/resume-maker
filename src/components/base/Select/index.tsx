@@ -27,8 +27,8 @@ const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onCh
   });
 
   const handleOutsideClick = useCallback(
-    (event) => {
-      if (containerRef && !containerRef.current?.contains(event.target)) {
+    (event: globalThis.MouseEvent) => {
+      if (containerRef && !containerRef.current?.contains(event.target as Node)) {
         setIsOptionsOpened(false);
       }
     },

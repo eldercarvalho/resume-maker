@@ -24,7 +24,11 @@ const defineMessages = (locale: string) => {
 
 const initialMessages = defineMessages(local);
 
-export const Localization: React.FC = ({ children }) => {
+type LocalizationProps = {
+  children: React.ReactNode;
+};
+
+export const Localization: React.FC<LocalizationProps> = ({ children }) => {
   const [locale, setLocale] = useState(local);
   const [messages, setMessages] = useState(initialMessages);
 

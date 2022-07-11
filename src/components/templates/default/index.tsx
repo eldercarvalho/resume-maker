@@ -174,7 +174,7 @@ const Default: React.FC = () => {
                 <FormattedMessage id="global.certifications" />
               </S.Title>
               {state.certifications.map((certification) => (
-                <ul>
+                <ul key={certification.id}>
                   <li key={certification.id}>
                     <strong>{certification.title}</strong>
                   </li>

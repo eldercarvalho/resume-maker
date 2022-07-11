@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useAccordionItem } from '../AccordionItem';
 
 import { Container } from './style';
 
-export interface AccordionContentProps {}
+export interface AccordionContentProps {
+  children: ReactNode;
+}
 
 export const AccordionContent: React.FC<AccordionContentProps> = ({ children }) => {
   const [height, setHeight] = useState('auto');

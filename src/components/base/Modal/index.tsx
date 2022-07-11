@@ -19,6 +19,7 @@ interface ModalProps {
   show: boolean;
   close?: boolean;
   width?: number;
+  children: React.ReactNode;
   onCloseModal?: () => void;
 }
 

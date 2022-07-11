@@ -1,7 +1,12 @@
+import { ReactNode } from 'react';
 import { useDropdown } from '..';
 import { Container } from './styles';
 
-const DropdownMenu: React.FC = ({ children }) => {
+export interface DropdownMenuProps {
+  children: ReactNode;
+}
+
+const DropdownMenu: React.FC<DropdownMenuProps> = ({ children }) => {
   const { isDropdownOpened } = useDropdown();
 
   return (

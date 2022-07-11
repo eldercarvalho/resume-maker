@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 import { ListItem, ListItemProps } from './ListItem';
 import { ListItemAction, ListItemActionProps } from './ListItemAction';
 import { ListItemContent, ListItemContentProps } from './ListItemContent';
@@ -21,6 +21,7 @@ interface ListComposition {
 interface ListProps {
   mb?: string;
   onDrag?(index: number, newIndex: number): void;
+  children: ReactNode;
 }
 
 interface State {

@@ -14,7 +14,11 @@ const themes = {
   light: Light,
 };
 
-export const Theme: React.FC = ({ children }) => {
+type ThemeProps = {
+  children: React.ReactNode;
+};
+
+export const Theme: React.FC<ThemeProps> = ({ children }) => {
   const [theme, setTheme] = useState(Dark);
   const [themeName, setThemeName] = useState<'dark' | 'light'>('dark');
 

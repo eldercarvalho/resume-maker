@@ -1,6 +1,8 @@
 import { Container } from './styles';
 
-export interface ModalHeaderProps {}
+export interface ModalHeaderProps {
+  children: React.ReactNode;
+}
 
 export const ModalHeader: React.FC<ModalHeaderProps> = ({ children }) => (
   <Container>
