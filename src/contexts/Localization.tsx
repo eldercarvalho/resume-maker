@@ -4,6 +4,8 @@ import { IntlProvider } from 'react-intl';
 import English from '@/support/lang/en.json';
 import Portuguese from '@/support/lang/pt-BR.json';
 
+const LOCALE_STORAGE_KEY = '@ResumeMaker:locale';
+
 interface LocaleContextData {
   locale: string;
   setLocale(locale: string): void;
@@ -11,7 +13,8 @@ interface LocaleContextData {
 
 const Context = createContext<LocaleContextData>({} as LocaleContextData);
 
-const local = navigator.language;
+const initialLocale = localStorage.getItem(LOCALE_STORAGE_KEY) ?? navigator.language;
+localStorage.setItem(LOCALE_STORAGE_KEY, initialLocale);
 
 const defineMessages = (locale: string) => {
   switch (locale) {
@@ -22,18 +25,19 @@ const defineMessages = (locale: string) => {
   }
 };
 
-const initialMessages = defineMessages(local);
+const initialMessages = defineMessages(initialLocale);
 
 type LocalizationProps = {
   children: React.ReactNode;
 };
 
 export const Localization: React.FC<LocalizationProps> = ({ children }) => {
-  const [locale, setLocale] = useState(local);
+  const [locale, setLocale] = useState(initialLocale);
   const [messages, setMessages] = useState(initialMessages);
 
   useEffect(() => {
     setMessages(defineMessages(locale));
+    localStorage.setItem(LOCALE_STORAGE_KEY, locale);
   }, [locale]);
 
   return (
