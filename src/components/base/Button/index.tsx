@@ -3,12 +3,16 @@ import { useHistory } from 'react-router-dom';
 
 import Loading from '../Loading';
 
-import { Container } from './style';
+import { S } from './styled';
 
 type LocationObject = {
   pathname: string;
   state?: Record<string, string>;
 };
+
+interface StyledNamespace {
+  S: typeof S;
+}
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
@@ -25,7 +29,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   reduced?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<ButtonProps> & StyledNamespace = ({
   variant = 'primary',
   children,
   to,
@@ -60,7 +64,7 @@ const Button: React.FC<ButtonProps> = ({
   );
 
   return (
-    <Container
+    <S.Container
       type="button"
       variant={variant}
       isIconOnly={iconOnly}
@@ -77,8 +81,10 @@ const Button: React.FC<ButtonProps> = ({
       {...rest}
     >
       {loading ? <Loading dark size={22} thickness={2} /> : children}
-    </Container>
+    </S.Container>
   );
 };
+
+Button.S = S;
 
 export default Button;

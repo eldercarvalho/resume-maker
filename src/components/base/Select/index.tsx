@@ -7,23 +7,24 @@ import Input from '../Input';
 import { Container, SelectedOption, Options } from './styles';
 
 interface SelectOption {
-  id: number;
   text: string;
+  value: string;
 }
 
 interface SelectProps {
+  name?: string;
   options: SelectOption[];
-  value?: number;
+  value?: string;
   isLoading?: boolean;
-  onChange?(value: number | string): void;
+  onChange?(value: string): void;
 }
 
 const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onChange }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOptionsOpened, setIsOptionsOpened] = useState(false);
   const [currentOption, setCurrentOption] = useState<SelectOption>(() => {
-    const current = options.find((option) => option.id === value);
-    return current || { id: 0, text: 'Selecione uma lista' };
+    const current = options.find((option) => option.value === value);
+    return current ?? { value: '', text: 'Selecione' };
   });
 
   const handleOutsideClick = useCallback(
@@ -48,12 +49,12 @@ const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onCh
     setIsOptionsOpened(false);
 
     if (onChange) {
-      onChange(option.id);
+      onChange(option.value);
     }
   };
 
   const clearOption = () => {
-    setCurrentOption({ id: 0, text: 'Selecione uma lista' });
+    setCurrentOption({ value: '', text: 'Selecione' });
 
     if (onChange) {
       onChange('');
@@ -71,15 +72,15 @@ const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onCh
         />
 
         {isLoading && <Loading size={22} thickness={2} />}
-        {!isLoading && currentOption.id === 0 && <FiChevronDown size={22} />}
-        {!isLoading && currentOption.id !== 0 && <FiX onClick={clearOption} size={22} />}
+        {!isLoading && currentOption.value === '' && <FiChevronDown size={20} />}
+        {!isLoading && currentOption.value !== '' && <FiX onClick={clearOption} size={20} />}
       </SelectedOption>
 
       <Options isOpened={isOptionsOpened}>
         <div>
           {options.length ? (
             options.map((option) => (
-              <button key={option.id} type="button" onClick={() => handleOptionClick(option)}>
+              <button key={option.value} type="button" onClick={() => handleOptionClick(option)}>
                 {option.text}
               </button>
             ))

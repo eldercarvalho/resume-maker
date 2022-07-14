@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FiPlus } from 'react-icons/fi';
+import { FiFilePlus } from 'react-icons/fi';
 import { FormattedMessage } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,6 +12,7 @@ import Button from '@/components/base/Button';
 import Modal from '@/components/base/Modal';
 import Input from '@/components/base/Input';
 import Select from '@/components/base/Select';
+import Tooltip from '@/components/base/Tooltip';
 
 const schema = yup.object().shape({
   resumeName: yup.string().required('Campo obrigatório'),
@@ -55,9 +56,11 @@ const NewResumeForm = () => {
 
   return (
     <div>
-      <Button textOnly small onClick={() => setIsModalOpen((value) => !value)}>
-        <FiPlus size={22} /> Novo Currículo
-      </Button>
+      <Tooltip text="Novo Currículo">
+        <Button iconOnly textOnly onClick={() => setIsModalOpen((value) => !value)}>
+          <FiFilePlus size={22} />
+        </Button>
+      </Tooltip>
 
       <Modal show={isModalOpen} close onCloseModal={closeModal}>
         <form onSubmit={handleSubmit(handleFormSubmit)}>

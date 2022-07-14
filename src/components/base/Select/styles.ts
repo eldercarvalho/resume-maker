@@ -12,9 +12,10 @@ export const SelectedOption = styled.div`
   > svg,
   ${LoadingContainer} {
     position: absolute;
-    top: 1.2rem;
+    top: 0.9rem;
     right: 1.2rem;
     cursor: pointer;
+    color: ${({ theme }) => theme.colors.text};
   }
 
   input {
@@ -60,6 +61,7 @@ export const Options = styled.div<OptionsProps>`
       padding: 1.2rem 1rem;
       transition: all 0.3s;
       font-weight: 500;
+      text-align: left;
 
       :hover {
         background: ${({ theme }) => theme.colors.primary};
