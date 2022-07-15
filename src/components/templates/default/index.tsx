@@ -65,7 +65,7 @@ const Default: React.FC = () => {
                 <FormattedMessage id="global.contact" />
               </S.Title>
               <ul>
-                {(!!state.address || !!state.city) && (
+                {(state.address || state.city || state.zipCode) && (
                   <li>
                     {state.address} {state.city} {state.zipCode} <Icons.FiMapPin size={16} />
                   </li>

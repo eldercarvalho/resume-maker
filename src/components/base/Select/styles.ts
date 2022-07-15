@@ -2,8 +2,18 @@ import styled, { css } from 'styled-components';
 
 import { Container as LoadingContainer } from '../Loading/styles';
 
-export const Container = styled.div`
+type ContainerProps = {
+  isDisabled: boolean;
+};
+
+export const Container = styled.div<ContainerProps>`
   position: relative;
+
+  ${(props) =>
+    props.isDisabled &&
+    css`
+      opacity: 0.5;
+    `}
 `;
 
 export const SelectedOption = styled.div`

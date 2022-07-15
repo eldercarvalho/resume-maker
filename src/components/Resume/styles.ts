@@ -22,6 +22,8 @@ export const Container = styled.div`
 export const ResumeHeader = styled.div`
   max-width: 79.3rem;
   margin: 0 auto 1rem;
+  display: flex;
+  justify-content: flex-end;
 
   h1 {
     color: ${({ theme }) => theme.colors.text};

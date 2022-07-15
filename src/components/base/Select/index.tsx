@@ -16,15 +16,27 @@ interface SelectProps {
   options: SelectOption[];
   value?: string;
   isLoading?: boolean;
+  disabled?: boolean;
+  placeholder?: string;
+  emptyText?: string;
+  notFountText?: string;
   onChange?(value: string): void;
 }
 
-const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onChange }) => {
+const Select: React.FC<SelectProps> = ({
+  options,
+  value,
+  isLoading = false,
+  placeholder,
+  emptyText,
+  disabled = false,
+  onChange,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOptionsOpened, setIsOptionsOpened] = useState(false);
   const [currentOption, setCurrentOption] = useState<SelectOption>(() => {
     const current = options.find((option) => option.value === value);
-    return current ?? { value: '', text: 'Selecione' };
+    return current || { value: '', text: placeholder || '' };
   });
 
   const handleOutsideClick = useCallback(
@@ -54,7 +66,7 @@ const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onCh
   };
 
   const clearOption = () => {
-    setCurrentOption({ value: '', text: 'Selecione' });
+    setCurrentOption({ value: '', text: placeholder || '' });
 
     if (onChange) {
       onChange('');
@@ -62,13 +74,14 @@ const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onCh
   };
 
   return (
-    <Container ref={containerRef}>
+    <Container ref={containerRef} isDisabled={disabled}>
       <SelectedOption>
         <Input
-          placeholder="Selecione uma lista"
+          placeholder={placeholder}
           readOnly
           onClick={() => setIsOptionsOpened((oldValue) => !oldValue)}
           value={currentOption.text}
+          disabled={disabled}
         />
 
         {isLoading && <Loading size={22} thickness={2} />}
@@ -85,7 +98,7 @@ const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onCh
               </button>
             ))
           ) : (
-            <button type="button">Nenhuma opção disponível</button>
+            <button type="button">{emptyText}</button>
           )}
         </div>
       </Options>

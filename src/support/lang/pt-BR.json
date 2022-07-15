@@ -1,4 +1,5 @@
 {
+  "global.defaultResumeName": "Currículo 1",
   "global.add": "Adicionar",
   "global.update": "Atualizar",
   "global.add.value": "Adicionar {value}",
@@ -27,6 +28,8 @@
   "global.startDate": "Data de Início",
   "global.endDate": "Data de Término",
   "global.present": "Atualmente",
+  "global.name": "Nome",
+  "global.create": "Criar",
   "sidebar.form.heading.name": "Nome",
   "sidebar.form.heading.title": "Título",
   "sidebar.form.heading.birthDate": "Data de Nascimento",
@@ -79,5 +82,8 @@
   "header.button.print.text": "Imprimir",
   "header.button.download.text": "Baixar PDF",
   "header.button.github.text": "Repositório no GitHub",
+  "header.addForm.newResume": "Novo Currículo",
+  "header.addForm.import": "Importar dados de outro currículo?",
+  "header.addForm.selectPlaceholder": "Selecione um currículo",
   "validation.required": "Campo obrigatório"
  }

@@ -1,12 +1,14 @@
 import { ResumeData } from '@/entities';
 import { generateResumeData } from '@/support/generateResumeData';
 import { useCallback, useContext, useState, createContext, useEffect, useMemo } from 'react';
+import { useIntl } from 'react-intl';
 
 interface ResumeContextData {
   state: ResumeData;
   resumes: ResumeData[];
   updateState(state: ResumeData): void;
   createResume(resumename: string, resumeToBeCopiedId?: string): void;
+  setActiveResume(resumeId: string): void;
 }
 
 export const ResumeContext = createContext<ResumeContextData>({} as ResumeContextData);
@@ -18,6 +20,7 @@ type ResumeProviderProps = {
 };
 
 export const ResumeProvider: React.FC<ResumeProviderProps> = ({ children }) => {
+  const { formatMessage: fm } = useIntl();
   const [resumes, setResumes] = useState<ResumeData[]>(() => {
     const savedResumesString = localStorage.getItem('@ResumeMaker:resumes');
 
@@ -32,19 +35,28 @@ export const ResumeProvider: React.FC<ResumeProviderProps> = ({ children }) => {
 
     if (savedResumesString) {
       const savedResumes = JSON.parse(savedResumesString) as ResumeData[];
-      return savedResumes.find((resume) => resume.isActive) || emptyResume;
+      const savedActiveResume = savedResumes.find((resume) => resume.isActive) || emptyResume;
+      if (!savedActiveResume.resumeName) {
+        savedActiveResume.resumeName = fm({ id: 'global.defaultResumeName' });
+      }
+      return savedActiveResume;
     }
 
+    emptyResume.resumeName = fm({ id: 'global.defaultResumeName' });
     return emptyResume;
   });
 
   useEffect(() => {
-    const updatedResumes = resumes.map((resume) => {
-      if (resume.id === state.id) return state;
-      resume.isActive = false;
-      return resume;
-    });
-    setResumes(updatedResumes);
+    setResumes((oldResumes) =>
+      oldResumes.map((resume) => {
+        if (resume.id === state.id) {
+          state.isActive = true;
+          return state;
+        }
+        resume.isActive = false;
+        return resume;
+      }),
+    );
   }, [state]);
 
   useEffect(() => {
@@ -55,37 +67,50 @@ export const ResumeProvider: React.FC<ResumeProviderProps> = ({ children }) => {
     setState(stateParam);
   }, []);
 
-  const createResume = useCallback((resumename: string, resumeToBeCopiedId?: string) => {
-    let newResume = generateResumeData('empty');
-    newResume.resumeName = resumename;
-    newResume.isActive = true;
+  const createResume = useCallback(
+    (resumename: string, resumeToBeCopiedId?: string) => {
+      let newResume = generateResumeData('empty');
+      newResume.resumeName = resumename;
+      newResume.isActive = true;
 
-    if (resumeToBeCopiedId) {
-      const resumeToBeCopied = resumes.find((resume) => resume.id === resumeToBeCopiedId);
+      if (resumeToBeCopiedId) {
+        const resumeToBeCopied = resumes.find((resume) => resume.id === resumeToBeCopiedId);
 
-      if (resumeToBeCopied) {
+        if (resumeToBeCopied) {
         const { id, resumeName, ...rest } = resumeToBeCopied; // eslint-disable-line
-        newResume = Object.assign(newResume, rest);
+          newResume = Object.assign(newResume, rest);
+        }
       }
-    }
 
-    setResumes((oldResumes) => {
-      const updatedResumes = oldResumes.map((resume) => {
-        resume.isActive = false;
-        return resume;
+      setResumes((oldResumes) => {
+        const updatedResumes = oldResumes.map((resume) => {
+          resume.isActive = false;
+          return resume;
+        });
+
+        updatedResumes.push(newResume);
+        return updatedResumes.slice();
       });
 
-      updatedResumes.push(newResume);
-      return updatedResumes.slice();
-    });
+      setState(newResume);
+    },
+    [resumes],
+  );
 
-    setState(newResume);
-  }, []);
+  const setActiveResume = useCallback(
+    (resumeId: string) => {
+      const newActiveResume = resumes.find((resume) => resume.id === resumeId);
+      setState(newActiveResume!);
+    },
+    [resumes],
+  );
 
   const memoizedState = useMemo(() => state, [state]);
 
   return (
-    <ResumeContext.Provider value={{ state: memoizedState, resumes, updateState, createResume }}>
+    <ResumeContext.Provider
+      value={{ state: memoizedState, resumes, updateState, createResume, setActiveResume }}
+    >
       {children}
     </ResumeContext.Provider>
   );
