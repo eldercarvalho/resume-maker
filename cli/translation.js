@@ -35,7 +35,7 @@ if (args[0] === 'import') {
     })
     .on('end', function () {
       enTranslations = Object.assign(enJson, missingTranslations)
-      const json = JSON.stringify(enTranslations)
+      const json = JSON.stringify(enTranslations, null, 2)
       fs.writeFile(`${langFolder}/en.json`, json, 'utf8', function (err) {
         if (err) {
           console.log(err)
