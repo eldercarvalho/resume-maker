@@ -7,9 +7,12 @@ import Switch from '@/components/base/Switch';
 const LanguageSwitch: React.FC = () => {
   const { themeName, setThemeName } = useTheme();
 
-  const handleSwitchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setThemeName(event.target.checked ? 'dark' : 'light');
-  }, []);
+  const handleSwitchChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setThemeName(event.target.checked ? 'dark' : 'light');
+    },
+    [setThemeName],
+  );
 
   return (
     <Switch

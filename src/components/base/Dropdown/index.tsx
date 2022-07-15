@@ -27,23 +27,23 @@ const Dropdown: React.FC<DropdownProps> & DropdownComposition = ({ children }) =
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
-  const handleOutsideClick = (event: globalThis.MouseEvent) => {
-    if (
-      containerRef &&
-      containerRef.current !== event.target &&
-      !containerRef.current?.contains(event.target as Node)
-    ) {
-      setIsDropdownOpened(false);
-    }
-  };
-
   useEffect(() => {
+    const handleOutsideClick = (event: globalThis.MouseEvent) => {
+      if (
+        containerRef &&
+        containerRef.current !== event.target &&
+        !containerRef.current?.contains(event.target as Node)
+      ) {
+        setIsDropdownOpened(false);
+      }
+    };
+
     document.addEventListener('mousedown', handleOutsideClick);
 
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [handleOutsideClick, setIsDropdownOpened]);
+  }, [setIsDropdownOpened]);
 
   const memoizedContextData = useMemo(
     () => ({ isDropdownOpened, setIsDropdownOpened }),
