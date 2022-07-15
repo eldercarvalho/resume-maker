@@ -3,6 +3,8 @@ const path = require('path')
 const csv = require('csv-parser')
 const _ = require('lodash')
 const ObjectsToCsv = require('objects-to-csv')
+const chalk = require('chalk')
+const log = console.log;
 
 const langFolder = path.resolve(__dirname, '../src/support/lang')
 
@@ -24,7 +26,10 @@ const missingTranslations = {}
 
 if (args[0] === 'import') {
   if (args[1] === undefined) {
-    console.log('Error: file url must be provided. Exemple: node cli/translation.js import ./translations-en.csv')
+    log(chalk.red('Error: file path must be provided.'))
+    log(chalk.red(''))
+    log(chalk.red('Exemple: yarn i18n:import ./translations-en.csv'))
+    log(chalk.red(''))
     return
   }
 
@@ -38,10 +43,10 @@ if (args[0] === 'import') {
       const json = JSON.stringify(enTranslations, null, 2)
       fs.writeFile(`${langFolder}/en.json`, json, 'utf8', function (err) {
         if (err) {
-          console.log(err)
+          log(err)
           return
         }
-        console.log('The translations were imported successfully!')
+        log('The translations were imported successfully!')
       })
     })
 }
