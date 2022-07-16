@@ -22,6 +22,7 @@ export const Container = styled.span`
     color: rgba(255, 255, 255, 0.7);
     padding: 1rem;
     border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     background: #000;
     line-height: 1;
     opacity: 0;
@@ -31,11 +32,22 @@ export const Container = styled.span`
 
     ::before {
       content: '';
-      border-bottom: 8px solid #000;
+      border-bottom: 8px solid rgba(255, 255, 255, 0.3);
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
       position: absolute;
       bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    ::after {
+      content: '';
+      border-bottom: 8px solid #000;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      position: absolute;
+      bottom: calc(100% - 1px);
       left: 50%;
       transform: translateX(-50%);
     }

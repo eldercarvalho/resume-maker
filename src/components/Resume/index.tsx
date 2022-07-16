@@ -1,6 +1,6 @@
 import Default from '@/components/templates/default';
-
-import { Container } from './styles';
+import { Container, ResumeHeader } from './styles';
+import ResumesDropdown from './ResumesDropdown';
 
 const templates = {
   default: Default,
@@ -13,6 +13,10 @@ const Resume: React.FC = () => {
 
   return (
     <Container>
+      <ResumeHeader>
+        <ResumesDropdown />
+      </ResumeHeader>
+
       <Template />
     </Container>
   );

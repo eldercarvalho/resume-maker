@@ -105,6 +105,10 @@ export const Container = styled.div<ContainerProps>`
         color: rgba(0, 0, 0, 0.7);
       }
 
+      &:disabled {
+        cursor: not-allowed;
+      }
+
       ${({ dark }) =>
         dark &&
         css`

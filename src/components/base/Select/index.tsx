@@ -7,23 +7,36 @@ import Input from '../Input';
 import { Container, SelectedOption, Options } from './styles';
 
 interface SelectOption {
-  id: number;
   text: string;
+  value: string;
 }
 
 interface SelectProps {
+  name?: string;
   options: SelectOption[];
-  value?: number;
+  value?: string;
   isLoading?: boolean;
-  onChange?(value: number | string): void;
+  disabled?: boolean;
+  placeholder?: string;
+  emptyText?: string;
+  notFountText?: string;
+  onChange?(value: string): void;
 }
 
-const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onChange }) => {
+const Select: React.FC<SelectProps> = ({
+  options,
+  value,
+  isLoading = false,
+  placeholder,
+  emptyText,
+  disabled = false,
+  onChange,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOptionsOpened, setIsOptionsOpened] = useState(false);
   const [currentOption, setCurrentOption] = useState<SelectOption>(() => {
-    const current = options.find((option) => option.id === value);
-    return current || { id: 0, text: 'Selecione uma lista' };
+    const current = options.find((option) => option.value === value);
+    return current || { value: '', text: placeholder || '' };
   });
 
   const handleOutsideClick = useCallback(
@@ -48,12 +61,12 @@ const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onCh
     setIsOptionsOpened(false);
 
     if (onChange) {
-      onChange(option.id);
+      onChange(option.value);
     }
   };
 
   const clearOption = () => {
-    setCurrentOption({ id: 0, text: 'Selecione uma lista' });
+    setCurrentOption({ value: '', text: placeholder || '' });
 
     if (onChange) {
       onChange('');
@@ -61,30 +74,31 @@ const Select: React.FC<SelectProps> = ({ options, value, isLoading = false, onCh
   };
 
   return (
-    <Container ref={containerRef}>
+    <Container ref={containerRef} isDisabled={disabled}>
       <SelectedOption>
         <Input
-          placeholder="Selecione uma lista"
+          placeholder={placeholder}
           readOnly
           onClick={() => setIsOptionsOpened((oldValue) => !oldValue)}
           value={currentOption.text}
+          disabled={disabled}
         />
 
         {isLoading && <Loading size={22} thickness={2} />}
-        {!isLoading && currentOption.id === 0 && <FiChevronDown size={22} />}
-        {!isLoading && currentOption.id !== 0 && <FiX onClick={clearOption} size={22} />}
+        {!isLoading && currentOption.value === '' && <FiChevronDown size={20} />}
+        {!isLoading && currentOption.value !== '' && <FiX onClick={clearOption} size={20} />}
       </SelectedOption>
 
       <Options isOpened={isOptionsOpened}>
         <div>
           {options.length ? (
             options.map((option) => (
-              <button key={option.id} type="button" onClick={() => handleOptionClick(option)}>
+              <button key={option.value} type="button" onClick={() => handleOptionClick(option)}>
                 {option.text}
               </button>
             ))
           ) : (
-            <button type="button">Nenhuma opção disponível</button>
+            <button type="button">{emptyText}</button>
           )}
         </div>
       </Options>

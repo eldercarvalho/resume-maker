@@ -18,6 +18,7 @@
   "plugins": [
     "react",
     "@typescript-eslint",
+    "react-hooks",
     "prettier"
   ],
   "rules": {
@@ -40,6 +41,8 @@
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
     "react/jsx-filename-extension": [2, { "extensions": [".ts", ".tsx"] }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
     // "react/jsx-first-prop-new-line": [1, "multiline"],
     // "react/jsx-max-props-per-line": [1, { "maximum": 1 }],
     "no-use-before-define": "off",

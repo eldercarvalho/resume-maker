@@ -12,7 +12,7 @@ export const Sheet = styled.div`
 
   width: ${sheetWidth};
   min-height: ${sheetHeight};
-  margin: 3rem auto;
+  margin: 0 auto 3rem;
   padding: ${defaultMargin} 0;
 
   @media print {

@@ -12,6 +12,7 @@ import { WorkExperience } from './WorkExperience';
 export interface ResumeData {
   id: string;
   isActive: boolean;
+  resumeName: string;
   name: string;
   title: string;
   birthDate: string;

@@ -21,7 +21,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({ children, itemKey 
 
   useEffect(() => {
     setIsOpened(currentItemKey === itemKey);
-  }, [currentItemKey]);
+  }, [currentItemKey, itemKey]);
 
   return (
     <Context.Provider value={{ isOpened, itemKey }}>

@@ -6,9 +6,12 @@ import { FiChevronDown } from 'react-icons/fi';
 const LanguageDropdown: React.FC = () => {
   const { locale, setLocale } = useLocale();
 
-  const handleClick = useCallback((lang: string) => {
-    setLocale(lang);
-  }, []);
+  const handleClick = useCallback(
+    (lang: string) => {
+      setLocale(lang);
+    },
+    [setLocale],
+  );
 
   return (
     <Dropdown>

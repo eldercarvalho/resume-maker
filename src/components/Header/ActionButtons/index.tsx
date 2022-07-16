@@ -40,13 +40,13 @@ const ActionButtons: React.FC = () => {
 
       <Tooltip text={intl.formatMessage({ id: 'header.button.print.text' })}>
         <Button textOnly iconOnly onClick={handlePrintClick}>
-          <FiPrinter size={20} />
+          <FiPrinter size={22} />
         </Button>
       </Tooltip>
 
       <Tooltip text={intl.formatMessage({ id: 'header.button.github.text' })}>
         <Button textOnly iconOnly onClick={handleGitHubClick}>
-          <SiGithub size={21} />
+          <SiGithub size={22} />
         </Button>
       </Tooltip>
     </>

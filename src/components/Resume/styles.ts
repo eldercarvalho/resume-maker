@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { scrollbarStyles } from '@/style/global';
+import Button from '@/components/base/Button';
 
 export const Container = styled.div`
   flex: 1;
@@ -15,5 +16,24 @@ export const Container = styled.div`
     padding-top: 0;
     margin-top: 0;
     height: auto;
+  }
+`;
+
+export const ResumeHeader = styled.div`
+  max-width: 79.3rem;
+  margin: 0 auto 1rem;
+  display: flex;
+  justify-content: center;
+
+  h1 {
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  ${Button.S.Container} {
+    text-transform: capitalize;
+  }
+
+  @media print {
+    display: none;
   }
 `;

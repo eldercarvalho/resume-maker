@@ -7,6 +7,7 @@ export function generateResumeData(type: 'empty' | 'fake'): ResumeData {
     ? {
         id: uuid(),
         isActive: true,
+        resumeName: '',
         name: `${faker.name.firstName()} ${faker.name.lastName()}`,
         title: faker.name.jobTitle(),
         birthDate: faker.date.past().toLocaleDateString(),
@@ -71,6 +72,7 @@ export function generateResumeData(type: 'empty' | 'fake'): ResumeData {
     : {
         id: uuid(),
         isActive: true,
+        resumeName: '',
         name: '',
         title: '',
         birthDate: '',
