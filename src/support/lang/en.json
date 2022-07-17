@@ -86,6 +86,9 @@
   "global.create": "Create",
   "header.addForm.newResume": "New Resume",
   "header.addForm.import": " Import data from another resume?",
-  "header.addForm.selectPlaceholder": " Select a resume",
-  "header.editForm.title": "Edit Resume"
+  "header.addForm.selectPlaceholder": "Select a resume",
+  "header.editForm.title": "Edit Resume",
+  "resume.removeDialog.title": "Whoops!",
+  "resume.removeDialog.tooltip": "Remove Resume",
+  "resume.removeDialog.text": "Are you sure you want to remove resume {resumeName}?"
 }

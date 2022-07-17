@@ -9,6 +9,7 @@ interface ResumeContextData {
   updateState(state: ResumeData): void;
   createResume(resumename: string, resumeToBeCopiedId?: string): void;
   setActiveResume(resumeId: string): void;
+  removeResume(resumeId: string): void;
 }
 
 export const ResumeContext = createContext<ResumeContextData>({} as ResumeContextData);
@@ -105,11 +106,27 @@ export const ResumeProvider: React.FC<ResumeProviderProps> = ({ children }) => {
     [resumes],
   );
 
+  const removeResume = useCallback(
+    (resumeId: string) => {
+      const filteredResumes = resumes.filter((resume) => resume.id !== resumeId);
+      setActiveResume(filteredResumes[0].id);
+      setResumes(filteredResumes);
+    },
+    [resumes, setActiveResume],
+  );
+
   const memoizedState = useMemo(() => state, [state]);
 
   return (
     <ResumeContext.Provider
-      value={{ state: memoizedState, resumes, updateState, createResume, setActiveResume }}
+      value={{
+        state: memoizedState,
+        resumes,
+        updateState,
+        createResume,
+        setActiveResume,
+        removeResume,
+      }}
     >
       {children}
     </ResumeContext.Provider>
