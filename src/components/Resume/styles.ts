@@ -31,7 +31,7 @@ export const ResumeHeader = styled.div`
   }
 
   ${Button.S.Container} {
-    text-transform: capitalize;
+    text-transform: initial;
   }
 
   > * + * {

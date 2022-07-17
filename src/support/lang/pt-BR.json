@@ -2,6 +2,7 @@
   "global.defaultResumeName": "Currículo 1",
   "global.add": "Adicionar",
   "global.update": "Atualizar",
+  "global.remove": "Remover",
   "global.add.value": "Adicionar {value}",
   "global.close": "Fechar",
   "global.profile": "Perfil",
@@ -86,5 +87,8 @@
   "header.addForm.import": "Importar dados de outro currículo?",
   "header.addForm.selectPlaceholder": "Selecione um currículo",
   "header.editForm.title": "Editar Currículo",
-  "validation.required": "Campo obrigatório"
+  "validation.required": "Campo obrigatório",
+  "resume.removeDialog.title": "Opa!",
+  "resume.removeDialog.tooltip": "Remover Currículo",
+  "resume.removeDialog.text": "Tem certeza que deseja remover o currículo {resumeName}?"
  }
