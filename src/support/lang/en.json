@@ -2,6 +2,7 @@
   "global.defaultResumeName": "Resume 1",
   "global.add": "Add",
   "global.update": "Update",
+  "global.remove": "Remover",
   "global.add.value": "Add {value}",
   "global.close": "Close",
   "global.profile": "Profile",
