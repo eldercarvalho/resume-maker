@@ -11,10 +11,15 @@ import Text from '@/components/base/Text';
 const RemoveDialog = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { formatMessage: fm } = useIntl();
-  const { state, resumes } = useResume();
+  const { state, resumes, removeResume } = useResume();
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleRemove = () => {
+    removeResume(state.id);
+    closeModal();
   };
 
   return (
@@ -41,7 +46,7 @@ const RemoveDialog = () => {
           <Button type="button" small outline onClick={closeModal}>
             {fm({ id: 'global.close' })}
           </Button>
-          <Button type="submit" small>
+          <Button type="submit" small onClick={handleRemove}>
             {fm({ id: 'global.remove' })}
           </Button>
         </Modal.Actions>

@@ -9,7 +9,7 @@ const ResumesDropdown = () => {
   return (
     <Dropdown>
       <Dropdown.Toggle textOnly reduced>
-        {state.resumeName} <FiChevronDown />
+        <span>{state.resumeName}</span> <FiChevronDown />
       </Dropdown.Toggle>
       <Dropdown.Menu>
         {resumes.map((resume) => (

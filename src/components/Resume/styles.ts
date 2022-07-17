@@ -32,6 +32,13 @@ export const ResumeHeader = styled.div`
 
   ${Button.S.Container} {
     text-transform: initial;
+
+    span {
+      display: inline-block;
+      max-width: 15rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   > * + * {
