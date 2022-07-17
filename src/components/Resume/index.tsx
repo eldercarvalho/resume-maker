@@ -1,6 +1,7 @@
 import Default from '@/components/templates/default';
 import { Container, ResumeHeader } from './styles';
 import ResumesDropdown from './ResumesDropdown';
+import EditForm from './EditForm';
 
 const templates = {
   default: Default,
@@ -15,6 +16,7 @@ const Resume: React.FC = () => {
     <Container>
       <ResumeHeader>
         <ResumesDropdown />
+        <EditForm />
       </ResumeHeader>
 
       <Template />

@@ -24,6 +24,7 @@ export const ResumeHeader = styled.div`
   margin: 0 auto 1rem;
   display: flex;
   justify-content: center;
+  align-items: center;
 
   h1 {
     color: ${({ theme }) => theme.colors.text};
@@ -31,6 +32,10 @@ export const ResumeHeader = styled.div`
 
   ${Button.S.Container} {
     text-transform: capitalize;
+  }
+
+  > * + * {
+    margin-left: 1rem;
   }
 
   @media print {

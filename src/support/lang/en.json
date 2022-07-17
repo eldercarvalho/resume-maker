@@ -86,5 +86,6 @@
   "global.create": "Create",
   "header.addForm.newResume": "New Resume",
   "header.addForm.import": " Import data from another resume?",
-  "header.addForm.selectPlaceholder": " Select a resume"
+  "header.addForm.selectPlaceholder": " Select a resume",
+  "header.editForm.title": "Edit Resume"
 }
