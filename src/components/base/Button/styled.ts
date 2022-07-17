@@ -2,7 +2,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { rgba, shade } from 'polished';
 
 interface IContainerProps {
-  variant: 'primary' | 'secondary';
+  variant: 'primary' | 'secondary' | 'error';
   isIconOnly?: boolean;
   isDark?: boolean;
   isFull?: boolean;
@@ -49,6 +49,15 @@ export namespace S {
     svg {
       margin-right: 0.4rem;
     }
+
+    ${({ variant, theme }) =>
+      variant === 'error' &&
+      css`
+        background: ${theme.colors.error};
+        &:hover {
+          background: ${shade(0.2, theme.colors.error)};
+        }
+      `}
 
     ${(props) =>
       props.isIconOnly &&

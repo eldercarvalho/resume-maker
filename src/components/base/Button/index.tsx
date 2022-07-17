@@ -15,7 +15,7 @@ interface StyledNamespace {
 }
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'error';
   to?: string | LocationObject;
   iconOnly?: boolean;
   full?: boolean;

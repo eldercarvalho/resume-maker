@@ -46,7 +46,7 @@ const RemoveDialog = () => {
           <Button type="button" small outline onClick={closeModal}>
             {fm({ id: 'global.close' })}
           </Button>
-          <Button type="submit" small onClick={handleRemove}>
+          <Button type="submit" variant="error" small onClick={handleRemove}>
             {fm({ id: 'global.remove' })}
           </Button>
         </Modal.Actions>
