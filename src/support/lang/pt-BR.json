@@ -85,5 +85,6 @@
   "header.addForm.newResume": "Novo Currículo",
   "header.addForm.import": "Importar dados de outro currículo?",
   "header.addForm.selectPlaceholder": "Selecione um currículo",
+  "header.editForm.title": "Editar Currículo",
   "validation.required": "Campo obrigatório"
  }
