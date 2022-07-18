@@ -1,8 +1,9 @@
 import Default from '@/components/templates/default';
-import { Container, ResumeHeader } from './styles';
 import ResumesDropdown from './ResumesDropdown';
 import EditForm from './EditForm';
 import RemoveDialog from './RemoveDialog';
+
+import { Container, ResumeHeader } from './styles';
 
 const templates = {
   default: Default,

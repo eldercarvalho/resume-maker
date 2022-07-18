@@ -11,14 +11,14 @@ import Text from '@/components/base/Text';
 const RemoveDialog = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { formatMessage: fm } = useIntl();
-  const { state, resumes, removeResume } = useResume();
+  const { activeResume, resumes, removeResume } = useResume();
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
   const handleRemove = () => {
-    removeResume(state.id);
+    removeResume(activeResume.id);
     closeModal();
   };
 
@@ -38,7 +38,7 @@ const RemoveDialog = () => {
           <Text>
             {fm(
               { id: 'resume.removeDialog.text' },
-              { resumeName: <strong>{state.resumeName}</strong> },
+              { resumeName: <strong>{activeResume.resumeName}</strong> },
             )}
           </Text>
         </Modal.Content>

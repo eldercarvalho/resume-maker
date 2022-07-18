@@ -30,7 +30,7 @@ const HobbiesForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -47,25 +47,25 @@ const HobbiesForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = state.hobbies.map((item) => {
+      const updatedItems = activeResume.hobbies.map((item) => {
         if (item.id === currentId) {
           return { id: item.id, ...data };
         }
         return item;
       });
-      updateState({ ...state, hobbies: updatedItems });
+      updateActiveResume({ ...activeResume, hobbies: updatedItems });
       setCurrentId('');
     } else {
-      updateState({
-        ...state,
-        hobbies: [...state.hobbies, { id: uuid(), ...data }],
+      updateActiveResume({
+        ...activeResume,
+        hobbies: [...activeResume.hobbies, { id: uuid(), ...data }],
       });
     }
     closeModal();
   };
 
   const onEdit = (id: string) => {
-    const award = state.hobbies.find((hobbie) => hobbie.id === id);
+    const award = activeResume.hobbies.find((hobbie) => hobbie.id === id);
     if (award) {
       setCurrentId(award.id);
       setValue('name', award.name);
@@ -74,16 +74,18 @@ const HobbiesForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    updateState({
-      ...state,
-      certifications: state.certifications.filter((certification) => certification.id !== id),
+    updateActiveResume({
+      ...activeResume,
+      certifications: activeResume.certifications.filter(
+        (certification) => certification.id !== id,
+      ),
     });
   };
 
   return (
     <>
       <CrudList
-        items={state.hobbies}
+        items={activeResume.hobbies}
         propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

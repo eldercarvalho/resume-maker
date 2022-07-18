@@ -37,7 +37,7 @@ const AwardsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -54,25 +54,25 @@ const AwardsForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = state.certifications.map((award) => {
+      const updatedItems = activeResume.certifications.map((award) => {
         if (award.id === currentId) {
           return { id: award.id, ...data };
         }
         return award;
       });
-      updateState({ ...state, certifications: updatedItems });
+      updateActiveResume({ ...activeResume, certifications: updatedItems });
       setCurrentId('');
     } else {
-      updateState({
-        ...state,
-        certifications: [...state.certifications, { id: uuid(), ...data }],
+      updateActiveResume({
+        ...activeResume,
+        certifications: [...activeResume.certifications, { id: uuid(), ...data }],
       });
     }
     closeModal();
   };
 
   const onEdit = (id: string) => {
-    const award = state.certifications.find((certification) => certification.id === id);
+    const award = activeResume.certifications.find((certification) => certification.id === id);
     if (award) {
       setCurrentId(award.id);
       setValue('title', award.title);
@@ -84,18 +84,20 @@ const AwardsForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    updateState({
-      ...state,
-      certifications: state.certifications.filter((certification) => certification.id !== id),
+    updateActiveResume({
+      ...activeResume,
+      certifications: activeResume.certifications.filter(
+        (certification) => certification.id !== id,
+      ),
     });
   };
 
   const handleDrag = (index: number, newIndex: number) => {
-    const { certifications } = state;
+    const { certifications } = activeResume;
     const item = certifications.splice(index, 1)[0];
     certifications.splice(newIndex, 0, item);
-    updateState({
-      ...state,
+    updateActiveResume({
+      ...activeResume,
       certifications,
     });
   };
@@ -103,7 +105,7 @@ const AwardsForm: React.FC = () => {
   return (
     <>
       <CrudList
-        items={state.certifications}
+        items={activeResume.certifications}
         propertyToShow="title"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

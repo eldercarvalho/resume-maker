@@ -4,11 +4,11 @@ import { useCallback, useContext, useState, createContext, useEffect, useMemo } 
 import { useIntl } from 'react-intl';
 
 interface ResumeContextData {
-  state: ResumeData;
+  activeResume: ResumeData;
   resumes: ResumeData[];
-  updateState(state: ResumeData): void;
+  updateActiveResume(state: ResumeData): void;
   createResume(resumename: string, resumeToBeCopiedId?: string): void;
-  setActiveResume(resumeId: string): void;
+  setActiveResumeById(resumeId: string): void;
   removeResume(resumeId: string): void;
 }
 
@@ -31,7 +31,7 @@ export const ResumeProvider: React.FC<ResumeProviderProps> = ({ children }) => {
 
     return [emptyResume];
   });
-  const [state, setState] = useState(() => {
+  const [activeResume, setActiveResume] = useState(() => {
     const savedResumesString = localStorage.getItem('@ResumeMaker:resumes');
 
     if (savedResumesString) {
@@ -50,22 +50,22 @@ export const ResumeProvider: React.FC<ResumeProviderProps> = ({ children }) => {
   useEffect(() => {
     setResumes((oldResumes) =>
       oldResumes.map((resume) => {
-        if (resume.id === state.id) {
-          state.isActive = true;
-          return state;
+        if (resume.id === activeResume.id) {
+          activeResume.isActive = true;
+          return activeResume;
         }
         resume.isActive = false;
         return resume;
       }),
     );
-  }, [state]);
+  }, [activeResume]);
 
   useEffect(() => {
     localStorage.setItem('@ResumeMaker:resumes', JSON.stringify(resumes));
   }, [resumes]);
 
-  const updateState = useCallback((stateParam: ResumeData) => {
-    setState(stateParam);
+  const updateActiveResume = useCallback((stateParam: ResumeData) => {
+    setActiveResume(stateParam);
   }, []);
 
   const createResume = useCallback(
@@ -93,15 +93,15 @@ export const ResumeProvider: React.FC<ResumeProviderProps> = ({ children }) => {
         return updatedResumes.slice();
       });
 
-      setState(newResume);
+      setActiveResume(newResume);
     },
     [resumes],
   );
 
-  const setActiveResume = useCallback(
+  const setActiveResumeById = useCallback(
     (resumeId: string) => {
       const newActiveResume = resumes.find((resume) => resume.id === resumeId);
-      setState(newActiveResume!);
+      setActiveResume(newActiveResume!);
     },
     [resumes],
   );
@@ -109,22 +109,22 @@ export const ResumeProvider: React.FC<ResumeProviderProps> = ({ children }) => {
   const removeResume = useCallback(
     (resumeId: string) => {
       const filteredResumes = resumes.filter((resume) => resume.id !== resumeId);
-      setActiveResume(filteredResumes[0].id);
+      setActiveResumeById(filteredResumes[0].id);
       setResumes(filteredResumes);
     },
-    [resumes, setActiveResume],
+    [resumes, setActiveResumeById],
   );
 
-  const memoizedState = useMemo(() => state, [state]);
+  const memoizedState = useMemo(() => activeResume, [activeResume]);
 
   return (
     <ResumeContext.Provider
       value={{
-        state: memoizedState,
+        activeResume: memoizedState,
         resumes,
-        updateState,
+        updateActiveResume,
         createResume,
-        setActiveResume,
+        setActiveResumeById,
         removeResume,
       }}
     >

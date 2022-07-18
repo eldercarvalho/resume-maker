@@ -7,14 +7,14 @@ import { Grid } from '@/style/global';
 
 const AddressForm: React.FC = () => {
   const intl = useIntl();
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;
     const { value } = event.target;
 
-    updateState({
-      ...state,
+    updateActiveResume({
+      ...activeResume,
       [name]: value,
     });
   };
@@ -24,21 +24,21 @@ const AddressForm: React.FC = () => {
       <Input
         label={intl.formatMessage({ id: 'sidebar.form.address.address' })}
         name="address"
-        value={state.address}
+        value={activeResume.address}
         onChange={handleChange}
       />
       <Grid columns="1.5fr 1fr">
         <Input
           label={intl.formatMessage({ id: 'sidebar.form.address.city' })}
           name="city"
-          value={state.city}
+          value={activeResume.city}
           marginTop="2.6rem"
           onChange={handleChange}
         />
         <Input
           label={intl.formatMessage({ id: 'sidebar.form.address.zipcode' })}
           name="zipCode"
-          value={state.zipCode}
+          value={activeResume.zipCode}
           marginTop="2.6rem"
           onChange={handleChange}
         />

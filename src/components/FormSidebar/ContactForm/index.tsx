@@ -5,14 +5,13 @@ import Input from '@/components/base/Input';
 
 const ContactForm: React.FC = () => {
   const intl = useIntl();
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;
     const { value } = event.target;
-
-    updateState({
-      ...state,
+    updateActiveResume({
+      ...activeResume,
       [name]: value,
     });
   };
@@ -22,13 +21,13 @@ const ContactForm: React.FC = () => {
       <Input
         label={intl.formatMessage({ id: 'sidebar.form.contact.phoneNumber' })}
         name="phoneNumber"
-        value={state.phoneNumber}
+        value={activeResume.phoneNumber}
         onChange={handleChange}
       />
       <Input
         label={intl.formatMessage({ id: 'sidebar.form.contact.website' })}
         name="website"
-        value={state.website}
+        value={activeResume.website}
         marginTop="2.6rem"
         onChange={handleChange}
       />
@@ -36,7 +35,7 @@ const ContactForm: React.FC = () => {
         label={intl.formatMessage({ id: 'sidebar.form.contact.email' })}
         type="email"
         name="email"
-        value={state.email}
+        value={activeResume.email}
         marginTop="2.6rem"
         onChange={handleChange}
       />

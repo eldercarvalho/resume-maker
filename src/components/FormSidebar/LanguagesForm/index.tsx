@@ -33,7 +33,7 @@ const LanguagesForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -50,25 +50,25 @@ const LanguagesForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = state.languages.map((item) => {
+      const updatedItems = activeResume.languages.map((item) => {
         if (item.id === currentId) {
           return { id: item.id, ...data };
         }
         return item;
       });
-      updateState({ ...state, languages: updatedItems });
+      updateActiveResume({ ...activeResume, languages: updatedItems });
       setCurrentId('');
     } else {
-      updateState({
-        ...state,
-        languages: [...state.languages, { id: uuid(), ...data }],
+      updateActiveResume({
+        ...activeResume,
+        languages: [...activeResume.languages, { id: uuid(), ...data }],
       });
     }
     closeModal();
   };
 
   const onEdit = (id: string) => {
-    const language = state.languages.find((l) => l.id === id);
+    const language = activeResume.languages.find((l) => l.id === id);
     if (language) {
       setCurrentId(language.id);
       setValue('name', language.name);
@@ -78,18 +78,18 @@ const LanguagesForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    updateState({
-      ...state,
-      languages: state.languages.filter((language) => language.id !== id),
+    updateActiveResume({
+      ...activeResume,
+      languages: activeResume.languages.filter((language) => language.id !== id),
     });
   };
 
   const handleDrag = (index: number, newIndex: number) => {
-    const { languages } = state;
+    const { languages } = activeResume;
     const item = languages.splice(index, 1)[0];
     languages.splice(newIndex, 0, item);
-    updateState({
-      ...state,
+    updateActiveResume({
+      ...activeResume,
       languages,
     });
   };
@@ -97,7 +97,7 @@ const LanguagesForm: React.FC = () => {
   return (
     <>
       <CrudList
-        items={state.languages}
+        items={activeResume.languages}
         propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

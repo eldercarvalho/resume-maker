@@ -35,7 +35,7 @@ const SocialNetworksForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -46,18 +46,18 @@ const SocialNetworksForm: React.FC = () => {
 
   const onSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedNetworks = state.socialNetworks.map((network) => {
+      const updatedNetworks = activeResume.socialNetworks.map((network) => {
         if (network.id === currentId) {
           return { id: network.id, ...data };
         }
         return network;
       });
-      updateState({ ...state, socialNetworks: updatedNetworks });
+      updateActiveResume({ ...activeResume, socialNetworks: updatedNetworks });
       setCurrentId('');
     } else {
-      updateState({
-        ...state,
-        socialNetworks: [...state.socialNetworks, { id: uuid(), ...data }],
+      updateActiveResume({
+        ...activeResume,
+        socialNetworks: [...activeResume.socialNetworks, { id: uuid(), ...data }],
       });
     }
     reset();
@@ -65,7 +65,7 @@ const SocialNetworksForm: React.FC = () => {
   };
 
   const onEdit = (id: string) => {
-    const network = state.socialNetworks.find((sn) => sn.id === id);
+    const network = activeResume.socialNetworks.find((sn) => sn.id === id);
     if (network) {
       setCurrentId(network.id);
       setValue('name', network.name);
@@ -81,18 +81,20 @@ const SocialNetworksForm: React.FC = () => {
   };
 
   const deleteNetwork = (id: string) => {
-    updateState({
-      ...state,
-      socialNetworks: state.socialNetworks.filter((network) => network.id !== id),
+    updateActiveResume({
+      ...activeResume,
+      socialNetworks: activeResume.socialNetworks.filter(
+        (socialNetwork) => socialNetwork.id !== id,
+      ),
     });
   };
 
   const handleDrag = (index: number, newIndex: number) => {
-    const { socialNetworks } = state;
+    const { socialNetworks } = activeResume;
     const item = socialNetworks.splice(index, 1)[0];
     socialNetworks.splice(newIndex, 0, item);
-    updateState({
-      ...state,
+    updateActiveResume({
+      ...activeResume,
       socialNetworks,
     });
   };
@@ -100,7 +102,7 @@ const SocialNetworksForm: React.FC = () => {
   return (
     <>
       <CrudList
-        items={state.socialNetworks}
+        items={activeResume.socialNetworks}
         propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}
