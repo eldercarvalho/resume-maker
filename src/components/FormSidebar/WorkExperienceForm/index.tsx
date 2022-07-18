@@ -39,7 +39,7 @@ const WorkExperienceForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -50,18 +50,18 @@ const WorkExperienceForm: React.FC = () => {
 
   const onSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedExperiences = state.workExperience.map((experience) => {
+      const updatedExperiences = activeResume.workExperience.map((experience) => {
         if (experience.id === currentId) {
           return { id: experience.id, ...data };
         }
         return experience;
       });
-      updateState({ ...state, workExperience: updatedExperiences });
+      updateActiveResume({ ...activeResume, workExperience: updatedExperiences });
       setCurrentId('');
     } else {
-      updateState({
-        ...state,
-        workExperience: [...state.workExperience, { id: uuid(), ...data }],
+      updateActiveResume({
+        ...activeResume,
+        workExperience: [...activeResume.workExperience, { id: uuid(), ...data }],
       });
     }
     reset();
@@ -69,7 +69,9 @@ const WorkExperienceForm: React.FC = () => {
   };
 
   const onEdit = (id: string) => {
-    const experience = state.workExperience.find((sn) => sn.id === id);
+    const experience = activeResume.workExperience.find(
+      (workExperience) => workExperience.id === id,
+    );
     if (experience) {
       setCurrentId(experience.id);
       setValue('company', experience.company);
@@ -88,18 +90,18 @@ const WorkExperienceForm: React.FC = () => {
   };
 
   const deleteNetwork = (id: string) => {
-    updateState({
-      ...state,
-      workExperience: state.workExperience.filter((experience) => experience.id !== id),
+    updateActiveResume({
+      ...activeResume,
+      workExperience: activeResume.workExperience.filter((experience) => experience.id !== id),
     });
   };
 
   const handleDrag = (index: number, newIndex: number) => {
-    const { workExperience } = state;
+    const { workExperience } = activeResume;
     const item = workExperience.splice(index, 1)[0];
     workExperience.splice(newIndex, 0, item);
-    updateState({
-      ...state,
+    updateActiveResume({
+      ...activeResume,
       workExperience,
     });
   };
@@ -107,7 +109,7 @@ const WorkExperienceForm: React.FC = () => {
   return (
     <>
       <CrudList
-        items={state.workExperience}
+        items={activeResume.workExperience}
         propertyToShow="company"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

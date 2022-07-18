@@ -39,7 +39,7 @@ const ReferencesForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -56,25 +56,25 @@ const ReferencesForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = state.references.map((item) => {
+      const updatedItems = activeResume.references.map((item) => {
         if (item.id === currentId) {
           return { id: item.id, ...data };
         }
         return item;
       });
-      updateState({ ...state, references: updatedItems });
+      updateActiveResume({ ...activeResume, references: updatedItems });
       setCurrentId('');
     } else {
-      updateState({
-        ...state,
-        references: [...state.references, { id: uuid(), ...data }],
+      updateActiveResume({
+        ...activeResume,
+        references: [...activeResume.references, { id: uuid(), ...data }],
       });
     }
     closeModal();
   };
 
   const onEdit = (id: string) => {
-    const reference = state.references.find((item) => item.id === id);
+    const reference = activeResume.references.find((item) => item.id === id);
     if (reference) {
       setCurrentId(reference.id);
       setValue('name', reference.name);
@@ -87,16 +87,16 @@ const ReferencesForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    updateState({
-      ...state,
-      references: state.references.filter((item) => item.id !== id),
+    updateActiveResume({
+      ...activeResume,
+      references: activeResume.references.filter((item) => item.id !== id),
     });
   };
 
   return (
     <>
       <CrudList
-        items={state.references}
+        items={activeResume.references}
         propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

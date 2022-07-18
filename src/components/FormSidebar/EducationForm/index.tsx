@@ -41,7 +41,7 @@ const EducationForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -52,18 +52,18 @@ const EducationForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedEducation = state.education.map((education) => {
+      const updatedEducation = activeResume.education.map((education) => {
         if (education.id === currentId) {
           return { id: education.id, ...data };
         }
         return education;
       });
-      updateState({ ...state, education: updatedEducation });
+      updateActiveResume({ ...activeResume, education: updatedEducation });
       setCurrentId('');
     } else {
-      updateState({
-        ...state,
-        education: [...state.education, { id: uuid(), ...data }],
+      updateActiveResume({
+        ...activeResume,
+        education: [...activeResume.education, { id: uuid(), ...data }],
       });
     }
     reset();
@@ -71,7 +71,7 @@ const EducationForm: React.FC = () => {
   };
 
   const onEdit = (id: string) => {
-    const education = state.education.find((e) => e.id === id);
+    const education = activeResume.education.find((e) => e.id === id);
     if (education) {
       setCurrentId(education.id);
       setValue('institution', education.institution);
@@ -91,18 +91,18 @@ const EducationForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    updateState({
-      ...state,
-      education: state.education.filter((education) => education.id !== id),
+    updateActiveResume({
+      ...activeResume,
+      education: activeResume.education.filter((education) => education.id !== id),
     });
   };
 
   const handleDrag = (index: number, newIndex: number) => {
-    const { education } = state;
+    const { education } = activeResume;
     const item = education.splice(index, 1)[0];
     education.splice(newIndex, 0, item);
-    updateState({
-      ...state,
+    updateActiveResume({
+      ...activeResume,
       education,
     });
   };
@@ -110,7 +110,7 @@ const EducationForm: React.FC = () => {
   return (
     <>
       <CrudList
-        items={state.education}
+        items={activeResume.education}
         propertyToShow="fieldOfStudy"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

@@ -26,7 +26,7 @@ const fieldsNames: Record<string, keyof FormData> = {
 
 const EditForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { state: currentResume, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const { formatMessage: fm } = useIntl();
   const {
     register,
@@ -38,7 +38,7 @@ const EditForm = () => {
   });
 
   const openModal = () => {
-    setValue(fieldsNames.resumeName, currentResume.resumeName);
+    setValue(fieldsNames.resumeName, activeResume.resumeName);
     setIsModalOpen(true);
   };
 
@@ -47,8 +47,8 @@ const EditForm = () => {
   };
 
   const handleFormSubmit = ({ resumeName }: FormData) => {
-    updateState({
-      ...currentResume,
+    updateActiveResume({
+      ...activeResume,
       resumeName,
     });
     closeModal();

@@ -32,7 +32,7 @@ const SkillsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -43,18 +43,18 @@ const SkillsForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = state.skills.map((skill) => {
+      const updatedItems = activeResume.skills.map((skill) => {
         if (skill.id === currentId) {
           return { id: skill.id, ...data };
         }
         return skill;
       });
-      updateState({ ...state, skills: updatedItems });
+      updateActiveResume({ ...activeResume, skills: updatedItems });
       setCurrentId('');
     } else {
-      updateState({
-        ...state,
-        skills: [...state.skills, { id: uuid(), ...data }],
+      updateActiveResume({
+        ...activeResume,
+        skills: [...activeResume.skills, { id: uuid(), ...data }],
       });
     }
     reset();
@@ -62,7 +62,7 @@ const SkillsForm: React.FC = () => {
   };
 
   const onEdit = (id: string) => {
-    const award = state.skills.find((sn) => sn.id === id);
+    const award = activeResume.skills.find((skill) => skill.id === id);
     if (award) {
       setCurrentId(award.id);
       setValue('name', award.name);
@@ -77,18 +77,18 @@ const SkillsForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    updateState({
-      ...state,
-      skills: state.skills.filter((skill) => skill.id !== id),
+    updateActiveResume({
+      ...activeResume,
+      skills: activeResume.skills.filter((skill) => skill.id !== id),
     });
   };
 
   const handleDrag = (index: number, newIndex: number) => {
-    const { skills } = state;
+    const { skills } = activeResume;
     const item = skills.splice(index, 1)[0];
     skills.splice(newIndex, 0, item);
-    updateState({
-      ...state,
+    updateActiveResume({
+      ...activeResume,
       skills,
     });
   };
@@ -96,7 +96,7 @@ const SkillsForm: React.FC = () => {
   return (
     <>
       <CrudList
-        items={state.skills}
+        items={activeResume.skills}
         propertyToShow="name"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

@@ -39,7 +39,7 @@ const ProjectsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -56,18 +56,18 @@ const ProjectsForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedItems = state.projects.map((project) => {
+      const updatedItems = activeResume.projects.map((project) => {
         if (project.id === currentId) {
           return { id: project.id, ...data };
         }
         return project;
       });
-      updateState({ ...state, projects: updatedItems });
+      updateActiveResume({ ...activeResume, projects: updatedItems });
       setCurrentId('');
     } else {
-      updateState({
-        ...state,
-        projects: [...state.projects, { id: uuid(), ...data }],
+      updateActiveResume({
+        ...activeResume,
+        projects: [...activeResume.projects, { id: uuid(), ...data }],
       });
     }
 
@@ -75,7 +75,7 @@ const ProjectsForm: React.FC = () => {
   };
 
   const onEdit = (id: string) => {
-    const project = state.projects.find((item) => item.id === id);
+    const project = activeResume.projects.find((item) => item.id === id);
     if (project) {
       setCurrentId(project.id);
       setValue('title', project.title);
@@ -88,16 +88,16 @@ const ProjectsForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    updateState({
-      ...state,
-      projects: state.projects.filter((certification) => certification.id !== id),
+    updateActiveResume({
+      ...activeResume,
+      projects: activeResume.projects.filter((certification) => certification.id !== id),
     });
   };
 
   return (
     <>
       <CrudList
-        items={state.projects}
+        items={activeResume.projects}
         propertyToShow="title"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

@@ -37,7 +37,7 @@ const AwardsForm: React.FC = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [showModal, setShowModal] = useState(false);
   const [currentId, setCurrentId] = useState('');
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
   const emptyMessage = intl.formatMessage(
     { id: 'sidebar.crudList.emptyMessage' },
     {
@@ -48,18 +48,18 @@ const AwardsForm: React.FC = () => {
 
   const handleFormSubmit = (data: FormData) => {
     if (currentId) {
-      const updatedAwards = state.awards.map((award) => {
+      const updatedAwards = activeResume.awards.map((award) => {
         if (award.id === currentId) {
           return { id: award.id, ...data };
         }
         return award;
       });
-      updateState({ ...state, awards: updatedAwards });
+      updateActiveResume({ ...activeResume, awards: updatedAwards });
       setCurrentId('');
     } else {
-      updateState({
-        ...state,
-        awards: [...state.awards, { id: uuid(), ...data }],
+      updateActiveResume({
+        ...activeResume,
+        awards: [...activeResume.awards, { id: uuid(), ...data }],
       });
     }
     reset();
@@ -67,7 +67,7 @@ const AwardsForm: React.FC = () => {
   };
 
   const onEdit = (id: string) => {
-    const award = state.awards.find((sn) => sn.id === id);
+    const award = activeResume.awards.find((socialNetwork) => socialNetwork.id === id);
     if (award) {
       setCurrentId(award.id);
       setValue('title', award.title);
@@ -84,16 +84,16 @@ const AwardsForm: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    updateState({
-      ...state,
-      awards: state.awards.filter((award) => award.id !== id),
+    updateActiveResume({
+      ...activeResume,
+      awards: activeResume.awards.filter((award) => award.id !== id),
     });
   };
 
   return (
     <>
       <CrudList
-        items={state.awards}
+        items={activeResume.awards}
         propertyToShow="title"
         emptyMessage={emptyMessage}
         onAdd={() => setShowModal(true)}

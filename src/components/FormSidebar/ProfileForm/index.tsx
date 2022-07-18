@@ -5,14 +5,14 @@ import Input from '@/components/base/Input';
 
 const ProfileForm: React.FC = () => {
   const intl = useIntl();
-  const { state, updateState } = useResume();
+  const { activeResume, updateActiveResume } = useResume();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;
     const { value } = event.target;
 
-    updateState({
-      ...state,
+    updateActiveResume({
+      ...activeResume,
       [name]: value,
     });
   };
@@ -22,13 +22,13 @@ const ProfileForm: React.FC = () => {
       <Input
         label={intl.formatMessage({ id: 'sidebar.form.heading.name' })}
         name="name"
-        value={state.name}
+        value={activeResume.name}
         onChange={handleChange}
       />
       <Input
         label={intl.formatMessage({ id: 'sidebar.form.heading.title' })}
         name="title"
-        value={state.title}
+        value={activeResume.title}
         marginTop="2.6rem"
         onChange={handleChange}
       />
@@ -36,7 +36,7 @@ const ProfileForm: React.FC = () => {
         label={intl.formatMessage({ id: 'sidebar.form.heading.birthDate' })}
         type="date"
         name="birthDate"
-        value={state.birthDate}
+        value={activeResume.birthDate}
         marginTop="2.6rem"
         onChange={handleChange}
       />
